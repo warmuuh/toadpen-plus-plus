@@ -2,6 +2,7 @@ package wrm.asd.core.cmd;
 
 import io.avaje.inject.Bean;
 import io.avaje.inject.Factory;
+import io.avaje.inject.PostConstruct;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.io.File;
@@ -10,10 +11,10 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import javax.swing.JFileChooser;
 import lombok.SneakyThrows;
+import lombok.Value;
 import org.apache.commons.io.IOUtils;
-import wrm.asd.core.cmd.CommandManager.CommandHandler;
-import wrm.asd.core.cmd.CommandManager.CommandHandlerNoArg;
-import wrm.asd.core.cmd.CommandManager.CommandHandlerSingleArg;
+import wrm.asd.core.cmd.CommandManager.Command;
+import wrm.asd.core.cmd.CommandManager.CommandNoArg;
 import wrm.asd.core.ui.MainWindow;
 import wrm.asd.core.ui.editor.EditorComponent;
 import wrm.asd.core.ui.editor.EditorFactory;
@@ -25,6 +26,13 @@ public class FileCommands {
   public static final String FILE_OPEN = "file.open";
   public static final String FILE_SAVE = "file.save";
 
+  @Value
+  public static class OpenFileCommand implements Command {
+    File file;
+  }
+
+  @Inject
+  CommandManager commandManager;
 
   @Inject
   MainWindow mainWindow;
@@ -32,28 +40,32 @@ public class FileCommands {
   EditorFactory editorFactory;
 
   @Bean @Named(FILE_NEW)
-  CommandHandlerNoArg createNewFileCommand() {
-    return new CommandHandlerNoArg(FILE_NEW, "Create a new File", "/icons/new_file.png", this::createNewFile);
+  CommandManager.CommandNoArg createNewFileCommand() {
+    return new CommandNoArg(FILE_NEW, "Create a new File", "/icons/new_file.png", this::createNewFile);
   }
 
   @Bean @Named(FILE_OPEN)
-  CommandHandlerNoArg createOpenFileCommand() {
-    return new CommandHandlerNoArg(FILE_OPEN, "Open a File", "/icons/open_file.png", this::openFile);
+  CommandManager.CommandNoArg createOpenFileCommand() {
+    return new CommandManager.CommandNoArg(FILE_OPEN, "Open a File", "/icons/open_file.png", this::openFile);
   }
 
   @Bean @Named(FILE_SAVE)
-  CommandHandlerNoArg saveFileCommand() {
-    return new CommandHandlerNoArg(FILE_SAVE, "Save a File", "/icons/save_file.png", this::saveFile);
+  CommandManager.CommandNoArg saveFileCommand() {
+    return new CommandNoArg(FILE_SAVE, "Save a File", "/icons/save_file.png", this::saveFile);
   }
 
-  public CommandHandler openFileArgCommand(File file) {
-    return new CommandHandlerSingleArg<>(file, this::openFile);
+  @PostConstruct
+  void init() {
+    commandManager.registerCommandExecutor(OpenFileCommand.class, this::openFileCommand);
   }
-
 
   void createNewFile() {
     EditorComponent editor = editorFactory.createEditor();
     mainWindow.addNewEditor(editor);
+  }
+
+  private void openFileCommand(OpenFileCommand cmd) {
+    openFile(cmd.getFile());
   }
 
   @SneakyThrows

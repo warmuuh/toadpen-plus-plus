@@ -2,6 +2,7 @@ package wrm.asd.core.ui.editor;
 
 import java.io.File;
 import javax.swing.JComponent;
+import javax.swing.SwingUtilities;
 import org.fife.rsta.ui.CollapsibleSectionPanel;
 import org.fife.rsta.ui.search.FindToolBar;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
@@ -117,4 +118,7 @@ public class EditorComponent {
     csp.showBottomComponent(findToolBar);
   }
 
+  public void grabFocus() {
+    SwingUtilities.invokeLater(() -> textArea.grabFocus());
+  }
 }

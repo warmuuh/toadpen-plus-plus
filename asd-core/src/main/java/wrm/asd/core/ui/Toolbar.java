@@ -11,7 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JToolBar;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import wrm.asd.core.cmd.CommandManager.CommandHandlerNoArg;
+import wrm.asd.core.cmd.CommandManager;
+import wrm.asd.core.cmd.CommandManager.CommandNoArg;
 import wrm.asd.core.cmd.EditorCommands;
 import wrm.asd.core.cmd.FileCommands;
 
@@ -19,7 +20,7 @@ import wrm.asd.core.cmd.FileCommands;
 @RequiredArgsConstructor
 public class Toolbar {
 
-  private final List<CommandHandlerNoArg> commands;
+  private final List<CommandNoArg> commands;
 
   private JToolBar toolBar;
   public UiEvent1<String> OnCommandExecuted = new UiEvent1<>();
@@ -44,7 +45,7 @@ public class Toolbar {
   }
 
   private void addCommandButton(String commandId) throws IOException {
-    CommandHandlerNoArg command = commands.stream().filter(c -> c.id().equals(commandId)).findFirst()
+    CommandManager.CommandNoArg command = commands.stream().filter(c -> c.id().equals(commandId)).findFirst()
         .orElseThrow(() -> new IllegalArgumentException("Command not found: " + commandId));
     Image img = ImageIO.read(getClass().getResource(command.icon()));
     img = img.getScaledInstance(16, 16, Image.SCALE_SMOOTH);

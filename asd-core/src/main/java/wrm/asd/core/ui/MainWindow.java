@@ -104,6 +104,7 @@ public class MainWindow {
     EditorDockingWrapper wrapper = new EditorDockingWrapper(editorComponent);
     editorComponent.OnDirtyChange.addListener(()->Docking.updateTabInfo(wrapper));
     editorComponent.OnFocus.addListener(() -> activeEditor = editorComponent);
+    editorComponent.grabFocus();
 
     RootDockingPanelAPI root = Docking.getRootPanels().get(mainWindow);
     root.dock(wrapper, DockingRegion.CENTER, 0);

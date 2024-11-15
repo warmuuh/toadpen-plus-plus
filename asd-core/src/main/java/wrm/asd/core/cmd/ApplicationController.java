@@ -24,7 +24,6 @@ public class ApplicationController {
   private final StartBehavior startBehavior;
 
   private final CommandManager commandManager;
-  private final FileCommands fileCommands;
 
 
   private final EditorFactory editorFactory;
@@ -33,7 +32,7 @@ public class ApplicationController {
   void init() {
     toolbar.OnCommandExecuted.addListener(commandManager::executeCommandById);
     fileTree.OnFileDoubleClicked.addListener(
-        f -> commandManager.executeCommand(fileCommands.openFileArgCommand(f)));
+        f -> commandManager.executeCommand(new FileCommands.OpenFileCommand(f)));
   }
 
   public void start() {

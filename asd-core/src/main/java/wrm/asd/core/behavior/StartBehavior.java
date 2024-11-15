@@ -7,7 +7,6 @@ import jakarta.inject.Singleton;
 import lombok.RequiredArgsConstructor;
 import wrm.asd.core.CommandlineArgs;
 import wrm.asd.core.cmd.CommandManager;
-import wrm.asd.core.cmd.CommandManager.CommandHandler;
 import wrm.asd.core.cmd.FileCommands;
 
 @Singleton
@@ -33,8 +32,8 @@ public class StartBehavior {
         onApplicationStarted.fire(
             new ApplicationStartedEvent(null, commandlineArgs.getFile()));
       } else {
-        CommandHandler command =
-            fileCommands.openFileArgCommand(commandlineArgs.getFile());
+        CommandManager.Command command =
+            new FileCommands.OpenFileCommand(commandlineArgs.getFile());
         commandManager.executeCommand(command);
         onApplicationStarted.fire(
             new ApplicationStartedEvent(commandlineArgs.getFile(), null));
