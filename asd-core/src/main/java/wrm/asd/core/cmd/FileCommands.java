@@ -71,7 +71,7 @@ public class FileCommands {
   @SneakyThrows
   void openFile() {
     JFileChooser fileChooser = new JFileChooser();
-    int result = fileChooser.showOpenDialog(mainWindow.getFrame());
+    int result = fileChooser.showOpenDialog(MainWindow.getFrame());
     if (result != JFileChooser.APPROVE_OPTION) {
       return;
     }
@@ -107,7 +107,7 @@ public class FileCommands {
     File file = activeEditor.getFile();
     if (file == null) {
       JFileChooser fileChooser = new JFileChooser();
-      int result = fileChooser.showSaveDialog(mainWindow.getFrame());
+      int result = fileChooser.showSaveDialog(MainWindow.getFrame());
       if (result != JFileChooser.APPROVE_OPTION) {
         return;
       }

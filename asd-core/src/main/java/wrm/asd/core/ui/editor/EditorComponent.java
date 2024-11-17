@@ -3,7 +3,12 @@ package wrm.asd.core.ui.editor;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Stream;
 import javax.swing.AbstractAction;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -11,6 +16,7 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import org.fife.rsta.ui.CollapsibleSectionPanel;
 import org.fife.rsta.ui.search.FindToolBar;
+import org.fife.ui.rsyntaxtextarea.FileTypeUtil;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rtextarea.RTextScrollPane;
@@ -45,11 +51,20 @@ public class EditorComponent {
   private EditorComponent(File file,RSyntaxTextArea textArea) {
     this.file = file;
     this.textArea = textArea;
-    this.textArea.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
+    this.textArea.setSyntaxEditingStyle(FileTypeUtil.get().guessContentType(file));
     this.textArea.setCodeFoldingEnabled(true);
     this.textArea.setMarkOccurrences(true);
 
-
+    // try out multi selection
+//    this.textArea.addMouseListener(new MouseAdapter() {
+//      @Override
+//      public void mouseClicked(MouseEvent e) {
+//        //support mulitple selection
+//        if ((e.getModifiers() & InputEvent.CTRL_MASK) != 0) {
+//          textArea.sele();
+//        }
+//      }
+//    });
 
 
 
@@ -139,11 +154,24 @@ public class EditorComponent {
     return textArea.getSelectedText();
   }
 
-  public String getFullText() {
-    return textArea.getText();
-  }
-
   public void replaceSelectedText(String newText) {
     textArea.replaceSelection(newText);
+  }
+
+  public List<String> getSupportedSyntaxes() {
+    return Stream.of(SyntaxConstants.class.getFields())
+        .map(f -> {
+          try {
+            return (String) f.get(null);
+          } catch (IllegalAccessException e) {
+            return null;
+          }
+        })
+        .filter(Objects::nonNull)
+        .toList();
+  }
+
+  public void setSyntax(String selectedSyntax) {
+    textArea.setSyntaxEditingStyle(selectedSyntax);
   }
 }

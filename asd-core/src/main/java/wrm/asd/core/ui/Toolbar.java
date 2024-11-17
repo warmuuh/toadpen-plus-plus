@@ -43,6 +43,7 @@ public class Toolbar {
     addCommandButton(FileCommands.FILE_SAVE);
     toolBar.addSeparator();
     addCommandButton(EditorCommands.EDITOR_SEARCH);
+    addCommandButton(EditorCommands.EDITOR_CHOOSE_SYNTAX);
 
     return toolBar;
   }

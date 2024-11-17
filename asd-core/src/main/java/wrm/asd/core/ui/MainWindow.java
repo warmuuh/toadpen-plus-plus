@@ -13,6 +13,7 @@ import io.avaje.inject.PostConstruct;
 import jakarta.inject.Singleton;
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Frame;
 import java.awt.Taskbar;
 import java.awt.Window;
 import java.awt.image.BufferedImage;
@@ -42,7 +43,7 @@ public class MainWindow {
 
   private final KeySetBinding keySetBinding;
 
-  private JFrame frame;
+  private static JFrame frame;
 
   private EditorComponent activeEditor;
 
@@ -136,7 +137,7 @@ public class MainWindow {
     return activeEditor;
   }
 
-  public Component getFrame() {
+  public static Frame getFrame() {
     return frame;
   }
 
