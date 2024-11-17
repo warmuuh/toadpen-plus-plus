@@ -1,7 +1,13 @@
 package wrm.asd.core.ui.editor;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.io.File;
+import javax.swing.AbstractAction;
 import javax.swing.JComponent;
+import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import org.fife.rsta.ui.CollapsibleSectionPanel;
 import org.fife.rsta.ui.search.FindToolBar;
@@ -9,6 +15,7 @@ import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rtextarea.RTextScrollPane;
 import org.jspecify.annotations.Nullable;
+import wrm.asd.core.cmd.EditorCommands;
 import wrm.asd.core.ui.UiEvent;
 
 public class EditorComponent {
@@ -42,6 +49,10 @@ public class EditorComponent {
     this.textArea.setCodeFoldingEnabled(true);
     this.textArea.setMarkOccurrences(true);
 
+
+
+
+
     setupListeners();
 
     searchListener = new EditorSearchListener(this);
@@ -51,6 +62,8 @@ public class EditorComponent {
     scrollpane = new RTextScrollPane(textArea);
     csp = new CollapsibleSectionPanel();
     csp.add(scrollpane);
+
+
     csp.addBottomComponent(findToolBar);
   }
 

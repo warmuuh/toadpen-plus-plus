@@ -1,6 +1,7 @@
 package wrm.asd.core.cmd;
 
 import jakarta.inject.Singleton;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,9 @@ public class CommandManager {
   }
 
 
+  public Collection<CommandNoArg> getAllNoArgsCommands() {
+    return registeredCommands.values();
+  }
 
   public CommandManager.@Nullable CommandNoArg getCommand(String id) {
     return registeredCommands.get(id);

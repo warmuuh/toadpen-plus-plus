@@ -26,6 +26,7 @@ import javax.swing.SwingUtilities;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.jspecify.annotations.Nullable;
+import wrm.asd.core.key.KeySetBinding;
 import wrm.asd.core.ui.editor.EditorComponent;
 import wrm.asd.core.ui.filetree.FileTree;
 import wrm.asd.core.ui.menu.Menu;
@@ -38,6 +39,9 @@ public class MainWindow {
   private final StatusBar statusBar;
   private final Toolbar toolbar;
   private final FileTree fileTree;
+
+  private final KeySetBinding keySetBinding;
+
   private JFrame frame;
 
   private EditorComponent activeEditor;
@@ -66,6 +70,8 @@ public class MainWindow {
 
     RootDockingPanel rootDockingPanel = setupDocking();
     splitPane.setRightComponent(rootDockingPanel);
+
+    keySetBinding.bindKeys(frame);
   }
 
   private void setupTheme() {
