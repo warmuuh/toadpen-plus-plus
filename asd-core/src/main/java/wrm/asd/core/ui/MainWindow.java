@@ -29,13 +29,13 @@ import org.jspecify.annotations.Nullable;
 import wrm.asd.core.key.KeySetBinding;
 import wrm.asd.core.ui.editor.EditorComponent;
 import wrm.asd.core.ui.filetree.FileTree;
-import wrm.asd.core.ui.menu.Menu;
+import wrm.asd.core.ui.menu.ApplicationMenu;
 
 @Singleton
 @RequiredArgsConstructor
 public class MainWindow {
 
-  private final Menu menu;
+  private final ApplicationMenu applicationMenu;
   private final StatusBar statusBar;
   private final Toolbar toolbar;
   private final FileTree fileTree;
@@ -51,7 +51,7 @@ public class MainWindow {
     setupTheme();
     frame = new JFrame("ToadPen++");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setJMenuBar(menu.getMenuBar());
+    frame.setJMenuBar(applicationMenu.getMenuBar());
     frame.add(toolbar.getToolbar(), BorderLayout.NORTH);
     frame.add(statusBar.getStatusBar(), BorderLayout.SOUTH);
 

@@ -9,13 +9,13 @@ import wrm.asd.core.ui.StatusBar;
 import wrm.asd.core.ui.Toolbar;
 import wrm.asd.core.ui.editor.EditorFactory;
 import wrm.asd.core.ui.filetree.FileTree;
-import wrm.asd.core.ui.menu.Menu;
+import wrm.asd.core.ui.menu.ApplicationMenu;
 
 @Singleton
 @RequiredArgsConstructor
 public class ApplicationController {
 
-  private final Menu menu;
+  private final ApplicationMenu applicationMenu;
   private final StatusBar statusBar;
   private final Toolbar toolbar;
   private final FileTree fileTree;
@@ -30,6 +30,7 @@ public class ApplicationController {
 
   @PostConstruct
   void init() {
+    applicationMenu.OnCommandSelected.addListener(commandManager::executeCommand);
     toolbar.OnCommandExecuted.addListener(commandManager::executeCommandById);
     fileTree.OnFileDoubleClicked.addListener(
         f -> commandManager.executeCommand(new FileCommands.OpenFileCommand(f)));

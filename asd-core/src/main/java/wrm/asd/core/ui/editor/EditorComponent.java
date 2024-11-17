@@ -134,4 +134,16 @@ public class EditorComponent {
   public void grabFocus() {
     SwingUtilities.invokeLater(() -> textArea.grabFocus());
   }
+
+  public String getSelectedText() {
+    return textArea.getSelectedText();
+  }
+
+  public String getFullText() {
+    return textArea.getText();
+  }
+
+  public void replaceSelectedText(String newText) {
+    textArea.replaceSelection(newText);
+  }
 }
