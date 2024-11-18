@@ -1,11 +1,13 @@
 package wrm.asd.core.ui.editor;
 
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
@@ -14,6 +16,8 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
+import javax.swing.text.DefaultEditorKit;
+import javax.swing.text.Position;
 import org.fife.rsta.ui.CollapsibleSectionPanel;
 import org.fife.rsta.ui.search.FindToolBar;
 import org.fife.ui.rsyntaxtextarea.FileTypeUtil;
@@ -55,16 +59,17 @@ public class EditorComponent {
     this.textArea.setCodeFoldingEnabled(true);
     this.textArea.setMarkOccurrences(true);
 
+    // fix home/end buttons for osx. todo: make configurable
+    int shift = InputEvent.SHIFT_DOWN_MASK;
+    this.textArea.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_HOME,   0), DefaultEditorKit.beginLineAction);
+    this.textArea.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_HOME,   shift), DefaultEditorKit.selectionBeginLineAction);
+    this.textArea.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_END,   0), DefaultEditorKit.endLineAction);
+    this.textArea.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_END,   shift), DefaultEditorKit.selectionEndLineAction);
+
     // try out multi selection
-//    this.textArea.addMouseListener(new MouseAdapter() {
-//      @Override
-//      public void mouseClicked(MouseEvent e) {
-//        //support mulitple selection
-//        if ((e.getModifiers() & InputEvent.CTRL_MASK) != 0) {
-//          textArea.sele();
-//        }
-//      }
-//    });
+    MultiCaret c=new MultiCaret();
+    c.setBlinkRate(500);
+    this.textArea.setCaret(c);
 
 
 
