@@ -19,10 +19,11 @@ public class FileTree {
   private FileSystemModel fileSystemModel;
   private ScrollPane scrollPane;
 
+  private File root = new File(System.getProperty("user.home"));
   public UiEvent1<File> OnFileDoubleClicked = new UiEvent1<>();
 
   public FileTree() {
-    fileSystemModel = new FileSystemModel(new File(System.getProperty("user.home")));
+    fileSystemModel = new FileSystemModel(root);
     fileTree = new JTree(fileSystemModel);
 //    fileTree.setMinimumSize(new Dimension(50, 600));
 //    fileTree.setPreferredSize(new Dimension(200, 600));
@@ -56,15 +57,19 @@ public class FileTree {
 
   public void onApplicationStarted(@Observes ApplicationStartedEvent event) {
     if (event.initialDirectory() != null) {
-      fileTree.setModel(new FileSystemModel(event.initialDirectory()));
+      root = event.initialDirectory();
     } else if (event.initialFile() != null) {
-      fileTree.setModel(new FileSystemModel(event.initialFile().getParentFile()));
+      root = event.initialFile().getParentFile();
     }
+    fileTree.setModel(new FileSystemModel(root));
   }
 
   public Component getComponent() {
     return scrollPane;
   }
- 
+
+  public File getRoot() {
+    return root;
+  }
 }
  

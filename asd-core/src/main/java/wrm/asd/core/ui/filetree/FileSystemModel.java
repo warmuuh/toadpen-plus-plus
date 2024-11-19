@@ -8,14 +8,16 @@ import java.util.Vector;
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
+import lombok.SneakyThrows;
 
 class FileSystemModel implements TreeModel {
   private TreeFileNode root;
 
   private Vector listeners = new Vector();
 
+  @SneakyThrows
   public FileSystemModel(File rootDirectory) {
-    root = new TreeFileNode(rootDirectory.getAbsoluteFile());
+    root = new TreeFileNode(rootDirectory.getCanonicalFile());
   }
 
   public Object getRoot() {

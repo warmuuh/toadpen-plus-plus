@@ -21,6 +21,8 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingUtilities;
@@ -154,7 +156,7 @@ public class MainWindow {
 
     @Override
     public String getPersistentID() {
-      return editor.getFilename();
+      return editor.getFile() != null ? editor.getFile().getAbsolutePath() : editor.getFilename();
     }
 
     @Override
@@ -170,6 +172,22 @@ public class MainWindow {
       return editor.getFile() == null ? "Untitled" : editor.getFile().getAbsolutePath();
     }
 
+    @Override
+    public boolean isWrappableInScrollpane() {
+      return false; // we decide ourselves when to display scroll pane
+    }
+
+    @Override
+    public boolean getHasMoreOptions() {
+      return true;
+    }
+
+    @Override
+    public void addMoreOptions(JPopupMenu menu) {
+      JMenuItem close = new JMenuItem("Close");
+      close.addActionListener(e -> System.out.println("Close"));
+      menu.add(close);
+    }
   }
 
 }

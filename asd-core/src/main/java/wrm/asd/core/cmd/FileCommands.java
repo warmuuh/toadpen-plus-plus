@@ -9,15 +9,30 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.FileVisitOption;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Spliterator;
+import java.util.stream.StreamSupport;
 import javax.swing.JFileChooser;
 import lombok.SneakyThrows;
 import lombok.Value;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.file.AccumulatorPathVisitor;
+import org.apache.commons.io.filefilter.AndFileFilter;
+import org.apache.commons.io.filefilter.CanReadFileFilter;
+import org.apache.commons.io.filefilter.HiddenFileFilter;
+import org.apache.commons.io.filefilter.NameFileFilter;
 import wrm.asd.core.cmd.CommandManager.Command;
 import wrm.asd.core.cmd.CommandManager.CommandNoArg;
 import wrm.asd.core.ui.MainWindow;
+import wrm.asd.core.ui.dialogs.SearchBox;
 import wrm.asd.core.ui.editor.EditorComponent;
 import wrm.asd.core.ui.editor.EditorFactory;
+import wrm.asd.core.ui.filetree.FileTree;
 
 @Factory
 public class FileCommands {
@@ -25,6 +40,7 @@ public class FileCommands {
   public static final String FILE_NEW = "file.new";
   public static final String FILE_OPEN = "file.open";
   public static final String FILE_SAVE = "file.save";
+  public static final String FILE_FIND = "file.find";
 
   @Value
   public static class OpenFileCommand implements Command {
@@ -36,22 +52,37 @@ public class FileCommands {
 
   @Inject
   MainWindow mainWindow;
+
+  @Inject
+  FileTree fileTree;
+
   @Inject
   EditorFactory editorFactory;
 
-  @Bean @Named(FILE_NEW)
+  @Bean
+  @Named(FILE_NEW)
   CommandManager.CommandNoArg createNewFileCommand() {
-    return new CommandNoArg(FILE_NEW, "Create a new File", "/icons/new_file.png", this::createNewFile);
+    return new CommandNoArg(FILE_NEW, "Create a new File", "/icons/new_file.png",
+        this::createNewFile);
   }
 
-  @Bean @Named(FILE_OPEN)
+  @Bean
+  @Named(FILE_OPEN)
   CommandManager.CommandNoArg createOpenFileCommand() {
-    return new CommandManager.CommandNoArg(FILE_OPEN, "Open a File", "/icons/open_file.png", this::openFile);
+    return new CommandManager.CommandNoArg(FILE_OPEN, "Open a File", "/icons/open_file.png",
+        this::openFile);
   }
 
-  @Bean @Named(FILE_SAVE)
+  @Bean
+  @Named(FILE_SAVE)
   CommandManager.CommandNoArg saveFileCommand() {
     return new CommandNoArg(FILE_SAVE, "Save a File", "/icons/save_file.png", this::saveFile);
+  }
+
+  @Bean
+  @Named(FILE_FIND)
+  CommandManager.CommandNoArg findFileCommand() {
+    return new CommandNoArg(FILE_FIND, "Find a file", "/icons/find_file.png", this::findFile);
   }
 
   @PostConstruct
@@ -83,7 +114,7 @@ public class FileCommands {
   private void openFile(File selectedFile) {
     if (selectedFile.exists()) {
       if (mainWindow.showEditorIfAlreadyOpened(selectedFile)) {
-          return;
+        return;
       }
       String text =
           IOUtils.toString(selectedFile.toURI(), Charset.defaultCharset());
@@ -114,8 +145,32 @@ public class FileCommands {
       file = fileChooser.getSelectedFile();
     }
 
-    IOUtils.write(activeEditor.getText().getBytes(StandardCharsets.UTF_8), new FileOutputStream(file));
+    IOUtils.write(activeEditor.getText().getBytes(StandardCharsets.UTF_8),
+        new FileOutputStream(file));
     activeEditor.setDirtyState(false);
+  }
+
+
+  @SneakyThrows
+  void findFile() {
+    File root = fileTree.getRoot();
+
+    List<File> files = new LinkedList<>();
+    FileUtils.iterateFiles(root,
+            CanReadFileFilter.CAN_READ,
+            new AndFileFilter(HiddenFileFilter.VISIBLE, new NameFileFilter(".git").negate())
+        )
+        .forEachRemaining(
+            f -> files.add(root.toPath().relativize(f.toPath()).toFile())
+        );
+    if (!files.isEmpty()) {
+      SearchBox<File> searchBox =
+          new SearchBox<>("Find File...", files);
+      File selectedFile = searchBox.showDialog();
+      if (selectedFile != null) {
+        openFile(new File(root, selectedFile.getPath()));
+      }
+    }
   }
 
 }
