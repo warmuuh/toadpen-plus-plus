@@ -7,14 +7,17 @@ import java.awt.event.KeyEvent;
 import java.util.Map;
 import javax.swing.KeyStroke;
 import org.jspecify.annotations.Nullable;
+import wrm.asd.core.cmd.EditorCommands;
+import wrm.asd.core.cmd.FileCommands;
 
 @Singleton
 public class KeySet {
   private final Map<String, KeyStroke> keyMap = Map.of(
-      "file.new", ks(KeyEvent.VK_N, Modifier.CTRL),
-      "file.open", ks(KeyEvent.VK_O, Modifier.CTRL),
-      "file.save", ks(KeyEvent.VK_S, Modifier.CTRL),
-      "editor.search", ks(KeyEvent.VK_F, Modifier.CTRL)
+      FileCommands.FILE_NEW, ks(KeyEvent.VK_N, Modifier.CTRL),
+      FileCommands.FILE_OPEN, ks(KeyEvent.VK_O, Modifier.CTRL),
+      FileCommands.FILE_SAVE, ks(KeyEvent.VK_S, Modifier.CTRL),
+      FileCommands.FILE_FIND, ks(KeyEvent.VK_R, Modifier.CTRL | Modifier.SHIFT),
+      EditorCommands.EDITOR_SEARCH, ks(KeyEvent.VK_F, Modifier.CTRL)
   );
 
   public @Nullable KeyStroke getKeystrokeForCommand(String command) {

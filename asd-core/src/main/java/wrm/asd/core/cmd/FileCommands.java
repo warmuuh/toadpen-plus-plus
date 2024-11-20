@@ -28,6 +28,7 @@ import org.apache.commons.io.filefilter.HiddenFileFilter;
 import org.apache.commons.io.filefilter.NameFileFilter;
 import wrm.asd.core.cmd.CommandManager.Command;
 import wrm.asd.core.cmd.CommandManager.CommandNoArg;
+import wrm.asd.core.storage.SessionProperties;
 import wrm.asd.core.ui.MainWindow;
 import wrm.asd.core.ui.dialogs.SearchBox;
 import wrm.asd.core.ui.editor.EditorComponent;
@@ -41,6 +42,7 @@ public class FileCommands {
   public static final String FILE_OPEN = "file.open";
   public static final String FILE_SAVE = "file.save";
   public static final String FILE_FIND = "file.find";
+  public static final String FILE_RECENT = "file.recent";
 
   @Value
   public static class OpenFileCommand implements Command {
@@ -58,6 +60,9 @@ public class FileCommands {
 
   @Inject
   EditorFactory editorFactory;
+
+  @Inject
+  SessionProperties sessionProperties;
 
   @Bean
   @Named(FILE_NEW)
@@ -83,6 +88,12 @@ public class FileCommands {
   @Named(FILE_FIND)
   CommandManager.CommandNoArg findFileCommand() {
     return new CommandNoArg(FILE_FIND, "Find a file", "/icons/find_file.png", this::findFile);
+  }
+
+  @Bean
+  @Named(FILE_RECENT)
+  CommandManager.CommandNoArg recentFileCommand() {
+    return new CommandNoArg(FILE_RECENT, "Open a recent file", "/icons/recent_file.png", this::openRecentFile);
   }
 
   @PostConstruct
@@ -112,6 +123,7 @@ public class FileCommands {
 
   @SneakyThrows
   private void openFile(File selectedFile) {
+    sessionProperties.addRecentFile(selectedFile);
     if (selectedFile.exists()) {
       if (mainWindow.showEditorIfAlreadyOpened(selectedFile)) {
         return;
@@ -166,6 +178,25 @@ public class FileCommands {
     if (!files.isEmpty()) {
       SearchBox<File> searchBox =
           new SearchBox<>("Find File...", files);
+      File selectedFile = searchBox.showDialog();
+      if (selectedFile != null) {
+        openFile(new File(root, selectedFile.getPath()));
+      }
+    }
+  }
+
+  @SneakyThrows
+  void openRecentFile() {
+    File root = fileTree.getRoot();
+
+    List<File> files = sessionProperties.getRecentFiles().stream().map(absPath -> {
+      Path path = root.toPath().relativize(new File(absPath).toPath());
+      return path.toFile();
+    }).toList();
+
+    if (!files.isEmpty()) {
+      SearchBox<File> searchBox =
+          new SearchBox<>("Open Recent File...", files);
       File selectedFile = searchBox.showDialog();
       if (selectedFile != null) {
         openFile(new File(root, selectedFile.getPath()));
