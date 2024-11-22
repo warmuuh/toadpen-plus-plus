@@ -7,6 +7,9 @@ import ModernDocking.app.Docking;
 import ModernDocking.app.RootDockingPanel;
 import ModernDocking.event.DockingEvent;
 import ModernDocking.ext.ui.DockingUI;
+import ModernDocking.internal.DockableWrapper;
+import ModernDocking.internal.DockedTabbedPanel;
+import ModernDocking.internal.DockingPanel;
 import ModernDocking.settings.Settings;
 import com.formdev.flatlaf.FlatLightLaf;
 import io.avaje.inject.PostConstruct;
@@ -18,9 +21,14 @@ import java.awt.Taskbar;
 import java.awt.Window;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.lang.reflect.Field;
+import java.util.List;
+import java.util.function.IntConsumer;
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JSplitPane;
@@ -30,6 +38,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.jspecify.annotations.Nullable;
 import wrm.asd.core.key.KeySetBinding;
+import wrm.asd.core.ui.dialogs.SimpleDialogs;
+import wrm.asd.core.ui.dialogs.SimpleDialogs.DialogResult;
 import wrm.asd.core.ui.editor.EditorComponent;
 import wrm.asd.core.ui.filetree.FileTree;
 import wrm.asd.core.ui.menu.ApplicationMenu;
@@ -48,8 +58,12 @@ public class MainWindow {
   private static JFrame frame;
 
   private EditorComponent activeEditor;
+  public UiEvent1<EditorComponent> OnActiveEditorChanged = new UiEvent1<>();
+  public UiEvent1<EditorComponent> OnRequestSaveEditor = new UiEvent1<>();
 
-  @PostConstruct @SneakyThrows
+
+  @PostConstruct
+  @SneakyThrows
   void init() {
     setupTheme();
     frame = new JFrame("ToadPen++");
@@ -85,21 +99,64 @@ public class MainWindow {
     Docking.initialize(frame);
     DockingUI.initialize();
     Docking.addDockingListener(evt -> {
-        Dockable dockable = evt.getDockable();
-        if (dockable instanceof EditorDockingWrapper) {
-          activeEditor = ((EditorDockingWrapper) dockable).editor;
-            boolean hasRootPane = ((EditorDockingWrapper) dockable).getRootPane() != null;
-            if (!hasRootPane && evt.getID() == DockingEvent.ID.UNDOCKED){
-              SwingUtilities.invokeLater(() -> {
-                Docking.deregisterDockable(dockable);
-              });
-            }
+      Dockable dockable = evt.getDockable();
+      if (dockable instanceof EditorDockingWrapper) {
+
+        if (evt.getID() == DockingEvent.ID.DOCKED) {
+          setActiveEditor(((EditorDockingWrapper) dockable).editor);
         }
+        boolean hasRootPane = ((EditorDockingWrapper) dockable).getRootPane() != null;
+        if (!hasRootPane && evt.getID() == DockingEvent.ID.UNDOCKED) {
+          SwingUtilities.invokeLater(() -> {
+            Docking.deregisterDockable(dockable);
+          });
+        }
+      }
     });
-    RootDockingPanel root = new RootDockingPanel(frame);
+    RootDockingPanel root = new RootDockingPanel(frame) {
+      @Override
+      public void setPanel(DockingPanel panel) {
+        DockedTabbedPanel dtp = (DockedTabbedPanel) panel;
+        try {
+          Field tabs = dtp.getClass().getDeclaredField("tabs");
+          tabs.setAccessible(true);
+          Field panelsField = dtp.getClass().getDeclaredField("panels");
+          panelsField.setAccessible(true);
+          JTabbedPane tabbedPane = (JTabbedPane) tabs.get(dtp);
+          
+          tabbedPane.putClientProperty("JTabbedPane.tabCloseCallback", (IntConsumer) tabIndex -> {
+            try {
+              List<DockableWrapper> panels = (List<DockableWrapper>) panelsField.get(dtp);
+              Dockable dockable = panels.get(tabIndex).getDockable();
+              if (dockable instanceof EditorDockingWrapper edw) {
+                if (!vetoClose(edw.editor)) {
+                  Docking.undock(dockable);
+                }
+              }
+
+            } catch (IllegalAccessException e) {
+              throw new RuntimeException(e);
+            }
+          });
+
+        } catch (Exception e) {
+          throw new RuntimeException(e);
+        }
+
+        super.setPanel(panel);
+      }
+    };
     Settings.setAlwaysDisplayTabMode(true);
     Settings.setTabLayoutPolicy(JTabbedPane.WRAP_TAB_LAYOUT);
     return root;
+  }
+
+  private void setActiveEditor(EditorComponent newEditor) {
+    EditorComponent oldEditor = activeEditor;
+    activeEditor = newEditor;
+    if (oldEditor != activeEditor) {
+      OnActiveEditorChanged.fire(activeEditor);
+    }
   }
 
   public void showWindow() {
@@ -111,8 +168,8 @@ public class MainWindow {
   public void addNewEditor(EditorComponent editorComponent) {
     Window mainWindow = Docking.getMainWindow();
     EditorDockingWrapper wrapper = new EditorDockingWrapper(editorComponent);
-    editorComponent.OnDirtyChange.addListener(()->Docking.updateTabInfo(wrapper));
-    editorComponent.OnFocus.addListener(() -> activeEditor = editorComponent);
+    editorComponent.OnDirtyChange.addListener(() -> Docking.updateTabInfo(wrapper));
+    editorComponent.OnFocus.addListener(() -> setActiveEditor(editorComponent));
     editorComponent.grabFocus();
 
     RootDockingPanelAPI root = Docking.getRootPanels().get(mainWindow);
@@ -126,9 +183,9 @@ public class MainWindow {
       if (dockable instanceof EditorDockingWrapper) {
         EditorComponent editor = ((EditorDockingWrapper) dockable).editor;
         if (editor.getFile() != null && editor.getFile().equals(file)) {
-            Docking.bringToFront(dockable);
-            ((EditorDockingWrapper) dockable).grabFocus();
-            return true;
+          Docking.bringToFront(dockable);
+          ((EditorDockingWrapper) dockable).grabFocus();
+          return true;
         }
       }
     }
@@ -141,6 +198,21 @@ public class MainWindow {
 
   public static Frame getFrame() {
     return frame;
+  }
+
+  private boolean vetoClose(EditorComponent editor) {
+    if (!editor.isDirty()) {
+      return false;
+    }
+
+    DialogResult result = SimpleDialogs.confirmation("Save changes",
+        "Do you want to save changes to " + editor.getFilename() + "?");
+
+    if (result == DialogResult.YES) {
+      OnRequestSaveEditor.fire(editor);
+    }
+
+    return result == DialogResult.CANCEL;
   }
 
 
@@ -189,5 +261,4 @@ public class MainWindow {
       menu.add(close);
     }
   }
-
 }

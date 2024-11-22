@@ -72,7 +72,6 @@ public class EditorComponent {
     this.textArea.setCaret(c);
 
 
-
     setupListeners();
 
     searchListener = new EditorSearchListener(this);
@@ -124,7 +123,7 @@ public class EditorComponent {
     return csp;
   }
 
-  RSyntaxTextArea getTextArea() {
+  public RSyntaxTextArea getTextArea() {
     return textArea;
   }
 
@@ -178,5 +177,9 @@ public class EditorComponent {
 
   public void setSyntax(String selectedSyntax) {
     textArea.setSyntaxEditingStyle(selectedSyntax);
+  }
+
+  public String getSyntax() {
+    return textArea.getSyntaxEditingStyle();
   }
 }

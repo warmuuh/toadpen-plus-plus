@@ -34,6 +34,11 @@ public class ApplicationController {
     toolbar.OnCommandExecuted.addListener(commandManager::executeCommandById);
     fileTree.OnFileDoubleClicked.addListener(
         f -> commandManager.executeCommand(new FileCommands.OpenFileCommand(f)));
+
+    mainWindow.OnActiveEditorChanged.addListener(statusBar::onActiveEditorChanged);
+    mainWindow.OnRequestSaveEditor.addListener(editor -> commandManager.executeCommand(new FileCommands.SaveEditorFileCommand(editor)));
+
+    statusBar.OnSyntaxPanelClicked.addListener(() -> commandManager.executeCommandById(EditorCommands.EDITOR_CHOOSE_SYNTAX));
   }
 
   public void start() {

@@ -7,6 +7,7 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileVisitOption;
@@ -47,6 +48,11 @@ public class FileCommands {
   @Value
   public static class OpenFileCommand implements Command {
     File file;
+  }
+
+  @Value
+  public static class SaveEditorFileCommand implements Command {
+    EditorComponent editorComponent;
   }
 
   @Inject
@@ -99,6 +105,7 @@ public class FileCommands {
   @PostConstruct
   void init() {
     commandManager.registerCommandExecutor(OpenFileCommand.class, this::openFileCommand);
+    commandManager.registerCommandExecutor(SaveEditorFileCommand.class, this::saveFileCommand);
   }
 
   void createNewFile() {
@@ -147,6 +154,15 @@ public class FileCommands {
       return;
     }
 
+    saveFile(activeEditor);
+  }
+
+  @SneakyThrows
+  void saveFileCommand(SaveEditorFileCommand cmd) {
+    saveFile(cmd.getEditorComponent());
+  }
+
+  private void saveFile(EditorComponent activeEditor) throws IOException {
     File file = activeEditor.getFile();
     if (file == null) {
       JFileChooser fileChooser = new JFileChooser();
