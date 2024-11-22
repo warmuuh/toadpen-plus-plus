@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 import lombok.SneakyThrows;
@@ -64,10 +65,12 @@ public class StatusBar {
 
     statusPanel.add(new JSeparator(SwingConstants.VERTICAL));
     cursorField = new JLabel();
+    cursorField.setBorder(new EmptyBorder(0,5,0,5));
     statusPanel.add(cursorField);
 
     statusPanel.add(new JSeparator(SwingConstants.VERTICAL));
     syntaxField = new JLabel();
+    syntaxField.setBorder(new EmptyBorder(0,5,0,5));
     syntaxField.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     syntaxField.addMouseListener(new MouseAdapter() {
       @Override

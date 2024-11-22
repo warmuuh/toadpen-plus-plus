@@ -1,5 +1,8 @@
 package wrm.asd.core.ui.editor;
 
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLightLaf;
+import com.jthemedetecor.OsThemeDetector;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
@@ -7,6 +10,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -18,11 +23,13 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.text.DefaultEditorKit;
 import javax.swing.text.Position;
+import lombok.SneakyThrows;
 import org.fife.rsta.ui.CollapsibleSectionPanel;
 import org.fife.rsta.ui.search.FindToolBar;
 import org.fife.ui.rsyntaxtextarea.FileTypeUtil;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
+import org.fife.ui.rsyntaxtextarea.Theme;
 import org.fife.ui.rtextarea.RTextScrollPane;
 import org.jspecify.annotations.Nullable;
 import wrm.asd.core.cmd.EditorCommands;
@@ -45,29 +52,38 @@ public class EditorComponent {
   private boolean dirtyState = false;
 
   public EditorComponent(@Nullable File file, String text) {
-    this(file, new RSyntaxTextArea(text,25, 80));
+    this(file, new RSyntaxTextArea(text, 25, 80));
   }
 
   public EditorComponent() {
-   this(null, new RSyntaxTextArea(25, 80));
+    this(null, new RSyntaxTextArea(25, 80));
   }
 
-  private EditorComponent(File file,RSyntaxTextArea textArea) {
+  private EditorComponent(File file, RSyntaxTextArea textArea) {
     this.file = file;
     this.textArea = textArea;
     this.textArea.setSyntaxEditingStyle(FileTypeUtil.get().guessContentType(file));
     this.textArea.setCodeFoldingEnabled(true);
     this.textArea.setMarkOccurrences(true);
 
+    final OsThemeDetector detector = OsThemeDetector.getDetector();
+    boolean isDark = detector.isDark();
+    applyDarkLightTheme(isDark);
+    detector.registerListener(this::applyDarkLightTheme);
+
     // fix home/end buttons for osx. todo: make configurable
     int shift = InputEvent.SHIFT_DOWN_MASK;
-    this.textArea.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_HOME,   0), DefaultEditorKit.beginLineAction);
-    this.textArea.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_HOME,   shift), DefaultEditorKit.selectionBeginLineAction);
-    this.textArea.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_END,   0), DefaultEditorKit.endLineAction);
-    this.textArea.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_END,   shift), DefaultEditorKit.selectionEndLineAction);
+    this.textArea.getInputMap()
+        .put(KeyStroke.getKeyStroke(KeyEvent.VK_HOME, 0), DefaultEditorKit.beginLineAction);
+    this.textArea.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_HOME, shift),
+        DefaultEditorKit.selectionBeginLineAction);
+    this.textArea.getInputMap()
+        .put(KeyStroke.getKeyStroke(KeyEvent.VK_END, 0), DefaultEditorKit.endLineAction);
+    this.textArea.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_END, shift),
+        DefaultEditorKit.selectionEndLineAction);
 
     // try out multi selection
-    MultiCaret c=new MultiCaret();
+    MultiCaret c = new MultiCaret();
     c.setBlinkRate(500);
     this.textArea.setCaret(c);
 
@@ -84,6 +100,18 @@ public class EditorComponent {
 
 
     csp.addBottomComponent(findToolBar);
+  }
+
+  @SneakyThrows
+  private void applyDarkLightTheme(boolean isDark) {
+    InputStream darkThemeData = isDark
+        ? EditorComponent.class.getResourceAsStream(
+        "/org/fife/ui/rsyntaxtextarea/themes/dark.xml")
+        : EditorComponent.class.getResourceAsStream(
+        "/org/fife/ui/rsyntaxtextarea/themes/default.xml");
+
+    Theme theme = Theme.load(darkThemeData);
+    theme.apply(this.textArea);
   }
 
   private void setupListeners() {
@@ -143,7 +171,7 @@ public class EditorComponent {
   }
 
   public boolean isDirty() {
-      return dirtyState;
+    return dirtyState;
   }
 
   public void triggerSearch() {

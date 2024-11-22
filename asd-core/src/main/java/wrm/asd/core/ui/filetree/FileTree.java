@@ -1,5 +1,7 @@
 package wrm.asd.core.ui.filetree;
 
+import com.formdev.flatlaf.ui.FlatTreeUI;
+import io.avaje.inject.PostConstruct;
 import io.avaje.inject.events.Observes;
 import jakarta.inject.Singleton;
 import java.awt.Component;
@@ -22,7 +24,8 @@ public class FileTree {
   private File root = new File(System.getProperty("user.home"));
   public UiEvent1<File> OnFileDoubleClicked = new UiEvent1<>();
 
-  public FileTree() {
+  @PostConstruct
+  public void init() {
     fileSystemModel = new FileSystemModel(root);
     fileTree = new JTree(fileSystemModel);
 //    fileTree.setMinimumSize(new Dimension(50, 600));

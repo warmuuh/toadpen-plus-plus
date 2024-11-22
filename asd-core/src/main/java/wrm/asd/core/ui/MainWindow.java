@@ -11,11 +11,12 @@ import ModernDocking.internal.DockableWrapper;
 import ModernDocking.internal.DockedTabbedPanel;
 import ModernDocking.internal.DockingPanel;
 import ModernDocking.settings.Settings;
+import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
+import com.jthemedetecor.OsThemeDetector;
 import io.avaje.inject.PostConstruct;
 import jakarta.inject.Singleton;
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Frame;
 import java.awt.Taskbar;
 import java.awt.Window;
@@ -26,9 +27,7 @@ import java.util.List;
 import java.util.function.IntConsumer;
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.JSplitPane;
@@ -61,11 +60,14 @@ public class MainWindow {
   public UiEvent1<EditorComponent> OnActiveEditorChanged = new UiEvent1<>();
   public UiEvent1<EditorComponent> OnRequestSaveEditor = new UiEvent1<>();
 
+  {
+    //setup theme before any UI components are created
+    setupTheme();
+  }
 
   @PostConstruct
   @SneakyThrows
   void init() {
-    setupTheme();
     frame = new JFrame("ToadPen++");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setJMenuBar(applicationMenu.getMenuBar());
@@ -92,7 +94,13 @@ public class MainWindow {
   }
 
   private void setupTheme() {
-    FlatLightLaf.setup();
+    final OsThemeDetector detector = OsThemeDetector.getDetector();
+    FlatLightLaf.setup(detector.isDark() ? new FlatDarkLaf() : new FlatLightLaf());
+    detector.registerListener(
+        isDark -> {
+          FlatLightLaf.setup(isDark ? new FlatDarkLaf() : new FlatLightLaf());
+          SwingUtilities.updateComponentTreeUI(frame);
+        });
   }
 
   private RootDockingPanel setupDocking() {
@@ -123,7 +131,7 @@ public class MainWindow {
           Field panelsField = dtp.getClass().getDeclaredField("panels");
           panelsField.setAccessible(true);
           JTabbedPane tabbedPane = (JTabbedPane) tabs.get(dtp);
-          
+
           tabbedPane.putClientProperty("JTabbedPane.tabCloseCallback", (IntConsumer) tabIndex -> {
             try {
               List<DockableWrapper> panels = (List<DockableWrapper>) panelsField.get(dtp);

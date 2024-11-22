@@ -27,16 +27,8 @@ public class ApplicationMenu {
     return mb;
   }
 
-
-
   @PostConstruct
   JMenuBar createMenuBar() {
-    if (PlatformUtil.getOS().equals("mac")) {
-      System.getProperties().put("apple.laf.useScreenMenuBar", "true");
-      System.setProperty( "apple.awt.application.appearance", "system" );
-      System.setProperty( "apple.awt.application.name", "ToadPen++" ); //TODO: doesnt work
-      new MacImpl();
-    }
     mb = new JMenuBar();
     JMenu fileMenu = new JMenu("File");
     JMenuItem quitItem = new JMenuItem("Quit");
@@ -88,39 +80,4 @@ public class ApplicationMenu {
   }
 
 
-  class MacImpl implements AboutHandler, PreferencesHandler,
-      QuitHandler {
-
-    public MacImpl() {
-      handleOS();
-    }
-
-    public void handleOS() {
-      try {
-        final Desktop desktop = Desktop.getDesktop();
-        desktop.setAboutHandler(this);
-        desktop.setPreferencesHandler(this);
-        desktop.setQuitHandler(this);
-      } catch (Throwable e) {
-        e.printStackTrace();
-      }
-    }
-
-    @Override
-    public void handleAbout(AboutEvent arg0) {
-      // new AboutDialog();
-      System.out.println("handleAbout()");
-    }
-
-    @Override
-    public void handlePreferences(PreferencesEvent arg0) {
-      // new OptionsDialog();
-      System.out.println("handlePreferences()");
-    }
-
-    @Override
-    public void handleQuitRequestWith(QuitEvent arg0, QuitResponse arg1) {
-      System.exit(0);
-    }
-  }
 }
