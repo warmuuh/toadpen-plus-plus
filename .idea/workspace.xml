@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0ab0a9cf-a5e0-4009-877f-d381f46bf335" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/dependency-reduced-pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/Application.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/CommandlineArgs.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/behavior/ApplicationStartedEvent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/behavior/StartBehavior.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/cmd/ApplicationController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/cmd/CommandManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/cmd/EditorCommands.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/cmd/FileCommands.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/key/KeySet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/key/KeySetBinding.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/storage/PropertyFileStorage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/storage/SessionProperties.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/storage/Storage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/storage/StorageManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/tools/ToolManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/ui/MainWindow.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/ui/StatusBar.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/ui/Toolbar.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/ui/UiEvent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/ui/UiEvent1.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/ui/components/AutoCompleteTextfield.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/ui/components/AutocompleteCombobox.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/ui/components/PlaceholderTextField.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/ui/dialogs/SearchBox.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/ui/dialogs/SimpleDialogs.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/ui/editor/EditorComponent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/ui/editor/EditorFactory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/ui/editor/EditorSearchListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/ui/editor/MultiCaret.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/ui/filetree/FileSystemModel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/ui/filetree/FileTree.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/ui/macos/MacosSettings.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/ui/menu/ApplicationMenu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/util/PlatformUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/ext/tools/base64/Base64Decode.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/ext/tools/base64/Base64Encode.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/resources/icons/find_file.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/resources/icons/frog.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/resources/icons/new_file.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/resources/icons/open_file.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/resources/icons/recent_file.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/resources/icons/save_file.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/resources/icons/search.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/resources/icons/source.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/resources/icons/syntax.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/asd-core/src/main/resources/reachability-metadata.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GoLibraries">
+    <option name="indexEntireGoPath" value="true" />
+  </component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2pCmAmSq5mw96WGJdkJoFUPs72H" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="flattenPackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Application.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/usr/local/workspaces/uitest/swing/toadpen/toadpen-dist/src/bin/macos&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/toadpen-dist/src/bin/macos" />
+      <recent name="$PROJECT_DIR$/toadpen-dist/src/bin/win" />
+      <recent name="$PROJECT_DIR$/toadpen-dist/src/bin/macos-bundle/Milkman.app/Contents/Resources" />
+      <recent name="$PROJECT_DIR$/toadpen-dist/src/bin/linux" />
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="wrm.toadpen.core.Application" />
+      <module name="toadpen-core" />
+      <option name="PROGRAM_PARAMETERS" value="$PROJECT_DIR$/../../../test-service/" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="wrm.toadpen.core.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Application" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.17890.1" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.17890.1" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0ab0a9cf-a5e0-4009-877f-d381f46bf335" name="Changes" comment="" />
+      <created>1732278291347</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1732278291347</updated>
+      <workItem from="1732278293607" duration="91000" />
+      <workItem from="1732278619251" duration="2732000" />
+      <workItem from="1732521423869" duration="12761000" />
+      <workItem from="1732539743564" duration="2130000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VgoProject">
+    <integration-enabled>false</integration-enabled>
+    <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/MainWindow.java</url>
+          <line>131</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
