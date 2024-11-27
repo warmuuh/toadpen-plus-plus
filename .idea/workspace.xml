@@ -4,61 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ab0a9cf-a5e0-4009-877f-d381f46bf335" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/dependency-reduced-pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/Application.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/CommandlineArgs.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/behavior/ApplicationStartedEvent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/behavior/StartBehavior.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/cmd/ApplicationController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/cmd/CommandManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/cmd/EditorCommands.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/cmd/FileCommands.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/key/KeySet.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/key/KeySetBinding.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/storage/PropertyFileStorage.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/storage/SessionProperties.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/storage/Storage.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/storage/StorageManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/tools/ToolManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/ui/MainWindow.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/ui/StatusBar.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/ui/Toolbar.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/ui/UiEvent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/ui/UiEvent1.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/ui/components/AutoCompleteTextfield.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/ui/components/AutocompleteCombobox.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/ui/components/PlaceholderTextField.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/ui/dialogs/SearchBox.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/ui/dialogs/SimpleDialogs.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/ui/editor/EditorComponent.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/ui/editor/EditorFactory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/ui/editor/EditorSearchListener.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/ui/editor/MultiCaret.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/ui/filetree/FileSystemModel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/ui/filetree/FileTree.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/ui/macos/MacosSettings.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/ui/menu/ApplicationMenu.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/core/util/PlatformUtil.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/ext/tools/base64/Base64Decode.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/java/wrm/asd/ext/tools/base64/Base64Encode.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/resources/icons/find_file.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/resources/icons/frog.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/resources/icons/new_file.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/resources/icons/open_file.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/resources/icons/recent_file.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/resources/icons/save_file.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/resources/icons/search.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/resources/icons/source.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/resources/icons/syntax.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/asd-core/src/main/resources/reachability-metadata.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+    <list default="true" id="0ab0a9cf-a5e0-4009-877f-d381f46bf335" name="Changes" comment="distribution setup, native macos integration">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/cmd/ApplicationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/cmd/ApplicationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/MainWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/macos/MacosSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/macos/MacosSettings.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toadpen-dist/src/bin/macos-bundle/Toadpen.app/Contents/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-dist/src/bin/macos-bundle/Toadpen.app/Contents/Info.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toadpen-dist/src/bin/macos-bundle/Toadpen.app/Contents/Resources/Toadpen.icns" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-dist/src/bin/macos-bundle/Toadpen.app/Contents/Resources/Toadpen++.icns" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +50,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;Application.Application.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.Application.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
@@ -162,26 +114,29 @@
       <workItem from="1732278293607" duration="91000" />
       <workItem from="1732278619251" duration="2732000" />
       <workItem from="1732521423869" duration="12761000" />
-      <workItem from="1732539743564" duration="2130000" />
+      <workItem from="1732539743564" duration="10257000" />
+      <workItem from="1732704029834" duration="2175000" />
     </task>
+    <task id="LOCAL-00001" summary="distribution setup, native macos integration">
+      <option name="closed" value="true" />
+      <created>1732544047288</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1732544047288</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="distribution setup, native macos integration" />
+    <option name="LAST_COMMIT_MESSAGE" value="distribution setup, native macos integration" />
+  </component>
   <component name="VgoProject">
     <integration-enabled>false</integration-enabled>
     <settings-migrated>true</settings-migrated>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/MainWindow.java</url>
-          <line>131</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

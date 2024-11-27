@@ -25,7 +25,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Spliterator;
+import java.util.Spliterators;
 import java.util.function.IntConsumer;
+import java.util.stream.Stream;
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -60,6 +63,7 @@ public class MainWindow {
   private EditorComponent activeEditor;
   public UiEvent1<EditorComponent> OnActiveEditorChanged = new UiEvent1<>();
   public UiEvent1<EditorComponent> OnRequestSaveEditor = new UiEvent1<>();
+  public UiEvent OnQuitRequest = new UiEvent();
 
   {
     //setup theme before any UI components are created
@@ -70,7 +74,15 @@ public class MainWindow {
   @SneakyThrows
   void init() {
     frame = new JFrame("ToadPen++");
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+    frame.addWindowListener(new java.awt.event.WindowAdapter() {
+      @Override
+      public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+        OnQuitRequest.fire();
+      }
+    });
+
     frame.setJMenuBar(applicationMenu.getMenuBar());
     frame.add(toolbar.getToolbar(), BorderLayout.NORTH);
     frame.add(statusBar.getStatusBar(), BorderLayout.SOUTH);
@@ -104,6 +116,15 @@ public class MainWindow {
         });
   }
 
+  public boolean canCloseAllEditors() {
+    for (EditorDockingWrapper editor : getAllEditors()) {
+      if (editor.vetoClose()) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   private RootDockingPanel setupDocking() {
     Docking.initialize(frame);
     DockingUI.initialize();
@@ -122,55 +143,10 @@ public class MainWindow {
         }
       }
     });
-    RootDockingPanel root = new RootDockingPanel(frame) {
-      @Override
-      public void setPanel(DockingPanel panel) {
-        if (panel instanceof DockedTabbedPanel dtp) {
-          registerCloseCallback(dtp);
-        }
-        if (panel instanceof DockedSplitPanel dsp) {
-          if (dsp.getLeft() instanceof DockedTabbedPanel left) {
-            registerCloseCallback(left);
-          }
-          if (dsp.getRight() instanceof DockedTabbedPanel right) {
-              registerCloseCallback(right);
-          }
-        }
-
-        super.setPanel(panel);
-      }
-    };
+    RootDockingPanel root = new RootDockingPanel(frame);
     Settings.setAlwaysDisplayTabMode(true);
     Settings.setTabLayoutPolicy(JTabbedPane.WRAP_TAB_LAYOUT);
     return root;
-  }
-
-  private void registerCloseCallback(DockedTabbedPanel dtp) {
-    try {
-      Field tabs = dtp.getClass().getDeclaredField("tabs");
-      tabs.setAccessible(true);
-      Field panelsField = dtp.getClass().getDeclaredField("panels");
-      panelsField.setAccessible(true);
-      JTabbedPane tabbedPane = (JTabbedPane) tabs.get(dtp);
-
-      tabbedPane.putClientProperty("JTabbedPane.tabCloseCallback", (IntConsumer) tabIndex -> {
-        try {
-          List<DockableWrapper> panels = (List<DockableWrapper>) panelsField.get(dtp);
-          Dockable dockable = panels.get(tabIndex).getDockable();
-          if (dockable instanceof EditorDockingWrapper edw) {
-            if (!vetoClose(edw.editor)) {
-              Docking.undock(dockable);
-            }
-          }
-
-        } catch (IllegalAccessException e) {
-          throw new RuntimeException(e);
-        }
-      });
-
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
   }
 
   private void setActiveEditor(EditorComponent newEditor) {
@@ -198,18 +174,24 @@ public class MainWindow {
     root.dock(wrapper, DockingRegion.CENTER, 0);
   }
 
+  public List<EditorDockingWrapper> getAllEditors() {
+    Window mainWindow = Docking.getMainWindow();
+    return Docking.getDockables().stream()
+        .filter(d -> d instanceof EditorDockingWrapper)
+        .map(d -> (EditorDockingWrapper) d)
+        .toList();
+  }
+
   public boolean showEditorIfAlreadyOpened(File file) {
     Window mainWindow = Docking.getMainWindow();
     RootDockingPanelAPI root = Docking.getRootPanels().get(mainWindow);
-    for (Dockable dockable : Docking.getDockables()) {
-      if (dockable instanceof EditorDockingWrapper) {
-        EditorComponent editor = ((EditorDockingWrapper) dockable).editor;
+    for (EditorDockingWrapper dockable : getAllEditors()) {
+        EditorComponent editor = dockable.editor;
         if (editor.getFile() != null && editor.getFile().equals(file)) {
           Docking.bringToFront(dockable);
-          ((EditorDockingWrapper) dockable).grabFocus();
+          dockable.grabFocus();
           return true;
         }
-      }
     }
     return false;
   }
@@ -238,7 +220,7 @@ public class MainWindow {
   }
 
 
-  static class EditorDockingWrapper extends JComponent implements Dockable {
+  public class EditorDockingWrapper extends JComponent implements Dockable {
     private final EditorComponent editor;
 
     public EditorDockingWrapper(EditorComponent text) {
@@ -281,6 +263,9 @@ public class MainWindow {
       JMenuItem close = new JMenuItem("Close");
       close.addActionListener(e -> System.out.println("Close"));
       menu.add(close);
+    }
+    public boolean vetoClose() {
+      return MainWindow.this.vetoClose(editor);
     }
   }
 }
