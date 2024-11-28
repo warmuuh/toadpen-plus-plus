@@ -1,0 +1,410 @@
+<?xml version="1.0" ?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "https://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+ <dict>
+  <key>LSMinimumSystemVersion</key>
+  <string>10.11</string>
+  <key>CFBundleDevelopmentRegion</key>
+  <string>English</string>
+  <key>CFBundleAllowMixedLocalizations</key>
+  <true/>
+  <key>CFBundleExecutable</key>
+  <string>Toadpen++</string>
+  <key>CFBundleIconFile</key>
+  <string>Toadpen++.icns</string>
+  <key>CFBundleIdentifier</key>
+  <string>toadpen</string>
+  <key>CFBundleInfoDictionaryVersion</key>
+  <string>6.0</string>
+  <key>CFBundleName</key>
+  <string>Toadpen++</string>
+  <key>CFBundlePackageType</key>
+  <string>APPL</string>
+  <key>CFBundleShortVersionString</key>
+  <string>1.0</string>
+  <key>CFBundleSignature</key>
+  <string>????</string>
+  <!-- See https://developer.apple.com/app-store/categories/ for list of AppStore categories -->
+  <key>LSApplicationCategoryType</key>
+  <string>public.app-category.utilities</string>
+  <key>CFBundleVersion</key>
+  <string>1.0</string>
+  <key>NSHumanReadableCopyright</key>
+  <string>Copyright (C) 2024</string>
+  <key>NSHighResolutionCapable</key>
+  <string>true</string>
+  <key>NSMicrophoneUsageDescription</key>
+  <string>The application Toadpen++ is requesting access to the microphone.</string>
+  <key>CFBundleDocumentTypes</key>
+  <array>
+  <!--
+        Apple-provided UTIs
+        https://developer.apple.com/library/archive/documentation/Miscellaneous/Reference/UTIRef/Articles/System-DeclaredUniformTypeIdentifiers.html
+        -->
+        <dict>
+            <key>CFBundleTypeIconFile</key>
+            <string>Document</string>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>LSHandlerRank</key>
+            <string>Alternate</string>
+            <key>LSItemContentTypes</key>
+            <array>
+                <string>public.text</string>
+                <string>public.plain-text</string>
+                <string>public.utf8-plain-text</string>
+                <string>public.utf16-external-plain-text</string>
+                <string>public.utf16-plain-text</string>
+                <string>com.apple.traditional-mac-plain-text</string>
+                <string>public.html</string>
+                <string>public.xml</string>
+                <string>public.source-code</string>
+                <string>public.c-source</string>
+                <string>public.objective-c-source</string>
+                <string>public.c-plus-plus-source</string>
+                <string>public.objective-c-plus-plus-source</string>
+                <string>public.c-header</string>
+                <string>public.c-plus-plus-header</string>
+                <string>com.sun.java-source</string>
+                <string>public.script</string>
+                <string>public.assembly-source</string>
+                <string>com.netscape.javascript-source</string>
+                <string>public.shell-script</string>
+                <string>public.csh-script</string>
+                <string>public.perl-script</string>
+                <string>public.python-script</string>
+                <string>public.ruby-script</string>
+                <string>public.php-script</string>
+                <string>com.apple.applescript.text</string>
+            </array>
+        </dict>
+        <!-- Enables Application in Open With for unrecognized filetypes -->
+        <dict>
+            <key>CFBundleTypeIconFile</key>
+            <string>Document</string>
+            <key>CFBundleTypeName</key>
+            <string>Document</string>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleTypeOSTypes</key>
+            <array>
+                <string>****</string>
+            </array>
+        </dict>
+        <!-- Other extension we recognize -->
+        <dict>
+            <key>CFBundleTypeIconFile</key>
+            <string>Document</string>
+            <key>CFBundleTypeName</key>
+            <string>Sublime Text Document</string>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleTypeOSTypes</key>
+            <array>
+                <string>****</string>
+            </array>
+            <key>LSHandlerRank</key>
+            <string>Alternate</string>
+            <key>CFBundleTypeExtensions</key>
+            <array>
+                <!-- ActionScript -->
+                <string>as</string>
+                <!-- ASP -->
+                <string>asa</string>
+                <string>asp</string>
+                <!-- Batch File -->
+                <string>bat</string>
+                <!-- C# -->
+                <string>build</string>
+                <string>cs</string>
+                <string>csx</string>
+                <!-- C++ -->
+                <string>c</string>
+                <string>h</string>
+                <string>cc</string>
+                <string>cp</string>
+                <string>cpp</string>
+                <string>cxx</string>
+                <string>c++</string>
+                <string>C</string>
+                <string>hh</string>
+                <string>hpp</string>
+                <string>hxx</string>
+                <string>h++</string>
+                <string>inl</string>
+                <string>ipp</string>
+                <!-- Clojure -->
+                <string>clj</string>
+                <string>cljc</string>
+                <string>edn</string>
+                <!-- CSS -->
+                <string>css</string>
+                <string>css.erb</string>
+                <string>css.liquid</string>
+                <!-- D -->
+                <string>d</string>
+                <string>di</string>
+                <!-- Diff -->
+                <string>diff</string>
+                <string>patch</string>
+                <!-- Erlang -->
+                <string>erl</string>
+                <string>hrl</string>
+                <string>escript</string>
+                <string>Emakefile</string>
+                <string>emakefile</string>
+                <string>yaws</string>
+                <!-- Git Formats -->
+                <string>attributes</string>
+                <string>gitattributes</string>
+                <string>gitconfig</string>
+                <string>gitmodules</string>
+                <string>gitignore</string>
+                <string>git</string>
+                <string>mailmap</string>
+                <!-- Go -->
+                <string>go</string>
+                <!-- Graphviz -->
+                <string>dot</string>
+                <string>DOT</string>
+                <string>gv</string>
+                <!-- Groovy -->
+                <string>groovy</string>
+                <string>grv</string>
+                <string>gradle</string>
+                <string>Jenkinsfile</string>
+                <!-- Haskell -->
+                <string>hs</string>
+                <!-- HTML -->
+                <string>html</string>
+                <string>htm</string>
+                <string>shtml</string>
+                <string>xhtml</string>
+                <!-- Java -->
+                <string>java</string>
+                <string>bsh</string>
+                <!-- JavaScript -->
+                <string>js</string>
+                <string>mjs</string>
+                <string>htc</string>
+                <string>jsx</string>
+                <string>ts</string>
+                <string>tsx</string>
+                <!-- JSON -->
+                <string>json</string>
+                <string>ipynb</string>
+                <!-- LaTeX -->
+                <string>bib</string>
+                <string>tex</string>
+                <string>ltx</string>
+                <string>sty</string>
+                <string>cls</string>
+                <!-- Lisp -->
+                <string>lisp</string>
+                <string>cl</string>
+                <string>clisp</string>
+                <string>l</string>
+                <string>mud</string>
+                <string>el</string>
+                <string>scm</string>
+                <string>ss</string>
+                <string>lsp</string>
+                <string>fasl</string>
+                <!-- Lua -->
+                <string>lua</string>
+                <!-- Makefile -->
+                <string>make</string>
+                <string>GNUmakefile</string>
+                <string>makefile</string>
+                <string>Makefile</string>
+                <string>makefile.am</string>
+                <string>Makefile.am</string>
+                <string>makefile.in</string>
+                <string>Makefile.in</string>
+                <string>OCamlMakefile</string>
+                <string>mak</string>
+                <string>mk</string>
+                <!-- Markdown -->
+                <string>md</string>
+                <string>mdown</string>
+                <string>markdown</string>
+                <string>markdn</string>
+                <!-- Matlab -->
+                <string>matlab</string>
+                <!-- Objective-C -->
+                <string>m</string>
+                <string>mm</string>
+                <string>M</string>
+                <!-- OCaml -->
+                <string>ml</string>
+                <string>mli</string>
+                <string>mll</string>
+                <string>mly</string>
+                <!-- Pascal -->
+                <string>pas</string>
+                <string>p</string>
+                <string>dpr</string>
+                <!-- Perl -->
+                <string>pl</string>
+                <string>pc</string>
+                <string>pm</string>
+                <string>pmc</string>
+                <string>pod</string>
+                <string>t</string>
+                <!-- PHP -->
+                <string>php</string>
+                <string>php3</string>
+                <string>php4</string>
+                <string>php5</string>
+                <string>php7</string>
+                <string>phps</string>
+                <string>phpt</string>
+                <string>phtml</string>
+                <!-- Python -->
+                <string>py</string>
+                <string>py3</string>
+                <string>pyw</string>
+                <string>pyi</string>
+                <string>pyx</string>
+                <string>pyx.in</string>
+                <string>pxd</string>
+                <string>pxd.in</string>
+                <string>pxi</string>
+                <string>pxi.in</string>
+                <string>rpy</string>
+                <string>cpy</string>
+                <string>SConstruct</string>
+                <string>Sconstruct</string>
+                <string>sconstruct</string>
+                <string>SConscript</string>
+                <string>gyp</string>
+                <string>gypi</string>
+                <string>Snakefile</string>
+                <string>vpy</string>
+                <string>wscript</string>
+                <string>bazel</string>
+                <string>bzl</string>
+                <!-- R -->
+                <string>R</string>
+                <string>r</string>
+                <string>Rprofile</string>
+                <!-- Rails -->
+                <string>rails</string>
+                <string>rhtml</string>
+                <string>erb</string>
+                <string>html.erb</string>
+                <string>js.erb</string>
+                <string>haml</string>
+                <string>sass</string>
+                <string>erbsql</string>
+                <string>sql.erb</string>
+                <!-- Regular Expressions -->
+                <string>re</string>
+                <!-- RestructuredText -->
+                <string>rst</string>
+                <string>rest</string>
+                <!-- Ruby -->
+                <string>rb</string>
+                <string>Appfile</string>
+                <string>Appraisals</string>
+                <string>Berksfile</string>
+                <string>Brewfile</string>
+                <string>capfile</string>
+                <string>cgi</string>
+                <string>Cheffile</string>
+                <string>config.ru</string>
+                <string>Deliverfile</string>
+                <string>Fastfile</string>
+                <string>fcgi</string>
+                <string>Gemfile</string>
+                <string>gemspec</string>
+                <string>Guardfile</string>
+                <string>irbrc</string>
+                <string>jbuilder</string>
+                <string>Podfile</string>
+                <string>podspec</string>
+                <string>prawn</string>
+                <string>rabl</string>
+                <string>rake</string>
+                <string>Rakefile</string>
+                <string>Rantfile</string>
+                <string>rbx</string>
+                <string>rjs</string>
+                <string>ruby.rail</string>
+                <string>Scanfile</string>
+                <string>simplecov</string>
+                <string>Snapfile</string>
+                <string>thor</string>
+                <string>Thorfile</string>
+                <string>Vagrantfile</string>
+                <!-- Rust -->
+                <string>rs</string>
+                <!-- Scala -->
+                <string>scala</string>
+                <string>sbt</string>
+                <string>sc</string>
+                <!-- ShellScript -->
+                <string>sh</string>
+                <string>bash</string>
+                <string>bashrc</string>
+                <string>ash</string>
+                <string>zsh</string>
+                <string>bash_aliases</string>
+                <string>bash_completions</string>
+                <string>bash_functions</string>
+                <string>bash_login</string>
+                <string>bash_logout</string>
+                <string>bash_profile</string>
+                <string>bash_variables</string>
+                <string>bashrc</string>
+                <string>profile</string>
+                <string>textmate_init</string>
+                <string>zlogin</string>
+                <string>zlogout</string>
+                <string>zprofile</string>
+                <string>zshenv</string>
+                <string>zshrc</string>
+                <string>PKGBUILD</string>
+                <string>ebuild</string>
+                <string>eclass</string>
+                <!-- SQL -->
+                <string>sql</string>
+                <string>ddl</string>
+                <string>dml</string>
+                <!-- TCL -->
+                <string>tcl</string>
+                <string>adp</string>
+                <!-- Text -->
+                <string>txt</string>
+                <!-- Textile -->
+                <string>textile</string>
+                <!-- XML -->
+                <string>xml</string>
+                <string>xsd</string>
+                <string>xslt</string>
+                <string>tld</string>
+                <string>dtml</string>
+                <string>rng</string>
+                <string>rss</string>
+                <string>opml</string>
+                <string>svg</string>
+                <string>sproj</string>
+                <string>fsproj</string>
+                <string>sqlproj</string>
+                <string>vbproj</string>
+                <string>vcproj</string>
+                <string>vcxproj</string>
+                <string>dae</string>
+                <string>props</string>
+                <string>targets</string>
+                <string>dtd</string>
+                <string>ent</string>
+                <string>mod</string>
+                <!-- YAML -->
+                <string>yaml</string>
+                <string>yml</string>
+            </array>
+        </dict>
+  </array>
+ </dict>
+</plist>

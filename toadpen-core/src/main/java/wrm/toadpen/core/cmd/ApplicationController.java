@@ -12,6 +12,7 @@ import wrm.toadpen.core.ui.editor.EditorFactory;
 import wrm.toadpen.core.ui.filetree.FileTree;
 import wrm.toadpen.core.ui.menu.ApplicationMenu;
 import wrm.toadpen.core.ui.os.OsHandler;
+import wrm.toadpen.term.TerminalComponent;
 
 @Singleton
 @RequiredArgsConstructor
@@ -51,7 +52,14 @@ public class ApplicationController {
   }
 
   public void start() {
-    startBehavior.initialize();
+    //when app is started from e.g. Macos-Dock with a recent file, there is a
+    //file to open in the osHandler already before we even had the change to
+    //register the OnOpenFile-listener
+    if (osHandler.OnOpenFile.hasValueBuffer()) {
+      startBehavior.initialize(osHandler.OnOpenFile.fetchValueBuffer());
+    } else {
+      startBehavior.initialize();
+    }
     mainWindow.showWindow();
   }
 

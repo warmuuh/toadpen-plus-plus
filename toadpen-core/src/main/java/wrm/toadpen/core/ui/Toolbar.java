@@ -12,6 +12,7 @@ import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import wrm.toadpen.core.cmd.ApplicationCommands;
 import wrm.toadpen.core.cmd.CommandManager;
 import wrm.toadpen.core.cmd.CommandManager.CommandNoArg;
 import wrm.toadpen.core.cmd.EditorCommands;
@@ -46,6 +47,8 @@ public class Toolbar {
     toolBar.addSeparator();
     addCommandButton(EditorCommands.EDITOR_SEARCH);
     addCommandButton(EditorCommands.EDITOR_CHOOSE_SYNTAX);
+    toolBar.addSeparator();
+    addCommandButton(ApplicationCommands.APPLICATION_OPEN_TERMINAL);
 
     return toolBar;
   }

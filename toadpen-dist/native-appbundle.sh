@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
-
+rm -r target/appbundle
 jpackage \
   --type app-image \
   --verbose \
-  --dest appbundle \
+  --dest target/appbundle \
   --input ../toadpen-core/target/ \
+  --resource-dir src/bin/macos-appbundle/ \
   --name "Toadpen++" \
   --main-jar toadpen-core-1.0-SNAPSHOT.jar \
   --main-class wrm.toadpen.core.Application \

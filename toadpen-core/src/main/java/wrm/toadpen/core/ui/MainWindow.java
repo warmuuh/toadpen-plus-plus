@@ -7,10 +7,6 @@ import ModernDocking.app.Docking;
 import ModernDocking.app.RootDockingPanel;
 import ModernDocking.event.DockingEvent;
 import ModernDocking.ext.ui.DockingUI;
-import ModernDocking.internal.DockableWrapper;
-import ModernDocking.internal.DockedSplitPanel;
-import ModernDocking.internal.DockedTabbedPanel;
-import ModernDocking.internal.DockingPanel;
 import ModernDocking.settings.Settings;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -23,12 +19,7 @@ import java.awt.Taskbar;
 import java.awt.Window;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.lang.reflect.Field;
 import java.util.List;
-import java.util.Spliterator;
-import java.util.Spliterators;
-import java.util.function.IntConsumer;
-import java.util.stream.Stream;
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -55,6 +46,7 @@ public class MainWindow {
   private final StatusBar statusBar;
   private final Toolbar toolbar;
   private final FileTree fileTree;
+  private JComponent southComponent = null;
 
   private final KeySetBinding keySetBinding;
 
@@ -64,6 +56,7 @@ public class MainWindow {
   public UiEvent1<EditorComponent> OnActiveEditorChanged = new UiEvent1<>();
   public UiEvent1<EditorComponent> OnRequestSaveEditor = new UiEvent1<>();
   public UiEvent OnQuitRequest = new UiEvent();
+  private JSplitPane verticalSplit;
 
   {
     //setup theme before any UI components are created
@@ -96,7 +89,9 @@ public class MainWindow {
     splitPane.setOneTouchExpandable(true);
 //    splitPane.setDividerLocation(100);
     splitPane.setDividerSize(20);
-    frame.add(splitPane, BorderLayout.CENTER);
+    verticalSplit = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+    verticalSplit.setTopComponent(splitPane);
+    frame.add(verticalSplit, BorderLayout.CENTER);
 
     splitPane.setLeftComponent(fileTree.getComponent());
 
@@ -219,6 +214,12 @@ public class MainWindow {
     return result == DialogResult.CANCEL;
   }
 
+  public void setSouthPanel(JComponent component) {
+    SwingUtilities.invokeLater(() -> {
+      verticalSplit.setBottomComponent(component);
+      verticalSplit.setDividerLocation(0.8);
+    });
+  }
 
   public class EditorDockingWrapper extends JComponent implements Dockable {
     private final EditorComponent editor;

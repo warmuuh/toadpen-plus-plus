@@ -6,16 +6,13 @@ import java.awt.desktop.AboutEvent;
 import java.awt.desktop.AboutHandler;
 import java.awt.desktop.PreferencesEvent;
 import java.awt.desktop.PreferencesHandler;
-import java.awt.desktop.QuitEvent;
-import java.awt.desktop.QuitHandler;
 import java.awt.desktop.QuitResponse;
 import java.io.File;
 import wrm.toadpen.core.ui.BufferedUiEvent1;
 import wrm.toadpen.core.ui.UiEvent1;
 
 @Component
-public class OsHandler implements AboutHandler, PreferencesHandler,
-    QuitHandler {
+public class OsHandler implements AboutHandler, PreferencesHandler {
 
   public BufferedUiEvent1<File> OnOpenFile = new BufferedUiEvent1<>();
   public UiEvent1<QuitResponse> OnQuitRequest = new UiEvent1<>();
@@ -27,7 +24,7 @@ public class OsHandler implements AboutHandler, PreferencesHandler,
       desktop.setOpenFileHandler(e -> OnOpenFile.fire(e.getFiles().getFirst()));
       desktop.setAboutHandler(this);
       desktop.setPreferencesHandler(this);
-      desktop.setQuitHandler(this);
+      desktop.setQuitHandler((evt, res) -> OnQuitRequest.fire(res));
     } catch (Throwable e) {
       e.printStackTrace();
     }
@@ -45,8 +42,4 @@ public class OsHandler implements AboutHandler, PreferencesHandler,
     System.out.println("handlePreferences()");
   }
 
-  @Override
-  public void handleQuitRequestWith(QuitEvent evt, QuitResponse res) {
-    OnQuitRequest.fire(res);
-  }
 }

@@ -8,7 +8,7 @@ import java.util.function.Consumer;
  * used for "small-scope" events, not application-wide events
  */
 public class UiEvent1<T> {
-  private List<Consumer<T>> listeners = new LinkedList<>();
+  protected List<Consumer<T>> listeners = new LinkedList<>();
 
   public void addListener(Consumer<T> listener) {
     listeners.add(listener);

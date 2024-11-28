@@ -4,13 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ab0a9cf-a5e0-4009-877f-d381f46bf335" name="Changes" comment="distribution setup, native macos integration">
+    <list default="true" id="0ab0a9cf-a5e0-4009-877f-d381f46bf335" name="Changes" comment="renaming">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toadpen-core/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/behavior/StartBehavior.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/behavior/StartBehavior.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/cmd/ApplicationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/cmd/ApplicationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/BufferedUiEvent1.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/BufferedUiEvent1.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/MainWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/macos/MacosSettings.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/macos/MacosSettings.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toadpen-dist/src/bin/macos-bundle/Toadpen.app/Contents/Info.plist" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-dist/src/bin/macos-bundle/Toadpen.app/Contents/Info.plist" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toadpen-dist/src/bin/macos-bundle/Toadpen.app/Contents/Resources/Toadpen.icns" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-dist/src/bin/macos-bundle/Toadpen.app/Contents/Resources/Toadpen++.icns" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/Toolbar.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/Toolbar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/UiEvent1.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/UiEvent1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/os/OsHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/os/OsHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/resources/icons/source.md" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/resources/icons/source.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toadpen-dist/native-appbundle.sh" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-dist/native-appbundle.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,30 +54,34 @@
     <option name="flattenPackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Application.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
-    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/usr/local/workspaces/uitest/swing/toadpen/toadpen-dist/src/bin/macos&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Application.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "go.import.settings.migrated": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/usr/local/workspaces/uitest/swing/toadpen/toadpen-dist/src/bin/macos-appbundle",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/toadpen-dist/src/bin/macos-appbundle" />
       <recent name="$PROJECT_DIR$/toadpen-dist/src/bin/macos" />
       <recent name="$PROJECT_DIR$/toadpen-dist/src/bin/win" />
       <recent name="$PROJECT_DIR$/toadpen-dist/src/bin/macos-bundle/Milkman.app/Contents/Resources" />
       <recent name="$PROJECT_DIR$/toadpen-dist/src/bin/linux" />
-      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/toadpen-core/src/main/resources/icons" />
+      <recent name="$PROJECT_DIR$/toadpen-dist/src/bin" />
     </key>
   </component>
   <component name="RunManager">
@@ -115,7 +125,8 @@
       <workItem from="1732278619251" duration="2732000" />
       <workItem from="1732521423869" duration="12761000" />
       <workItem from="1732539743564" duration="10257000" />
-      <workItem from="1732704029834" duration="2175000" />
+      <workItem from="1732704029834" duration="9577000" />
+      <workItem from="1732780129220" duration="3730000" />
     </task>
     <task id="LOCAL-00001" summary="distribution setup, native macos integration">
       <option name="closed" value="true" />
@@ -125,7 +136,23 @@
       <option name="project" value="LOCAL" />
       <updated>1732544047288</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="jpackage, dirty-editor hook on exit, recent files handling">
+      <option name="closed" value="true" />
+      <created>1732706242888</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1732706242888</updated>
+    </task>
+    <task id="LOCAL-00003" summary="renaming">
+      <option name="closed" value="true" />
+      <created>1732706262443</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1732706262443</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -133,7 +160,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="distribution setup, native macos integration" />
-    <option name="LAST_COMMIT_MESSAGE" value="distribution setup, native macos integration" />
+    <MESSAGE value="jpackage, dirty-editor hook on exit, recent files handling" />
+    <MESSAGE value="renaming" />
+    <option name="LAST_COMMIT_MESSAGE" value="renaming" />
   </component>
   <component name="VgoProject">
     <integration-enabled>false</integration-enabled>
