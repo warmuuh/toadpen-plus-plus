@@ -10,21 +10,27 @@ public class MacOsNativeService implements wrm.toadpen.core.os.OsNativeService {
     NativeFileDialog dlg = new NativeFileDialog("Open File", FileDialog.LOAD);
     dlg.setCanChooseDirectories(false);
     dlg.setCanChooseFiles(true);
+    dlg.setShowsHiddenFiles(true);
 
     dlg.setCanCreateDirectories(true);
     dlg.setVisible(true);
 
+    if (dlg.getFile() == null) {
+      return null;
+    }
     return new File(dlg.getFile());
   }
 
   @Override
   public File saveFileDialog() {
     NativeFileDialog dlg = new NativeFileDialog("Save File", FileDialog.SAVE);
-    dlg.setCanChooseDirectories(false);
-    dlg.setCanChooseFiles(true);
-
     dlg.setCanCreateDirectories(true);
+    dlg.setShowsHiddenFiles(true);
     dlg.setVisible(true);
+
+    if (dlg.getFile() == null) {
+      return null;
+    }
     return new File(dlg.getFile());
   }
 

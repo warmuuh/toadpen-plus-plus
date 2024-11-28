@@ -223,9 +223,12 @@ public class MainWindow {
 
   public class EditorDockingWrapper extends JComponent implements Dockable {
     private final EditorComponent editor;
-
+    private final String persistentId;
     public EditorDockingWrapper(EditorComponent text) {
       this.editor = text;
+      this.persistentId = editor.getFile() != null
+          ? editor.getFile().getAbsolutePath()
+          : (editor.getFilename() + this.hashCode());
       setLayout(new BorderLayout());
       add(editor.getComponent(), BorderLayout.CENTER);
       Docking.registerDockable(this);
@@ -233,7 +236,7 @@ public class MainWindow {
 
     @Override
     public String getPersistentID() {
-      return editor.getFile() != null ? editor.getFile().getAbsolutePath() : editor.getFilename();
+      return persistentId;
     }
 
     @Override
