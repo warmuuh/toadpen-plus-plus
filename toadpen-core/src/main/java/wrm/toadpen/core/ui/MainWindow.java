@@ -53,8 +53,10 @@ public class MainWindow {
   private static JFrame frame;
 
   private EditorComponent activeEditor;
+  public UiEvent1<EditorComponent> OnNewEditorAdded = new UiEvent1<>();
   public UiEvent1<EditorComponent> OnActiveEditorChanged = new UiEvent1<>();
   public UiEvent1<EditorComponent> OnRequestSaveEditor = new UiEvent1<>();
+  public UiEvent1<EditorComponent> OnEditorClosed = new UiEvent1<>();
   public UiEvent OnQuitRequest = new UiEvent();
   private JSplitPane verticalSplit;
 
@@ -125,15 +127,16 @@ public class MainWindow {
     DockingUI.initialize();
     Docking.addDockingListener(evt -> {
       Dockable dockable = evt.getDockable();
-      if (dockable instanceof EditorDockingWrapper) {
+      if (dockable instanceof EditorDockingWrapper edw) {
 
         if (evt.getID() == DockingEvent.ID.DOCKED) {
-          setActiveEditor(((EditorDockingWrapper) dockable).editor);
+          setActiveEditor(edw.editor);
         }
-        boolean hasRootPane = ((EditorDockingWrapper) dockable).getRootPane() != null;
+        boolean hasRootPane = edw.getRootPane() != null;
         if (!hasRootPane && evt.getID() == DockingEvent.ID.UNDOCKED) {
           SwingUtilities.invokeLater(() -> {
             Docking.deregisterDockable(dockable);
+            OnEditorClosed.fire(edw.editor);
           });
         }
       }
@@ -167,6 +170,7 @@ public class MainWindow {
 
     RootDockingPanelAPI root = Docking.getRootPanels().get(mainWindow);
     root.dock(wrapper, DockingRegion.CENTER, 0);
+    OnNewEditorAdded.fire(editorComponent);
   }
 
   public List<EditorDockingWrapper> getAllEditors() {
@@ -214,11 +218,23 @@ public class MainWindow {
     return result == DialogResult.CANCEL;
   }
 
+
+  public boolean isSouthPanelVisible() {
+    return verticalSplit.getBottomComponent() != null;
+  }
+
   public void setSouthPanel(JComponent component) {
     SwingUtilities.invokeLater(() -> {
       verticalSplit.setBottomComponent(component);
       verticalSplit.setDividerLocation(0.8);
     });
+  }
+
+  public void closeEditor(EditorComponent editor) {
+    getAllEditors().stream()
+        .filter(edw -> edw.editor == editor)
+        .findFirst()
+        .ifPresent(Docking::undock);
   }
 
   public class EditorDockingWrapper extends JComponent implements Dockable {

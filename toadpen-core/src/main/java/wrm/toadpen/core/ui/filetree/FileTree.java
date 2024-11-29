@@ -27,8 +27,6 @@ public class FileTree {
   public void init() {
     fileSystemModel = new FileSystemModel(root);
     fileTree = new JTree(fileSystemModel);
-//    fileTree.setMinimumSize(new Dimension(50, 600));
-//    fileTree.setPreferredSize(new Dimension(200, 600));
     fileTree.setEditable(false);
 //    fileTree.addTreeSelectionListener(new TreeSelectionListener() {
 //      public void valueChanged(TreeSelectionEvent event) {
@@ -52,8 +50,7 @@ public class FileTree {
 
     scrollPane = new ScrollPane(ScrollPane.SCROLLBARS_AS_NEEDED);
     scrollPane.add(fileTree);
-    scrollPane.setMinimumSize(new Dimension(100, 600));
-    scrollPane.setPreferredSize(new Dimension(200, 600));
+    scrollPane.setPreferredSize(new Dimension(200, 200));
   }
 
 

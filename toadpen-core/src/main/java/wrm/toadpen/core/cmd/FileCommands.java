@@ -14,6 +14,7 @@ import java.nio.file.Path;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import lombok.SneakyThrows;
 import lombok.Value;
 import org.apache.commons.io.FileUtils;
@@ -31,6 +32,7 @@ import wrm.toadpen.core.ui.dialogs.SearchBox;
 import wrm.toadpen.core.ui.editor.EditorComponent;
 import wrm.toadpen.core.ui.editor.EditorFactory;
 import wrm.toadpen.core.ui.filetree.FileTree;
+import wrm.toadpen.core.watchdog.FileWatchDog;
 
 @Factory
 public class FileCommands {
@@ -66,6 +68,9 @@ public class FileCommands {
   @Inject
   SessionProperties sessionProperties;
 
+  @Inject
+  FileWatchDog fileWatchDog;
+
   @Bean
   @Named(FILE_NEW)
   CommandManager.CommandNoArg createNewFileCommand() {
@@ -95,7 +100,8 @@ public class FileCommands {
   @Bean
   @Named(FILE_RECENT)
   CommandManager.CommandNoArg recentFileCommand() {
-    return new CommandNoArg(FILE_RECENT, "Open a recent file", "/icons/recent_file.png", this::openRecentFile);
+    return new CommandNoArg(FILE_RECENT, "Open a recent file", "/icons/recent_file.png",
+        this::openRecentFile);
   }
 
   @PostConstruct
@@ -133,6 +139,7 @@ public class FileCommands {
       String text =
           IOUtils.toString(selectedFile.toURI(), Charset.defaultCharset());
       EditorComponent editor = editorFactory.createEditor(selectedFile, text);
+      fileWatchDog.watch(selectedFile, () -> triggerFileReload(editor));
       mainWindow.addNewEditor(editor);
     } else {
       EditorComponent editor = editorFactory.createEditor(selectedFile, "");
@@ -158,6 +165,7 @@ public class FileCommands {
   }
 
   private void saveFile(EditorComponent activeEditor) throws IOException {
+    fileWatchDog.pauseWatch(activeEditor.getFile(), 1000);
     File file = activeEditor.getFile();
     if (file == null) {
       file = OsNativeService.INSTANCE.saveFileDialog();
@@ -210,6 +218,41 @@ public class FileCommands {
       if (selectedFile != null) {
         openFile(new File(root, selectedFile.getPath()));
       }
+    }
+  }
+
+  public void triggerFileReload(EditorComponent editor) {
+    mainWindow.showEditorIfAlreadyOpened(editor.getFile());
+
+    if (editor.getFile() != null && editor.getFile().exists()) {
+      int value = JOptionPane.showOptionDialog(mainWindow.getFrame(),
+          "The file " + editor.getFilename() + " has changed on disk. Do you want to reload it?",
+          "File changed", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+          new String[] {"Yes", "No"}, "Yes");
+      if (value == JOptionPane.YES_OPTION) {
+        reloadFile(editor);
+      }
+    }
+    if (editor.getFile() != null && !editor.getFile().exists()) {
+      int value = JOptionPane.showOptionDialog(mainWindow.getFrame(),
+          "The file " + editor.getFilename() + " has been deleted. Do you want to close it?",
+          "File deleted", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null,
+          new String[] {"Yes", "No"}, "Yes");
+      if (value == JOptionPane.YES_OPTION) {
+        mainWindow.closeEditor(editor);
+      }
+    }
+
+
+  }
+
+  private void reloadFile(EditorComponent editor) {
+    try {
+      String text = IOUtils.toString(editor.getFile().toURI(), Charset.defaultCharset());
+      editor.getTextArea().setText(text);
+      editor.setDirtyState(false);
+    } catch (IOException e) {
+      e.printStackTrace();
     }
   }
 

@@ -73,10 +73,14 @@ public class TerminalComponent {
   }
 
   public void stopIfRunning() {
-    if (terminal != null && terminal.isSessionRunning()) {
+    if (isRunning()) {
       terminal.close();
       panel.remove(terminal);
     }
+  }
+
+  public boolean isRunning() {
+    return terminal != null && terminal.isSessionRunning();
   }
 
   public JComponent getComponent() {

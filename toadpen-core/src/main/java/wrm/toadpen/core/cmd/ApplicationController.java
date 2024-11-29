@@ -2,16 +2,19 @@ package wrm.toadpen.core.cmd;
 
 import io.avaje.inject.PostConstruct;
 import jakarta.inject.Singleton;
+import javax.swing.JOptionPane;
 import lombok.RequiredArgsConstructor;
 import wrm.toadpen.core.behavior.ShutdownBehavior;
 import wrm.toadpen.core.behavior.StartBehavior;
 import wrm.toadpen.core.ui.MainWindow;
 import wrm.toadpen.core.ui.StatusBar;
 import wrm.toadpen.core.ui.Toolbar;
+import wrm.toadpen.core.ui.editor.EditorComponent;
 import wrm.toadpen.core.ui.editor.EditorFactory;
 import wrm.toadpen.core.ui.filetree.FileTree;
 import wrm.toadpen.core.ui.menu.ApplicationMenu;
 import wrm.toadpen.core.ui.os.OsHandler;
+import wrm.toadpen.core.watchdog.FileWatchDog;
 import wrm.toadpen.term.TerminalComponent;
 
 @Singleton
@@ -24,6 +27,7 @@ public class ApplicationController {
   private final FileTree fileTree;
   private final MainWindow mainWindow;
   private final OsHandler osHandler;
+  private final FileWatchDog fileWatchDog;
 
   private final StartBehavior startBehavior;
   private final ShutdownBehavior shutdownBehavior;
@@ -45,10 +49,17 @@ public class ApplicationController {
     osHandler.OnQuitRequest.addListener(shutdownBehavior::shutdown);
 
     mainWindow.OnActiveEditorChanged.addListener(statusBar::onActiveEditorChanged);
-    mainWindow.OnRequestSaveEditor.addListener(editor -> commandManager.executeCommand(new FileCommands.SaveEditorFileCommand(editor)));
+    mainWindow.OnRequestSaveEditor.addListener(
+        editor -> commandManager.executeCommand(new FileCommands.SaveEditorFileCommand(editor)));
     mainWindow.OnQuitRequest.addListener(() -> shutdownBehavior.shutdown(null));
 
-    statusBar.OnSyntaxPanelClicked.addListener(() -> commandManager.executeCommandById(EditorCommands.EDITOR_CHOOSE_SYNTAX));
+    mainWindow.OnEditorClosed.addListener(editor -> fileWatchDog.unwatch(editor.getFile()));
+
+
+    statusBar.OnSyntaxPanelClicked.addListener(
+        () -> commandManager.executeCommandById(EditorCommands.EDITOR_CHOOSE_SYNTAX));
+
+
   }
 
   public void start() {

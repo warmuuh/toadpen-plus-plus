@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.util.Map;
 import javax.swing.KeyStroke;
 import org.jspecify.annotations.Nullable;
+import wrm.toadpen.core.cmd.ApplicationCommands;
 import wrm.toadpen.core.cmd.EditorCommands;
 import wrm.toadpen.core.cmd.FileCommands;
 
@@ -17,7 +18,8 @@ public class KeySet {
       FileCommands.FILE_OPEN, ks(KeyEvent.VK_O, Modifier.CTRL),
       FileCommands.FILE_SAVE, ks(KeyEvent.VK_S, Modifier.CTRL),
       FileCommands.FILE_FIND, ks(KeyEvent.VK_R, Modifier.CTRL | Modifier.SHIFT),
-      EditorCommands.EDITOR_SEARCH, ks(KeyEvent.VK_F, Modifier.CTRL)
+      EditorCommands.EDITOR_SEARCH, ks(KeyEvent.VK_F, Modifier.CTRL),
+      ApplicationCommands.APPLICATION_TOGGLE_TERMINAL, ks(KeyEvent.VK_T, Modifier.CTRL)
   );
 
   public @Nullable KeyStroke getKeystrokeForCommand(String command) {
