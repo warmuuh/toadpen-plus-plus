@@ -9,13 +9,10 @@ import com.pty4j.PtyProcessBuilder;
 import io.avaje.inject.Component;
 import io.avaje.inject.PostConstruct;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
-import javafx.application.Platform;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
-import javax.swing.UIManager;
 import lombok.SneakyThrows;
 import wrm.toadpen.core.util.PlatformUtil;
 
