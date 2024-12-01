@@ -22,11 +22,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>io.methvin</groupId>
-            <artifactId>directory-watcher</artifactId>
-            <version>0.18.0</version>
-        </dependency>
-        <dependency>
             <groupId>org.jetbrains.jediterm</groupId>
             <artifactId>jediterm-ui</artifactId>
             <version>3.47</version>
