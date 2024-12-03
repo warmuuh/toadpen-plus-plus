@@ -1,7 +1,6 @@
 package wrm.toadpen.core.behavior;
 
 import io.avaje.inject.External;
-import io.avaje.inject.events.Event;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import java.io.File;
@@ -9,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import wrm.toadpen.core.CommandlineArgs;
 import wrm.toadpen.core.cmd.CommandManager;
 import wrm.toadpen.core.cmd.FileCommands;
+import wrm.toadpen.core.model.ApplicationModel;
 import wrm.toadpen.core.os.OsNativeService;
 
 @Singleton
@@ -26,7 +26,7 @@ public class StartBehavior {
   CommandManager commandManager;
 
   @Inject
-  Event<ApplicationStartedEvent> onApplicationStarted;
+  ApplicationModel applicationModel;
 
   public void initialize() {
     if (commandlineArgs.getFile() != null) {
@@ -37,14 +37,13 @@ public class StartBehavior {
 
   public void initialize(File file) {
     if (file.isDirectory()) {
-      onApplicationStarted.fire(
-          new ApplicationStartedEvent(null, file));
+      applicationModel.setProjectDirectory(file);
     } else {
+      applicationModel.setProjectDirectory(file.getParentFile());
       CommandManager.Command command =
           new FileCommands.OpenFileCommand(file);
       commandManager.executeCommand(command);
-      onApplicationStarted.fire(
-          new ApplicationStartedEvent(file, null));
     }
+
   }
 }

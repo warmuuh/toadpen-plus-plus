@@ -60,18 +60,22 @@ public class FileWatchDog {
 
   private void onFileChangeEvent(File file, FileEventType eventType) {
     cleanupPausedFiles();
+
+    //is this file paused?
     if (pausedFiles.containsKey(file)) {
       return;
     }
-
-    String newHash = file.exists() ? FileHasher.hashFile(file) : "";
-    if (newHash.equals(fileHashes.get(file))) {
-      return;
-    }
-    fileHashes.put(file, newHash);
-
+    // do we have a listener for this file?
     List<Runnable> listeners = changeListeners.get(file);
     if (listeners != null) {
+
+      //did the hash of the file change?
+      String newHash = file.exists() ? FileHasher.hashFile(file) : "";
+      if (newHash.equals(fileHashes.get(file))) {
+        return;
+      }
+      fileHashes.put(file, newHash);
+
       for (Runnable listener : listeners) {
         listener.run();
       }

@@ -2,20 +2,18 @@ package wrm.toadpen.core.cmd;
 
 import io.avaje.inject.PostConstruct;
 import jakarta.inject.Singleton;
-import javax.swing.JOptionPane;
 import lombok.RequiredArgsConstructor;
 import wrm.toadpen.core.behavior.ShutdownBehavior;
 import wrm.toadpen.core.behavior.StartBehavior;
+import wrm.toadpen.core.model.ApplicationModel;
 import wrm.toadpen.core.ui.MainWindow;
 import wrm.toadpen.core.ui.StatusBar;
 import wrm.toadpen.core.ui.Toolbar;
-import wrm.toadpen.core.ui.editor.EditorComponent;
 import wrm.toadpen.core.ui.editor.EditorFactory;
 import wrm.toadpen.core.ui.filetree.FileTree;
 import wrm.toadpen.core.ui.menu.ApplicationMenu;
 import wrm.toadpen.core.ui.os.OsHandler;
 import wrm.toadpen.core.watchdog.FileWatchDog;
-import wrm.toadpen.term.TerminalComponent;
 
 @Singleton
 @RequiredArgsConstructor
@@ -33,6 +31,8 @@ public class ApplicationController {
   private final ShutdownBehavior shutdownBehavior;
 
   private final CommandManager commandManager;
+
+  private final ApplicationModel applicationModel;
 
 
   private final EditorFactory editorFactory;
@@ -59,6 +59,8 @@ public class ApplicationController {
     statusBar.OnSyntaxPanelClicked.addListener(
         () -> commandManager.executeCommandById(EditorCommands.EDITOR_CHOOSE_SYNTAX));
 
+
+    applicationModel.OnProjectDirectoryChanged.addListener(fileTree::setRoot);
 
   }
 

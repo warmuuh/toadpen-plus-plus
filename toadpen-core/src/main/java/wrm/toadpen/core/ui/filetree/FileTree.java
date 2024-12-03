@@ -1,7 +1,6 @@
 package wrm.toadpen.core.ui.filetree;
 
 import io.avaje.inject.PostConstruct;
-import io.avaje.inject.events.Observes;
 import jakarta.inject.Singleton;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -10,7 +9,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import javax.swing.JTree;
-import wrm.toadpen.core.behavior.ApplicationStartedEvent;
 import wrm.toadpen.core.ui.UiEvent1;
 
 @Singleton
@@ -53,22 +51,20 @@ public class FileTree {
     scrollPane.setPreferredSize(new Dimension(200, 200));
   }
 
-
-  public void onApplicationStarted(@Observes ApplicationStartedEvent event) {
-    if (event.initialDirectory() != null) {
-      root = event.initialDirectory();
-    } else if (event.initialFile() != null) {
-      root = event.initialFile().getParentFile();
-    }
-    fileTree.setModel(new FileSystemModel(root));
-  }
-
   public Component getComponent() {
     return scrollPane;
   }
 
   public File getRoot() {
     return root;
+  }
+
+  public void setRoot(File f) {
+    if (f == null) {
+        return;
+    }
+    root = f;
+    fileTree.setModel(new FileSystemModel(root));
   }
 }
  
