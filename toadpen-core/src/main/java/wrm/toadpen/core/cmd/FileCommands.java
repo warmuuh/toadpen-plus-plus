@@ -15,6 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.Value;
 import org.apache.commons.io.FileUtils;
@@ -44,8 +45,17 @@ public class FileCommands {
   public static final String FILE_RECENT = "file.recent";
 
   @Value
+  @AllArgsConstructor
   public static class OpenFileCommand implements Command {
     File file;
+    int line;
+    int column;
+
+    public OpenFileCommand(File file) {
+      this.file = file;
+      this.line = 1;
+      this.column = 1;
+    }
   }
 
   @Value
@@ -116,7 +126,7 @@ public class FileCommands {
   }
 
   private void openFileCommand(OpenFileCommand cmd) {
-    openFile(cmd.getFile());
+    openFile(cmd.getFile(), cmd.getLine(), cmd.getColumn());
   }
 
   @SneakyThrows
@@ -125,20 +135,23 @@ public class FileCommands {
     if (file == null) {
       return;
     }
-    openFile(file);
+    openFile(file, 1, 1);
     OsNativeService.INSTANCE.noteNewRecentDocumentURL(file);
   }
 
   @SneakyThrows
-  private void openFile(File selectedFile) {
+  private void openFile(File selectedFile, int line, int column) {
     sessionProperties.addRecentFile(selectedFile);
     if (selectedFile.exists()) {
-      if (mainWindow.showEditorIfAlreadyOpened(selectedFile)) {
+      EditorComponent editorComponent = mainWindow.showEditorIfAlreadyOpened(selectedFile);
+      if (editorComponent != null) {
+        editorComponent.goToLine(line, column);
         return;
       }
       String text =
           IOUtils.toString(selectedFile.toURI(), Charset.defaultCharset());
       EditorComponent editor = editorFactory.createEditor(selectedFile, text);
+      editor.goToLine(line, column);
       fileWatchDog.watch(selectedFile, () -> triggerFileReload(editor));
       mainWindow.addNewEditor(editor);
     } else {
@@ -197,7 +210,7 @@ public class FileCommands {
           new SearchBox<>("Find File...", files);
       File selectedFile = searchBox.showDialog();
       if (selectedFile != null) {
-        openFile(new File(root, selectedFile.getPath()));
+        openFile(new File(root, selectedFile.getPath()), 1, 1);
       }
     }
   }
@@ -216,7 +229,7 @@ public class FileCommands {
           new SearchBox<>("Open Recent File...", files);
       File selectedFile = searchBox.showDialog();
       if (selectedFile != null) {
-        openFile(new File(root, selectedFile.getPath()));
+        openFile(new File(root, selectedFile.getPath()), 1, 1);
       }
     }
   }

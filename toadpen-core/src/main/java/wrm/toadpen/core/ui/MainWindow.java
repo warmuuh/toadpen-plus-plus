@@ -181,7 +181,7 @@ public class MainWindow {
         .toList();
   }
 
-  public boolean showEditorIfAlreadyOpened(File file) {
+  public @Nullable EditorComponent showEditorIfAlreadyOpened(File file) {
     Window mainWindow = Docking.getMainWindow();
     RootDockingPanelAPI root = Docking.getRootPanels().get(mainWindow);
     for (EditorDockingWrapper dockable : getAllEditors()) {
@@ -189,10 +189,10 @@ public class MainWindow {
         if (editor.getFile() != null && editor.getFile().equals(file)) {
           Docking.bringToFront(dockable);
           dockable.grabFocus();
-          return true;
+          return editor;
         }
     }
-    return false;
+    return null;
   }
 
   public @Nullable EditorComponent getActiveEditor() {

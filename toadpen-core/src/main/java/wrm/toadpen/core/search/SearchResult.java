@@ -7,5 +7,10 @@ import lombok.Value;
 public class SearchResult {
   File file;
   int line;
-  String context;
+  int column;
+  String lineContent;
+
+  public String toString() {
+    return file.getName() + " : " + line;
+  }
 }

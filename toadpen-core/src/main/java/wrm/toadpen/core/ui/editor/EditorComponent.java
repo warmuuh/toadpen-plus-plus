@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
+import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultEditorKit;
 import lombok.SneakyThrows;
 import org.fife.rsta.ui.CollapsibleSectionPanel;
@@ -197,5 +198,13 @@ public class EditorComponent {
 
   public String getSyntax() {
     return textArea.getSyntaxEditingStyle();
+  }
+
+  public void goToLine(int line, int column) {
+    try {
+      textArea.setCaretPosition(textArea.getLineStartOffset(line - 1) + column - 1);
+    } catch (BadLocationException e) {
+      // ignore
+    }
   }
 }

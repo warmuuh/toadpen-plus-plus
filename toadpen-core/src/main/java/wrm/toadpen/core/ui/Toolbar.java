@@ -49,6 +49,7 @@ public class Toolbar {
     addCommandButton(EditorCommands.EDITOR_CHOOSE_SYNTAX);
     toolBar.addSeparator();
     addCommandButton(ApplicationCommands.APPLICATION_TOGGLE_TERMINAL);
+    addCommandButton(ApplicationCommands.APPLICATION_SEARCH_EVERYWHERE);
 
     return toolBar;
   }
