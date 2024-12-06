@@ -4,15 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ab0a9cf-a5e0-4009-877f-d381f46bf335" name="Changes" comment="towards shared application model">
+    <list default="true" id="0ab0a9cf-a5e0-4009-877f-d381f46bf335" name="Changes" comment="simple search everywhere logic">
+      <change afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/search/SimpleSearchService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/cmd/ApplicationCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/cmd/ApplicationCommands.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/cmd/FileCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/cmd/FileCommands.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/search/SearchResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/search/SearchResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/search/SearchService.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/search/SimpleSearchService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/MainWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/Toolbar.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/Toolbar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/editor/EditorComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/editor/EditorComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/editor/MultiCaret.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/editor/MultiCaret.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +49,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.Application (dir).executor": "Run",
+    "Application.Application (dir).executor": "Debug",
     "Application.Application.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.go.formatter.settings.were.checked": "true",
@@ -90,7 +85,7 @@
     <configuration name="Application (dir)" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="wrm.toadpen.core.Application" />
       <module name="toadpen-core" />
-      <option name="PROGRAM_PARAMETERS" value="$PROJECT_DIR$" />
+      <option name="PROGRAM_PARAMETERS" value="$PROJECT_DIR$/test.txt" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="wrm.toadpen.core.*" />
@@ -149,7 +144,9 @@
       <workItem from="1732802285122" duration="13725000" />
       <workItem from="1733135552553" duration="2585000" />
       <workItem from="1733230690049" duration="712000" />
-      <workItem from="1733231575542" duration="7057000" />
+      <workItem from="1733231575542" duration="7281000" />
+      <workItem from="1733386705027" duration="3344000" />
+      <workItem from="1733399351441" duration="17994000" />
     </task>
     <task id="LOCAL-00001" summary="distribution setup, native macos integration">
       <option name="closed" value="true" />
@@ -223,7 +220,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733231393945</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="simple search everywhere logic">
+      <option name="closed" value="true" />
+      <created>1733324485472</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1733324485472</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -239,7 +244,8 @@
     <MESSAGE value="cleanup" />
     <MESSAGE value="implemented custom watchdog" />
     <MESSAGE value="towards shared application model" />
-    <option name="LAST_COMMIT_MESSAGE" value="towards shared application model" />
+    <MESSAGE value="simple search everywhere logic" />
+    <option name="LAST_COMMIT_MESSAGE" value="simple search everywhere logic" />
   </component>
   <component name="VgoProject">
     <integration-enabled>false</integration-enabled>
@@ -248,11 +254,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/watchdog/FileWatchDog.java</url>
-          <line>26</line>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>jar://$USER_HOME$/.sdkman/candidates/java/21.0.2.fx-librca/lib/src.zip!/java.base/sun/nio/fs/UTIFileTypeDetector.java</url>
           <line>43</line>

