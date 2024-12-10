@@ -11,6 +11,7 @@ import java.util.TreeSet;
 import javax.swing.SwingUtilities;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.text.AbstractDocument;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Caret;
 import javax.swing.text.DefaultCaret;
@@ -126,6 +127,8 @@ class MultiCaret extends DefaultCaret implements DocumentListener {
 
     @Override
     public void insertUpdate(DocumentEvent e) {
+        boolean isInUndoRedo = !(e instanceof AbstractDocument.DefaultDocumentEvent);
+
         if (syncingSecondaryCarets) {
             return;
         }
@@ -133,23 +136,31 @@ class MultiCaret extends DefaultCaret implements DocumentListener {
         syncingSecondaryCarets = true;
         try {
             String inserted = e.getDocument().getText(e.getOffset(), e.getLength());
-            SwingUtilities.invokeLater(() -> {
+            //TODO maybe do it insync if isUndoRedo because a) no content change and b) lots of changes will be done in sequence
+            Runnable  update = () -> {
                 int nrCaret = (-1 * (int) additionalDotOffsets.stream().filter(c -> c.getDot() < getDot()).count())-1;
                 for (SecondaryCaret caret : additionalDotOffsets) {
                     nrCaret++;
                     if (nrCaret == 0) {
                         nrCaret++;
                     }
-                  try {
-                    int insertionOffset = nrCaret < 0 ? -e.getLength() : 0;
-                    e.getDocument().insertString(caret.getDot() + insertionOffset, inserted, null);
-                    caret.setOffset(caret.getOffset() + e.getLength() * nrCaret);
-                  } catch (BadLocationException ex) {
-                    throw new RuntimeException(ex);
-                  }
+                    try {
+                        int insertionOffset = nrCaret < 0 ? -e.getLength() : 0;
+                        if (!isInUndoRedo) {
+                            e.getDocument().insertString(caret.getDot() + insertionOffset, inserted, null);
+                        }
+                        caret.setOffset(caret.getOffset() + e.getLength() * nrCaret);
+                    } catch (BadLocationException ex) {
+                        throw new RuntimeException(ex);
+                    }
                 }
                 syncingSecondaryCarets = false;
-            });
+            };
+            if (isInUndoRedo) {
+                update.run();
+            } else {
+                SwingUtilities.invokeLater(update);
+            }
         } catch (BadLocationException ex) {
             throw new RuntimeException(ex);
         }
@@ -157,12 +168,14 @@ class MultiCaret extends DefaultCaret implements DocumentListener {
 
     @Override
     public void removeUpdate(DocumentEvent e) {
-        System.out.println("removeUpdate:" + e.getLength());
+        boolean isInUndoRedo = !(e instanceof AbstractDocument.DefaultDocumentEvent);
+
         if (syncingSecondaryCarets) {
             return;
         }
         syncingSecondaryCarets = true;
-        SwingUtilities.invokeLater(() -> {
+
+        Runnable update = () -> {
             int nrCaret = (-1 * (int) additionalDotOffsets.stream().filter(c -> c.getDot() < getDot()).count())-1;
             for (SecondaryCaret caret : additionalDotOffsets) {
                 nrCaret++;
@@ -171,10 +184,14 @@ class MultiCaret extends DefaultCaret implements DocumentListener {
                 }
                 try {
                     if (nrCaret < 0) {
-                        e.getDocument().remove(caret.getDot(), e.getLength());
+                        if (!isInUndoRedo) {
+                            e.getDocument().remove(caret.getDot(), e.getLength());
+                        }
                         caret.setOffset(caret.getOffset() - e.getLength() * (nrCaret));
                     } else {
-                        e.getDocument().remove(caret.getDot()-(e.getLength() * nrCaret), e.getLength());
+                        if (!isInUndoRedo) {
+                            e.getDocument().remove(caret.getDot()-(e.getLength() * nrCaret), e.getLength());
+                        }
                         caret.setOffset(caret.getOffset() - e.getLength() * nrCaret);
                     }
                 } catch (BadLocationException ex) {
@@ -182,7 +199,12 @@ class MultiCaret extends DefaultCaret implements DocumentListener {
                 }
             }
             syncingSecondaryCarets = false;
-        });
+        };
+        if (isInUndoRedo) {
+            update.run();
+        } else {
+            SwingUtilities.invokeLater(update);
+        }
     }
 
     @Override

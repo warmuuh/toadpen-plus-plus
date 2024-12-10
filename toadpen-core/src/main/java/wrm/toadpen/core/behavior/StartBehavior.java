@@ -32,6 +32,8 @@ public class StartBehavior {
     if (commandlineArgs.getFile() != null) {
       initialize(commandlineArgs.getFile());
       OsNativeService.INSTANCE.noteNewRecentDocumentURL(commandlineArgs.getFile());
+    } else {
+      commandManager.executeCommandById(FileCommands.FILE_NEW);
     }
   }
 

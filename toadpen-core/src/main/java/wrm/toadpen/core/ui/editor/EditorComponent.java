@@ -176,7 +176,17 @@ public class EditorComponent {
   }
 
   public void replaceSelectedText(String newText) {
+    int dot = textArea.getCaret().getDot();
+    int mark = textArea.getCaret().getMark();
+
     textArea.replaceSelection(newText);
+    //recrete selection
+    if (dot < mark) { //selection is forwards
+      //TODO textArea.select can only select forward, so i think, we need to manipulate the caret directly
+      textArea.select(dot, dot + newText.length());
+    } else { // selection is backwards
+      textArea.select(dot - newText.length(), dot);
+    }
   }
 
   public List<String> getSupportedSyntaxes() {

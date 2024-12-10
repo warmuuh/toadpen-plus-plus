@@ -43,7 +43,8 @@ public class ApplicationMenu {
   }
 
   private static String getSegmentName(String segment) {
-    return segment.substring(0, 1).toUpperCase() + segment.substring(1);
+    //transform segment to start with upper case and have a space between words
+    return segment.substring(0, 1).toUpperCase() + segment.substring(1).replaceAll("([A-Z])", " $1");
   }
 
   private JMenu findOrCreateSubMenu(JMenu mb, String segment) {
