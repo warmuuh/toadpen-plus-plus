@@ -18,8 +18,10 @@ public class KeySet {
       FileCommands.FILE_OPEN, ks(KeyEvent.VK_O, Modifier.CTRL),
       FileCommands.FILE_SAVE, ks(KeyEvent.VK_S, Modifier.CTRL),
       FileCommands.FILE_FIND, ks(KeyEvent.VK_R, Modifier.CTRL | Modifier.SHIFT),
+      FileCommands.FILE_RECENT, ks(KeyEvent.VK_E, Modifier.CTRL),
       EditorCommands.EDITOR_SEARCH, ks(KeyEvent.VK_F, Modifier.CTRL),
-      ApplicationCommands.APPLICATION_TOGGLE_TERMINAL, ks(KeyEvent.VK_T, Modifier.CTRL)
+      ApplicationCommands.APPLICATION_TOGGLE_TERMINAL, ks(KeyEvent.VK_T, Modifier.CTRL),
+      ApplicationCommands.APPLICATION_SEARCH_EVERYWHERE, ks(KeyEvent.VK_H, Modifier.CTRL| Modifier.SHIFT)
   );
 
   public @Nullable KeyStroke getKeystrokeForCommand(String command) {

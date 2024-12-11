@@ -15,6 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.Value;
@@ -145,13 +146,13 @@ public class FileCommands {
     if (selectedFile.exists()) {
       EditorComponent editorComponent = mainWindow.showEditorIfAlreadyOpened(selectedFile);
       if (editorComponent != null) {
-        editorComponent.goToLine(line, column);
+        SwingUtilities.invokeLater(() -> editorComponent.goToLine(line, column));
         return;
       }
       String text =
           IOUtils.toString(selectedFile.toURI(), Charset.defaultCharset());
       EditorComponent editor = editorFactory.createEditor(selectedFile, text);
-      editor.goToLine(line, column);
+      SwingUtilities.invokeLater(() -> editor.goToLine(line, column));
       fileWatchDog.watch(selectedFile, () -> triggerFileReload(editor));
       mainWindow.addNewEditor(editor);
     } else {

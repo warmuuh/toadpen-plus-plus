@@ -1,6 +1,7 @@
 package wrm.toadpen.core.ui.editor;
 
 import com.jthemedetecor.OsThemeDetector;
+import java.awt.Rectangle;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -17,6 +18,7 @@ import lombok.SneakyThrows;
 import org.fife.rsta.ui.CollapsibleSectionPanel;
 import org.fife.rsta.ui.search.FindToolBar;
 import org.fife.ui.rsyntaxtextarea.FileTypeUtil;
+import org.fife.ui.rsyntaxtextarea.RSyntaxDocument;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rsyntaxtextarea.Theme;
@@ -51,6 +53,7 @@ public class EditorComponent {
   private EditorComponent(File file, RSyntaxTextArea textArea) {
     this.file = file;
     this.textArea = textArea;
+    this.textArea.discardAllEdits(); // clear undo history
     this.textArea.setSyntaxEditingStyle(FileTypeUtil.get().guessContentType(file));
     this.textArea.setCodeFoldingEnabled(true);
     this.textArea.setMarkOccurrences(true);
@@ -212,9 +215,22 @@ public class EditorComponent {
 
   public void goToLine(int line, int column) {
     try {
-      textArea.setCaretPosition(textArea.getLineStartOffset(line - 1) + column - 1);
+      int caretPos = textArea.getLineStartOffset(line - 1) + column - 1;
+      textArea.setCaretPosition(caretPos);
+      scrollTo(caretPos);
     } catch (BadLocationException e) {
       // ignore
     }
+  }
+
+  private void scrollTo(int pos) throws BadLocationException {
+    Rectangle aRect = textArea.modelToView(pos);
+    if (aRect != null) {
+      textArea.scrollRectToVisible(aRect);
+    }
+  }
+
+  public void setEditable(boolean editable) {
+    textArea.setEditable(editable);
   }
 }

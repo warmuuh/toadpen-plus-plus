@@ -13,6 +13,7 @@ import java.awt.Dialog;
 import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 import java.util.List;
 import javax.swing.AbstractAction;
@@ -53,6 +54,14 @@ public class SearchBox<T> {
 
     this.listField = new JList<>(listModel);
     listField.setSelectedIndex(0);
+    //double click listener
+    listField.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        if (evt.getButton() == MouseEvent.BUTTON1 && evt.getClickCount() == 2) {
+          selectItemAndClose();
+        }
+      }
+    });
 
     ScrollPane scrollPane = new ScrollPane();
     scrollPane.add(listField);
@@ -95,13 +104,17 @@ public class SearchBox<T> {
     );
     inputField.getActionMap().put("searchbox.confirm", new AbstractAction() {
           public void actionPerformed(ActionEvent event) {
-            chosenItem = listField.getSelectedValue();
-            dialog.dispatchEvent(new WindowEvent(
-                dialog, WindowEvent.WINDOW_CLOSING
-            ));
+            selectItemAndClose();
           }
         }
     );
+  }
+
+  private void selectItemAndClose() {
+    chosenItem = listField.getSelectedValue();
+    dialog.dispatchEvent(new WindowEvent(
+        dialog, WindowEvent.WINDOW_CLOSING
+    ));
   }
 
   private void setupEscapeKey() {

@@ -11,6 +11,7 @@ import wrm.toadpen.core.search.SearchResult;
 import wrm.toadpen.core.search.SearchService;
 import wrm.toadpen.core.search.ui.SearchResultDialog;
 import wrm.toadpen.core.ui.MainWindow;
+import wrm.toadpen.core.ui.editor.EditorFactory;
 import wrm.toadpen.core.ui.filetree.FileTree;
 import wrm.toadpen.core.watchdog.FileWatchDog;
 import wrm.toadpen.term.TerminalComponent;
@@ -37,6 +38,9 @@ public class ApplicationCommands {
   @Inject
   CommandManager commandManager;
 
+  @Inject
+  EditorFactory editorFactory;
+
   @Bean
   @Named(APPLICATION_TOGGLE_TERMINAL)
   CommandManager.CommandNoArg triggerOpenTerminalCommand() {
@@ -56,7 +60,7 @@ public class ApplicationCommands {
       File projectDirectory = model.getProjectDirectory();
       List<SearchResult> search = searchService.search(projectDirectory, term);
       return search;
-    }).showDialog();
+    }, editorFactory).showDialog();
 
     if (result != null) {
       commandManager.executeCommand(new FileCommands.OpenFileCommand(result.getFile(), result.getLine(), result.getColumn()));
