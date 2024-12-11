@@ -21,7 +21,8 @@ public class KeySet {
       FileCommands.FILE_RECENT, ks(KeyEvent.VK_E, Modifier.CTRL),
       EditorCommands.EDITOR_SEARCH, ks(KeyEvent.VK_F, Modifier.CTRL),
       ApplicationCommands.APPLICATION_TOGGLE_TERMINAL, ks(KeyEvent.VK_T, Modifier.CTRL | Modifier.SHIFT),
-      ApplicationCommands.APPLICATION_SEARCH_EVERYWHERE, ks(KeyEvent.VK_H, Modifier.CTRL | Modifier.SHIFT)
+      ApplicationCommands.APPLICATION_SEARCH_EVERYWHERE, ks(KeyEvent.VK_H, Modifier.CTRL | Modifier.SHIFT),
+      ApplicationCommands.APPLICATION_SEARCH_COMMAND, ks(KeyEvent.VK_3, Modifier.CTRL)
   );
 
   public @Nullable KeyStroke getKeystrokeForCommand(String command) {

@@ -4,13 +4,21 @@ import io.avaje.inject.Bean;
 import io.avaje.inject.Factory;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
+import java.awt.Image;
 import java.io.File;
 import java.util.List;
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import wrm.toadpen.core.cmd.CommandManager.CommandNoArg;
 import wrm.toadpen.core.model.ApplicationModel;
 import wrm.toadpen.core.search.SearchResult;
 import wrm.toadpen.core.search.SearchService;
 import wrm.toadpen.core.search.ui.SearchResultDialog;
 import wrm.toadpen.core.ui.MainWindow;
+import wrm.toadpen.core.ui.dialogs.SearchBox;
 import wrm.toadpen.core.ui.editor.EditorFactory;
 import wrm.toadpen.core.ui.filetree.FileTree;
 import wrm.toadpen.core.watchdog.FileWatchDog;
@@ -21,6 +29,7 @@ public class ApplicationCommands {
 
   public static final String APPLICATION_TOGGLE_TERMINAL = "application.toggleTerminal";
   public static final String APPLICATION_SEARCH_EVERYWHERE = "application.searchEverywhere";
+  public static final String APPLICATION_SEARCH_COMMAND = "application.searchCommand";
 
   @Inject
   MainWindow mainWindow;
@@ -43,16 +52,24 @@ public class ApplicationCommands {
 
   @Bean
   @Named(APPLICATION_TOGGLE_TERMINAL)
-  CommandManager.CommandNoArg triggerOpenTerminalCommand() {
-    return new CommandManager.CommandNoArg(APPLICATION_TOGGLE_TERMINAL,
+  CommandNoArg triggerOpenTerminalCommand() {
+    return new CommandNoArg(APPLICATION_TOGGLE_TERMINAL,
         "Toggle Terminal in current directory", "/icons/term.png", this::triggerToggleConsole);
   }
 
   @Bean
   @Named(APPLICATION_SEARCH_EVERYWHERE)
-  CommandManager.CommandNoArg triggerSearchEverywhereCommand() {
-      return new CommandManager.CommandNoArg(APPLICATION_SEARCH_EVERYWHERE,
+  CommandNoArg triggerSearchEverywhereCommand() {
+      return new CommandNoArg(APPLICATION_SEARCH_EVERYWHERE,
               "Search Everywhere", "/icons/search.png", this::triggerSearchEverywhere);
+  }
+
+
+  @Bean
+  @Named(APPLICATION_SEARCH_COMMAND)
+  CommandNoArg triggerSearchCommandCommand() {
+    return new CommandNoArg(APPLICATION_SEARCH_COMMAND,
+        "Search Command", "/icons/cog-search.png", this::triggerSearchCommand);
   }
 
   private void triggerSearchEverywhere() {
@@ -67,6 +84,26 @@ public class ApplicationCommands {
     }
   }
 
+  private void triggerSearchCommand() {
+    SearchBox<CommandNoArg> searchBox =
+        new SearchBox<>("Select Command...", commandManager.getAllNoArgsCommands());
+    searchBox.setItemToStringFn(CommandNoArg::description);
+    searchBox.setRenderItemFn((parent, command) -> {
+      ImageIcon icon = null;
+      try{
+        Image img = ImageIO.read(getClass().getResource(command.icon()));
+        img = img.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+        icon = new ImageIcon(img);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+      parent.add(new JLabel(command.description(), icon, JLabel.LEADING));
+    });
+    CommandNoArg selectedCommand = searchBox.showDialog();
+    if (selectedCommand != null) {
+        commandManager.executeCommand(selectedCommand);
+    }
+  }
 
   void triggerToggleConsole() {
     if (!mainWindow.isSouthPanelVisible()) {

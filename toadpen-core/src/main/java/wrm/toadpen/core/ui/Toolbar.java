@@ -50,6 +50,7 @@ public class Toolbar {
     toolBar.addSeparator();
     addCommandButton(ApplicationCommands.APPLICATION_TOGGLE_TERMINAL);
     addCommandButton(ApplicationCommands.APPLICATION_SEARCH_EVERYWHERE);
+    addCommandButton(ApplicationCommands.APPLICATION_SEARCH_COMMAND);
 
     return toolBar;
   }

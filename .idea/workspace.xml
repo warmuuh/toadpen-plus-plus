@@ -6,7 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="0ab0a9cf-a5e0-4009-877f-d381f46bf335" name="Changes" comment="better search everywhere">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/cmd/ApplicationCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/cmd/ApplicationCommands.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/key/KeySet.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/key/KeySet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/Toolbar.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/Toolbar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/dialogs/SearchBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/dialogs/SearchBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/resources/icons/source.md" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/resources/icons/source.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -148,7 +152,7 @@
       <workItem from="1733399351441" duration="18947000" />
       <workItem from="1733823187088" duration="498000" />
       <workItem from="1733824002788" duration="8199000" />
-      <workItem from="1733905409841" duration="5933000" />
+      <workItem from="1733905409841" duration="8750000" />
     </task>
     <task id="LOCAL-00001" summary="distribution setup, native macos integration">
       <option name="closed" value="true" />
@@ -254,7 +258,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733911355403</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="better search everywhere">
+      <option name="closed" value="true" />
+      <created>1733911381048</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1733911381048</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
