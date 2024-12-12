@@ -12,6 +12,7 @@ public class Application {
 
     BeanScope beanscope = BeanScope.builder()
         .bean(CommandlineArgs.class, CommandlineArgs.of(args))
+        .shutdownHook(true)
         .build();
 
     beanscope.get(ApplicationController.class).start();

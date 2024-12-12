@@ -8,9 +8,7 @@ import java.awt.Image;
 import java.io.File;
 import java.util.List;
 import javax.imageio.ImageIO;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import wrm.toadpen.core.cmd.CommandManager.CommandNoArg;
 import wrm.toadpen.core.model.ApplicationModel;
@@ -21,7 +19,7 @@ import wrm.toadpen.core.ui.MainWindow;
 import wrm.toadpen.core.ui.dialogs.SearchBox;
 import wrm.toadpen.core.ui.editor.EditorFactory;
 import wrm.toadpen.core.ui.filetree.FileTree;
-import wrm.toadpen.core.watchdog.FileWatchDog;
+import wrm.toadpen.core.ui.options.OptionsDialog;
 import wrm.toadpen.term.TerminalComponent;
 
 @Factory
@@ -30,6 +28,7 @@ public class ApplicationCommands {
   public static final String APPLICATION_TOGGLE_TERMINAL = "application.toggleTerminal";
   public static final String APPLICATION_SEARCH_EVERYWHERE = "application.searchEverywhere";
   public static final String APPLICATION_SEARCH_COMMAND = "application.searchCommand";
+  public static final String APPLICATION_SHOW_SETTINGS = "application.showSettings";
   public static final String APPLICATION_QUIT = "application.quit";
 
   @Inject
@@ -50,6 +49,10 @@ public class ApplicationCommands {
 
   @Inject
   EditorFactory editorFactory;
+
+  @Inject
+  OptionsDialog optionsDialog;
+
 
   @Bean
   @Named(APPLICATION_TOGGLE_TERMINAL)
@@ -79,6 +82,17 @@ public class ApplicationCommands {
   CommandNoArg quitApplicationCommand() {
     return new CommandNoArg(APPLICATION_QUIT,
         "Quit", null, this::quitApplication);
+  }
+
+  @Bean
+  @Named(APPLICATION_SHOW_SETTINGS)
+  CommandNoArg showSettingsCommand() {
+    return new CommandNoArg(APPLICATION_SHOW_SETTINGS,
+        "Settings", null, this::showSettings);
+  }
+
+  private void showSettings() {
+    optionsDialog.show();
   }
 
 

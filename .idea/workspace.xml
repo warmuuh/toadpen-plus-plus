@@ -4,9 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ab0a9cf-a5e0-4009-877f-d381f46bf335" name="Changes" comment="lookup command">
+    <list default="true" id="0ab0a9cf-a5e0-4009-877f-d381f46bf335" name="Changes" comment="extended application menu">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toadpen-core/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/Application.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/cmd/ApplicationCommands.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/cmd/ApplicationCommands.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/storage/Storage.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/storage/Storage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/storage/StorageManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/storage/StorageManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/editor/EditorFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/editor/EditorFactory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/menu/ApplicationMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/menu/ApplicationMenu.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -47,25 +54,28 @@
     <option name="flattenPackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Application (dir).executor&quot;: &quot;Run&quot;,
-    &quot;Application.Application.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
-    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/usr/local/workspaces/uitest/swing/toadpen/toadpen-dist/src/bin/macos-appbundle&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Application (dir).executor": "Run",
+    "Application.Application.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "go.import.settings.migrated": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/usr/local/workspaces/uitest/swing/toadpen/toadpen-dist/src/bin/macos-appbundle",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="wrm.toadpen.core.ui.options" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/toadpen-dist/src/bin/macos-appbundle" />
       <recent name="$PROJECT_DIR$/toadpen-dist/src/bin/macos" />
@@ -79,6 +89,9 @@
     </key>
     <key name="ExtractSuperBase.RECENT_KEYS">
       <recent name="wrm.toadpen.core.search" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="wrm.toadpen.ai" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Application (dir)">
@@ -150,7 +163,7 @@
       <workItem from="1733823187088" duration="498000" />
       <workItem from="1733824002788" duration="8199000" />
       <workItem from="1733905409841" duration="11374000" />
-      <workItem from="1733996340078" duration="824000" />
+      <workItem from="1733996340078" duration="4864000" />
     </task>
     <task id="LOCAL-00001" summary="distribution setup, native macos integration">
       <option name="closed" value="true" />
@@ -272,7 +285,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733918457595</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="extended application menu">
+      <option name="closed" value="true" />
+      <created>1733997362894</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1733997362894</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -293,7 +314,8 @@
     <MESSAGE value="added tools" />
     <MESSAGE value="better search everywhere" />
     <MESSAGE value="lookup command" />
-    <option name="LAST_COMMIT_MESSAGE" value="lookup command" />
+    <MESSAGE value="extended application menu" />
+    <option name="LAST_COMMIT_MESSAGE" value="extended application menu" />
   </component>
   <component name="VgoProject">
     <integration-enabled>false</integration-enabled>

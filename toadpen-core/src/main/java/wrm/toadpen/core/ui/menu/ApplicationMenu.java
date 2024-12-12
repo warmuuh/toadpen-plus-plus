@@ -43,6 +43,7 @@ public class ApplicationMenu {
     addCommandEntry(FileCommands.FILE_NEW, fileMenu);
     addCommandEntry(FileCommands.FILE_OPEN, fileMenu);
     addCommandEntry(FileCommands.FILE_SAVE, fileMenu);
+    addCommandEntry(ApplicationCommands.APPLICATION_SHOW_SETTINGS, fileMenu);
     addCommandEntry(ApplicationCommands.APPLICATION_QUIT, fileMenu);
 
 

@@ -14,7 +14,7 @@ public class AiController {
   @PostConstruct
   public void init() {
     updateAiModel(aiOptions.getModelFile());
-    aiOptions.OnModelFileChanged.addListener(newModelFile -> {
+    aiOptions.onModelFileChanged(newModelFile -> {
       updateAiModel(newModelFile);
     });
   }

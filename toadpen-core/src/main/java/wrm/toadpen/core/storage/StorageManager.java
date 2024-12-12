@@ -1,7 +1,10 @@
 package wrm.toadpen.core.storage;
 
+import io.avaje.inject.PostConstruct;
+import io.avaje.inject.PreDestroy;
 import jakarta.inject.Singleton;
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
@@ -30,19 +33,35 @@ public class StorageManager {
     Configurations configs = new Configurations();
     return switch (type) {
       case SESSION ->
-          new PropertyFileStorage(configs.propertiesBuilder().getConfiguration(), () -> {});
+          new PropertyFileStorage(configs.propertiesBuilder().getConfiguration(), () -> {
+          });
       case PROJECT -> {
         File file = new File(fileTree.getRoot(), ".toad/configuration.properties");
-        FileBasedConfigurationBuilder<PropertiesConfiguration> builder =
-            configs.propertiesBuilder(file);
+        ensureFileExists(file);
+        var builder = configs.propertiesBuilder(file);
         yield new PropertyFileStorage(builder.getConfiguration(), builder::save);
       }
       case APPLICATION -> {
         File file = new File(PlatformUtil.fileInApplicationDir("configuration.properties"));
+        ensureFileExists(file);
         var builder = configs.propertiesBuilder(file);
         yield new PropertyFileStorage(builder.getConfiguration(), builder::save);
       }
     };
+  }
+
+  private static void ensureFileExists(File file) throws IOException {
+    if (!file.exists()) {
+      if (file.getParentFile() != null) {
+        file.getParentFile().mkdirs();
+      }
+      file.createNewFile();
+    }
+  }
+
+  @PreDestroy
+  public void saveAll() {
+    storageMap.values().forEach(Storage::close);
   }
 
 

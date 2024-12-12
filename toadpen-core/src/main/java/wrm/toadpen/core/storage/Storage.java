@@ -73,27 +73,45 @@ public interface Storage {
   }
 
   default StorageProperty<Integer> intProperty(String key, Integer defaultValue) {
-    return new StorageProperty<>(key, defaultValue, this::loadInteger, this::storeInteger);
+    StorageProperty<Integer> property =
+        new StorageProperty<>(key, defaultValue, this::loadInteger, this::storeInteger);
+    setStorageListener(property);
+    return property;
   }
 
   default StorageProperty<String> stringProperty(String key, String defaultValue) {
-    return new StorageProperty<>(key, defaultValue, this::loadString, this::storeString);
+    StorageProperty<String> property =
+        new StorageProperty<>(key, defaultValue, this::loadString, this::storeString);
+    setStorageListener(property);
+    return property;
   }
 
   default StorageProperty<Boolean> booleanProperty(String key, Boolean defaultValue) {
-    return new StorageProperty<>(key, defaultValue, this::loadBoolean, this::storeBoolean);
+    StorageProperty<Boolean> property =
+        new StorageProperty<>(key, defaultValue, this::loadBoolean, this::storeBoolean);
+    setStorageListener(property);
+    return property;
   }
 
   default StorageProperty<Double> doubleProperty(String key, Double defaultValue) {
-    return new StorageProperty<>(key, defaultValue, this::loadDouble, this::storeDouble);
+    StorageProperty<Double> property =
+        new StorageProperty<>(key, defaultValue, this::loadDouble, this::storeDouble);
+    setStorageListener(property);
+    return property;
   }
 
   default StorageProperty<Long> longProperty(String key, Long defaultValue) {
-    return new StorageProperty<>(key, defaultValue, this::loadLong, this::storeLong);
+    StorageProperty<Long> property =
+        new StorageProperty<>(key, defaultValue, this::loadLong, this::storeLong);
+    setStorageListener(property);
+    return property;
   }
 
   default StorageProperty<List<String>> listProperty(String key, List<String> defaultValue) {
-    return new StorageProperty<>(key, defaultValue, this::loadList, this::storeList);
+    StorageProperty<List<String>> property =
+        new StorageProperty<>(key, defaultValue, this::loadList, this::storeList);
+    setStorageListener(property);
+    return property;
   }
 
 }

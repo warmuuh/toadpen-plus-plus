@@ -22,6 +22,13 @@
 
     <dependencies>
         <dependency>
+            <groupId>de.kherud</groupId>
+            <artifactId>llama</artifactId>
+            <version>3.4.1</version>
+        </dependency>
+
+
+        <dependency>
             <groupId>org.jetbrains.jediterm</groupId>
             <artifactId>jediterm-ui</artifactId>
             <version>3.47</version>
