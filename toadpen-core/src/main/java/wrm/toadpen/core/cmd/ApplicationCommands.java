@@ -30,6 +30,7 @@ public class ApplicationCommands {
   public static final String APPLICATION_TOGGLE_TERMINAL = "application.toggleTerminal";
   public static final String APPLICATION_SEARCH_EVERYWHERE = "application.searchEverywhere";
   public static final String APPLICATION_SEARCH_COMMAND = "application.searchCommand";
+  public static final String APPLICATION_QUIT = "application.quit";
 
   @Inject
   MainWindow mainWindow;
@@ -60,8 +61,8 @@ public class ApplicationCommands {
   @Bean
   @Named(APPLICATION_SEARCH_EVERYWHERE)
   CommandNoArg triggerSearchEverywhereCommand() {
-      return new CommandNoArg(APPLICATION_SEARCH_EVERYWHERE,
-              "Search Everywhere", "/icons/search.png", this::triggerSearchEverywhere);
+    return new CommandNoArg(APPLICATION_SEARCH_EVERYWHERE,
+        "Search Everywhere", "/icons/search.png", this::triggerSearchEverywhere);
   }
 
 
@@ -72,6 +73,15 @@ public class ApplicationCommands {
         "Search Command", "/icons/cog-search.png", this::triggerSearchCommand);
   }
 
+
+  @Bean
+  @Named(APPLICATION_QUIT)
+  CommandNoArg quitApplicationCommand() {
+    return new CommandNoArg(APPLICATION_QUIT,
+        "Quit", null, this::quitApplication);
+  }
+
+
   private void triggerSearchEverywhere() {
     SearchResult result = new SearchResultDialog("Search everywhere", term -> {
       File projectDirectory = model.getProjectDirectory();
@@ -80,7 +90,8 @@ public class ApplicationCommands {
     }, editorFactory).showDialog();
 
     if (result != null) {
-      commandManager.executeCommand(new FileCommands.OpenFileCommand(result.getFile(), result.getLine(), result.getColumn()));
+      commandManager.executeCommand(
+          new FileCommands.OpenFileCommand(result.getFile(), result.getLine(), result.getColumn()));
     }
   }
 
@@ -90,18 +101,20 @@ public class ApplicationCommands {
     searchBox.setItemToStringFn(CommandNoArg::description);
     searchBox.setRenderItemFn((parent, command) -> {
       ImageIcon icon = null;
-      try{
-        Image img = ImageIO.read(getClass().getResource(command.icon()));
-        img = img.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
-        icon = new ImageIcon(img);
-      } catch (Exception e) {
-        e.printStackTrace();
+      if (command.icon() != null) {
+        try {
+          Image img = ImageIO.read(getClass().getResource(command.icon()));
+          img = img.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+          icon = new ImageIcon(img);
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
       }
       parent.add(new JLabel(command.description(), icon, JLabel.LEADING));
     });
     CommandNoArg selectedCommand = searchBox.showDialog();
     if (selectedCommand != null) {
-        commandManager.executeCommand(selectedCommand);
+      commandManager.executeCommand(selectedCommand);
     }
   }
 
@@ -114,6 +127,11 @@ public class ApplicationCommands {
     } else {
       mainWindow.setSouthPanel(null);
     }
+  }
+
+
+  private void quitApplication() {
+    System.exit(0);
   }
 
 }

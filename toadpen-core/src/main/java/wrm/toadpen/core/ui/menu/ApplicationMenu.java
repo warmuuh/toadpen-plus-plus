@@ -2,14 +2,30 @@ package wrm.toadpen.core.ui.menu;
 
 import io.avaje.inject.PostConstruct;
 import jakarta.inject.Singleton;
+import java.awt.Image;
+import java.io.IOException;
+import java.util.List;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.KeyStroke;
+import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import wrm.toadpen.core.cmd.ApplicationCommands;
+import wrm.toadpen.core.cmd.CommandManager;
 import wrm.toadpen.core.cmd.CommandManager.Command;
+import wrm.toadpen.core.cmd.EditorCommands;
+import wrm.toadpen.core.cmd.FileCommands;
 import wrm.toadpen.core.ui.UiEvent1;
 
 @Singleton
+@RequiredArgsConstructor
 public class ApplicationMenu {
+
+  private final List<CommandManager.CommandNoArg> commands;
 
   private JMenuBar mb;
   public UiEvent1<Command> OnCommandSelected = new UiEvent1<>();
@@ -19,16 +35,38 @@ public class ApplicationMenu {
   }
 
   @PostConstruct
+  @SneakyThrows
   JMenuBar createMenuBar() {
     mb = new JMenuBar();
     JMenu fileMenu = new JMenu("File");
-    JMenuItem quitItem = new JMenuItem("Quit");
-    quitItem.addActionListener(e -> System.exit(0));
-    fileMenu.add(quitItem);
     mb.add(fileMenu);
+    addCommandEntry(FileCommands.FILE_NEW, fileMenu);
+    addCommandEntry(FileCommands.FILE_OPEN, fileMenu);
+    addCommandEntry(FileCommands.FILE_SAVE, fileMenu);
+    addCommandEntry(ApplicationCommands.APPLICATION_QUIT, fileMenu);
 
+
+    JMenu editMenu = new JMenu("Edit");
+    mb.add(editMenu);
+    addCommandEntry(EditorCommands.EDITOR_SEARCH, editMenu);
+    addCommandEntry(EditorCommands.EDITOR_CHOOSE_SYNTAX, editMenu);
 
     return mb;
+  }
+
+  private void addCommandEntry(String commandId, JMenu parent) throws IOException {
+    CommandManager.CommandNoArg command = commands.stream().filter(c -> c.id().equals(commandId)).findFirst()
+        .orElseThrow(() -> new IllegalArgumentException("Command not found: " + commandId));
+    ImageIcon imgIcon = null;
+    if (command.icon() != null) {
+      Image img = ImageIO.read(getClass().getResource(command.icon()));
+      img = img.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+      imgIcon = new ImageIcon(img);
+    }
+    JMenuItem item = new JMenuItem(command.description(), imgIcon);
+
+    item.addActionListener(e -> OnCommandSelected.fire(command));
+    parent.add(item);
   }
 
   public void addCommandEntry(String path, Command cmd) {
