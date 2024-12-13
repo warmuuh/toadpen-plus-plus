@@ -1,5 +1,6 @@
 package wrm.toadpen.core.storage;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -50,7 +51,7 @@ public interface Storage {
     private final T defaultValue;
     private final BiFunction<String, T, T> getter;
     private final BiConsumer<String, T> setter;
-    private final List<Consumer<T>> changeListener = new ArrayList<>();
+    private final List<WeakReference<Consumer<T>>> changeListener = new ArrayList<>();
 
     public T get() {
       return getter.apply(key, defaultValue);
@@ -61,13 +62,18 @@ public interface Storage {
     }
 
     public void addChangeListener(Consumer<T> listener) {
-      changeListener.add(listener);
+      changeListener.add(new WeakReference<>(listener));
     }
 
     @Override
     public void onStorageChanged(String key, Object value) {
       if (key.equals(this.key)) {
-        changeListener.forEach(listener -> listener.accept((T) value));
+        changeListener.forEach(listener -> {
+          Consumer<T> ref = listener.get();
+          if (ref != null) {
+            ref.accept((T) value);
+          }
+        });
       }
     }
   }

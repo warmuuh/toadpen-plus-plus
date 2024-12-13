@@ -56,7 +56,10 @@ public class ApplicationController {
         editor -> commandManager.executeCommand(new FileCommands.SaveEditorFileCommand(editor)));
     mainWindow.OnQuitRequest.addListener(() -> shutdownBehavior.shutdown(null));
 
-    mainWindow.OnEditorClosed.addListener(editor -> fileWatchDog.unwatch(editor.getFile()));
+    mainWindow.OnEditorClosed.addListener(editor -> {
+      fileWatchDog.unwatch(editor.getFile());
+      editor.close();
+    });
 
 
     logger.OnLogEvent.addListener(statusBar::showLog);

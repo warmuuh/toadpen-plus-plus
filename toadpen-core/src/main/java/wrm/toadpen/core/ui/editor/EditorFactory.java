@@ -12,6 +12,7 @@ import org.fife.ui.autocomplete.CompletionProvider;
 public class EditorFactory {
 
   private final List<CompletionProvider> completionProviders;
+  private final EditorOptions editorOptions;
 
   public EditorComponent createEditor() {
     EditorComponent component = new EditorComponent();
@@ -31,5 +32,6 @@ public class EditorFactory {
       autoCompletion.setShowDescWindow(true);
       autoCompletion.install(component.getTextArea());
     }
+    component.subscribeToOptions(editorOptions);
   }
 }

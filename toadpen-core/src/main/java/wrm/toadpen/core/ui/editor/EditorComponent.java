@@ -17,8 +17,8 @@ import javax.swing.text.DefaultEditorKit;
 import lombok.SneakyThrows;
 import org.fife.rsta.ui.CollapsibleSectionPanel;
 import org.fife.rsta.ui.search.FindToolBar;
+import org.fife.rsta.ui.search.ReplaceToolBar;
 import org.fife.ui.rsyntaxtextarea.FileTypeUtil;
-import org.fife.ui.rsyntaxtextarea.RSyntaxDocument;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rsyntaxtextarea.Theme;
@@ -35,6 +35,7 @@ public class EditorComponent {
   private RSyntaxTextArea textArea;
   private RTextScrollPane scrollpane;
   private FindToolBar findToolBar;
+  private ReplaceToolBar replaceToolBar;
   private EditorSearchListener searchListener;
 
 
@@ -57,6 +58,8 @@ public class EditorComponent {
     this.textArea.setSyntaxEditingStyle(FileTypeUtil.get().guessContentType(file));
     this.textArea.setCodeFoldingEnabled(true);
     this.textArea.setMarkOccurrences(true);
+    this.textArea.setTabSize(2);
+
 
     final OsThemeDetector detector = OsThemeDetector.getDetector();
     boolean isDark = detector.isDark();
@@ -84,14 +87,19 @@ public class EditorComponent {
 
     searchListener = new EditorSearchListener(this);
     findToolBar = new FindToolBar(searchListener);
-
+    replaceToolBar = new ReplaceToolBar(searchListener);
 
     scrollpane = new RTextScrollPane(textArea);
     csp = new CollapsibleSectionPanel();
     csp.add(scrollpane);
 
-
     csp.addBottomComponent(findToolBar);
+    csp.addBottomComponent(replaceToolBar);
+  }
+
+  public void setShowWhitespaces(boolean enabled) {
+    this.textArea.setWhitespaceVisible(enabled);
+    this.textArea.setEOLMarkersVisible(enabled);
   }
 
   @SneakyThrows
@@ -166,10 +174,6 @@ public class EditorComponent {
     return dirtyState;
   }
 
-  public void triggerSearch() {
-    csp.showBottomComponent(findToolBar);
-  }
-
   public void grabFocus() {
     SwingUtilities.invokeLater(() -> textArea.grabFocus());
   }
@@ -232,5 +236,30 @@ public class EditorComponent {
 
   public void setEditable(boolean editable) {
     textArea.setEditable(editable);
+  }
+
+  public void setTabSize(int tabSize) {
+    textArea.setTabSize(tabSize);
+  }
+
+  public void subscribeToOptions(EditorOptions editorOptions) {
+    setShowWhitespaces(editorOptions.isShowWhitespaces());
+    setTabSize(editorOptions.getTabSize());
+    editorOptions.onShowWhitespacesChanged(this::setShowWhitespaces);
+    editorOptions.onTabSizeChanged(this::setTabSize);
+  }
+
+  public void triggerSearch() {
+    if (textArea.getSelectedText() != null) {
+      findToolBar.getSearchContext().setSearchFor(textArea.getSelectedText());
+    }
+    csp.showBottomComponent(findToolBar);
+  }
+
+  public void triggerReplace() {
+    if (textArea.getSelectedText() != null) {
+      findToolBar.getSearchContext().setSearchFor(textArea.getSelectedText());
+    }
+    csp.showBottomComponent(replaceToolBar);
   }
 }

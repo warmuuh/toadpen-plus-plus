@@ -50,6 +50,7 @@ public class ApplicationMenu {
     JMenu editMenu = new JMenu("Edit");
     mb.add(editMenu);
     addCommandEntry(EditorCommands.EDITOR_SEARCH, editMenu);
+    addCommandEntry(EditorCommands.EDITOR_REPLACE, editMenu);
     addCommandEntry(EditorCommands.EDITOR_CHOOSE_SYNTAX, editMenu);
 
     return mb;
