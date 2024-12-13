@@ -9,6 +9,7 @@ import java.awt.desktop.PreferencesHandler;
 import java.awt.desktop.QuitResponse;
 import java.io.File;
 import wrm.toadpen.core.ui.BufferedUiEvent1;
+import wrm.toadpen.core.ui.UiEvent;
 import wrm.toadpen.core.ui.UiEvent1;
 
 @Component
@@ -16,6 +17,7 @@ public class OsHandler implements AboutHandler, PreferencesHandler {
 
   public BufferedUiEvent1<File> OnOpenFile = new BufferedUiEvent1<>();
   public UiEvent1<QuitResponse> OnQuitRequest = new UiEvent1<>();
+  public UiEvent OnPreferenceRequest = new UiEvent();
 
   public OsHandler() {
     try {
@@ -38,8 +40,7 @@ public class OsHandler implements AboutHandler, PreferencesHandler {
 
   @Override
   public void handlePreferences(PreferencesEvent arg0) {
-    // new OptionsDialog();
-    System.out.println("handlePreferences()");
+    OnPreferenceRequest.fire();
   }
 
 }

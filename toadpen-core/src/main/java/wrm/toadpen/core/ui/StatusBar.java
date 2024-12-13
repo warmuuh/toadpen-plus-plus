@@ -16,6 +16,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
 import lombok.SneakyThrows;
+import wrm.toadpen.core.log.Logger;
 import wrm.toadpen.core.ui.editor.EditorComponent;
 
 @Singleton
@@ -47,6 +48,7 @@ public class StatusBar {
       }
     }
   };
+  private JLabel statusLabel;
 
   public JComponent getStatusBar() {
     return statusPanel;
@@ -57,7 +59,7 @@ public class StatusBar {
     statusPanel = new JPanel();
     statusPanel.setBorder(new BevelBorder(BevelBorder.LOWERED));
     statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.X_AXIS));
-    JLabel statusLabel = new JLabel("status");
+    statusLabel = new JLabel("Started");
     statusLabel.setHorizontalAlignment(SwingConstants.LEFT);
     statusPanel.add(statusLabel);
 
@@ -96,6 +98,16 @@ public class StatusBar {
       this.editor = editor;
       this.editor.getTextArea().addCaretListener(caretListener);
     }
+  }
+
+
+  public void showLog(Logger.LogEvent message) {
+    String messageText = message.getMessage();
+    if (message.getException() != null) {
+      messageText += " - " + message.getException().getMessage();
+    }
+    statusLabel.setText(messageText);
+    statusLabel.repaint();
   }
 
 

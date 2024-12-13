@@ -5,6 +5,7 @@ import jakarta.inject.Singleton;
 import lombok.RequiredArgsConstructor;
 import wrm.toadpen.core.behavior.ShutdownBehavior;
 import wrm.toadpen.core.behavior.StartBehavior;
+import wrm.toadpen.core.log.Logger;
 import wrm.toadpen.core.model.ApplicationModel;
 import wrm.toadpen.core.ui.MainWindow;
 import wrm.toadpen.core.ui.StatusBar;
@@ -34,6 +35,7 @@ public class ApplicationController {
 
   private final ApplicationModel applicationModel;
 
+  private final Logger logger;
 
   private final EditorFactory editorFactory;
 
@@ -47,6 +49,7 @@ public class ApplicationController {
     osHandler.OnOpenFile.addListener(
         f -> commandManager.executeCommand(new FileCommands.OpenFileCommand(f)));
     osHandler.OnQuitRequest.addListener(shutdownBehavior::shutdown);
+    osHandler.OnPreferenceRequest.addListener(() -> commandManager.executeCommandById(ApplicationCommands.APPLICATION_SHOW_SETTINGS));
 
     mainWindow.OnActiveEditorChanged.addListener(statusBar::onActiveEditorChanged);
     mainWindow.OnRequestSaveEditor.addListener(
@@ -56,6 +59,7 @@ public class ApplicationController {
     mainWindow.OnEditorClosed.addListener(editor -> fileWatchDog.unwatch(editor.getFile()));
 
 
+    logger.OnLogEvent.addListener(statusBar::showLog);
     statusBar.OnSyntaxPanelClicked.addListener(
         () -> commandManager.executeCommandById(EditorCommands.EDITOR_CHOOSE_SYNTAX));
 
