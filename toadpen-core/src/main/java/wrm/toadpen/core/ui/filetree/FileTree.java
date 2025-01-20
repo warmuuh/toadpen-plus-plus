@@ -8,6 +8,7 @@ import java.awt.ScrollPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import wrm.toadpen.core.ui.UiEvent1;
 
@@ -16,7 +17,7 @@ public class FileTree {
  
   private JTree fileTree;
   private FileSystemModel fileSystemModel;
-  private ScrollPane scrollPane;
+  private JScrollPane scrollPane;
 
   private File root = new File(System.getProperty("user.home"));
   public UiEvent1<File> OnFileDoubleClicked = new UiEvent1<>();
@@ -45,10 +46,10 @@ public class FileTree {
         }
       }
     });
-
-    scrollPane = new ScrollPane(ScrollPane.SCROLLBARS_AS_NEEDED);
-    scrollPane.add(fileTree);
-    scrollPane.setPreferredSize(new Dimension(200, 200));
+    
+    scrollPane = new JScrollPane(fileTree);
+//    scrollPane.add(fileTree);
+//    scrollPane.setPreferredSize(new Dimension(200, 200));
   }
 
   public Component getComponent() {

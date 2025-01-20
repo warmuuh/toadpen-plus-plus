@@ -179,17 +179,21 @@ public class FileCommands {
   }
 
   private void saveFile(EditorComponent activeEditor) throws IOException {
-    fileWatchDog.pauseWatch(activeEditor.getFile(), 1000);
     File file = activeEditor.getFile();
-    if (file == null) {
+    if (file != null) {
+      fileWatchDog.pauseWatch(activeEditor.getFile(), 1000);
+    } else {
       file = OsNativeService.INSTANCE.saveFileDialog();
       if (file == null) {
         return;
       }
     }
 
+
     IOUtils.write(activeEditor.getText().getBytes(StandardCharsets.UTF_8),
         new FileOutputStream(file));
+    fileWatchDog.rehashIfWatched(activeEditor.getFile());
+
     activeEditor.setDirtyState(false);
   }
 

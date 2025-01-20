@@ -89,7 +89,7 @@ public class MainWindow {
     frame.setSize(800, 600);
     JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
     splitPane.setOneTouchExpandable(true);
-//    splitPane.setDividerLocation(100);
+    splitPane.setDividerLocation(200);
     splitPane.setDividerSize(20);
     verticalSplit = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
     verticalSplit.setTopComponent(splitPane);

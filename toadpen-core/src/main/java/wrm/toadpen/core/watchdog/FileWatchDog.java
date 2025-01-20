@@ -94,4 +94,9 @@ public class FileWatchDog {
     }
   }
 
+  public void rehashIfWatched(File file) {
+    if (changeListeners.containsKey(file)) {
+      fileHashes.put(file, FileHasher.hashFile(file));
+    }
+  }
 }

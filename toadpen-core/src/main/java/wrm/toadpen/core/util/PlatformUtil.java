@@ -1,16 +1,14 @@
 package wrm.toadpen.core.util;
 
-import java.io.File;
-import java.nio.file.Files;
 import java.nio.file.Paths;
 import org.apache.commons.lang3.SystemUtils;
 
 public class PlatformUtil {
 
-  public static String fileInApplicationDir(String filename) {
-    if (Files.isWritable(new File(".").toPath())) {
-      return filename;
-    }
+  public static String getApplicationFileDirectory(String filename) {
+//    if (Files.isWritable(new File(".").toPath())) {
+//      return filename;
+//    }
     return getOsSpecificAppDataFolder(filename);
   }
 
