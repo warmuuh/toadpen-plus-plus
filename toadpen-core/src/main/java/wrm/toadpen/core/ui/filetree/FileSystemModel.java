@@ -1,10 +1,14 @@
 package wrm.toadpen.core.ui.filetree;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
+import javax.swing.event.TreeModelEvent;
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreeModel;
 import javax.swing.tree.TreePath;
@@ -58,15 +62,15 @@ class FileSystemModel implements TreeModel {
 
   }
 
-//  private void fireTreeNodesChanged(TreePath parentPath, int[] indices, Object[] children) {
-//    TreeModelEvent event = new TreeModelEvent(this, parentPath, indices, children);
-//    Iterator iterator = listeners.iterator();
-//    TreeModelListener listener = null;
-//    while (iterator.hasNext()) {
-//      listener = (TreeModelListener) iterator.next();
-//      listener.treeNodesChanged(event);
-//    }
-//  }
+  private void fireTreeNodesChanged(TreePath parentPath, int[] indices, Object[] children) {
+    TreeModelEvent event = new TreeModelEvent(this, parentPath, indices, children);
+    Iterator iterator = listeners.iterator();
+    TreeModelListener listener = null;
+    while (iterator.hasNext()) {
+      listener = (TreeModelListener) iterator.next();
+      listener.treeNodesChanged(event);
+    }
+  }
 
   public void addTreeModelListener(TreeModelListener listener) {
     listeners.add(listener);
@@ -76,7 +80,62 @@ class FileSystemModel implements TreeModel {
     listeners.remove(listener);
   }
 
-  class TreeFileNode {
+  public TreePath findNode(Path relativePath) {
+    ArrayList<Object> path = new ArrayList<>();
+    path.add(root);
+    TreeFileNode current = root;
+
+    for (int i = 0; i < relativePath.getNameCount(); i++) {
+      String name = relativePath.getName(i).toString();
+      TreeFileNode next = current.getChildren().stream()
+          .filter(node -> node.toString().equals(name))
+          .findFirst()
+          .orElse(null);
+      if (next == null) {
+        return null;
+      }
+      path.add(next);
+      current = next;
+    }
+    return new TreePath(path.toArray());
+  }
+
+  public TreePath findNextParentNode(Path relativePath) {
+    ArrayList<Object> path = new ArrayList<>();
+    path.add(root);
+    TreeFileNode current = root;
+
+    for (int i = 0; i < relativePath.getNameCount()-1; i++) {
+      String name = relativePath.getName(i).toString();
+      TreeFileNode next = current.getChildren().stream()
+          .filter(node -> node.toString().equals(name))
+          .findFirst()
+          .orElse(null);
+      if (next == null) {
+        return new TreePath(path.toArray());
+      }
+      path.add(next);
+      current = next;
+    }
+    return new TreePath(path.toArray());
+  }
+
+  public void refreshNodeWithFile(File file) {
+    TreePath parentPath = findNextParentNode(root.file.toPath().relativize(file.toPath()));
+    if (parentPath == null) {
+      return;
+    }
+    TreeFileNode nodeToUpdate = (TreeFileNode) parentPath.getLastPathComponent();
+    nodeToUpdate.refreshChildren();
+    TreePath parentParentPath = findNextParentNode(root.file.toPath().relativize(nodeToUpdate.file.toPath()));
+
+    int[] indices = {getIndexOfChild(parentParentPath.getLastPathComponent(), nodeToUpdate)};
+    Object[] children = {nodeToUpdate};
+    fireTreeNodesChanged(parentParentPath, indices, children);
+  }
+
+
+  static class TreeFileNode {
     File file;
     List<TreeFileNode> children;
 
@@ -97,6 +156,10 @@ class FileSystemModel implements TreeModel {
         listChildren();
       }
       return children;
+    }
+
+    public void refreshChildren() {
+      listChildren();
     }
 
     private void listChildren() {
@@ -123,6 +186,14 @@ class FileSystemModel implements TreeModel {
 
     public String toString() {
       return file.getName();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof TreeFileNode) {
+            return file.equals(((TreeFileNode) obj).file);
+        }
+        return false;
     }
   }
 }

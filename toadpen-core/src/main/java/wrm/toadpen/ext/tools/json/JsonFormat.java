@@ -4,6 +4,9 @@ import com.formdev.flatlaf.json.Json;
 import jakarta.inject.Named;
 import jakarta.inject.Singleton;
 import java.io.StringReader;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import lombok.SneakyThrows;
 import wrm.toadpen.core.tools.ToolManager;
@@ -29,23 +32,31 @@ public class JsonFormat implements ToolManager.TextTool {
       buf.append(object);
     } else if (object instanceof Boolean) {
       buf.append(object);
-    } else if (object instanceof Iterable) {
+    } else if (object instanceof List list) {
       buf.append("[\n");
-      ((Iterable) object).forEach(o -> {
+      for (int i = 0; i < list.size(); i++) {
+        var o = list.get(i);
         indent(buf, indent + 1);
         serializeJson(o, buf, indent + 1);
-        buf.append(",\n");
-      });
+        if (i < list.size() - 1) {
+          buf.append(",\n");
+        }
+      }
       indent(buf, indent);
       buf.append("]");
-    } else if (object instanceof Map) {
+    } else if (object instanceof Map map) {
       buf.append("{\n");
-      ((Map) object).forEach((k, v) -> {
+      LinkedList entries = new LinkedList<>(map.entrySet());
+      for (int i = 0; i < entries.size(); i++) {
+        Map.Entry entry = (Map.Entry) entries.get(i);
         indent(buf, indent + 1);
-        buf.append("\"").append(k).append("\": ");
-        serializeJson(v, buf, indent + 1);
-        buf.append(",\n");
-      });
+        buf.append("\"").append(entry.getKey()).append("\": ");
+        serializeJson(entry.getValue(), buf, indent + 1);
+        if (i < entries.size() - 1) {
+          buf.append(",\n");
+        }
+      }
+
       indent(buf, indent);
       buf.append("}");
     }

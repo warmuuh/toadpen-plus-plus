@@ -43,8 +43,18 @@ public class ApplicationController {
   void init() {
     applicationMenu.OnCommandSelected.addListener(commandManager::executeCommand);
     toolbar.OnCommandExecuted.addListener(commandManager::executeCommandById);
+
     fileTree.OnFileDoubleClicked.addListener(
         f -> commandManager.executeCommand(new FileCommands.OpenFileCommand(f)));
+    fileTree.OnFileCreateQuery.addListener(
+        f -> commandManager.executeCommand(new FileTreeCommands.FileTreeNewFileCommand(f.toPath())));
+    fileTree.OnDirCreateQuery.addListener(
+        f -> commandManager.executeCommand(new FileTreeCommands.FileTreeNewDirCommand(f.toPath())));
+    fileTree.OnFileRenameQuery.addListener(
+        f -> commandManager.executeCommand(new FileTreeCommands.FileTreeRenameCommand(f.toPath())));
+    fileTree.OnFileDeleteQuery.addListener(
+        fs -> commandManager.executeCommand(new FileTreeCommands.FileTreeDeleteCommand(fs)));
+
 
     osHandler.OnOpenFile.addListener(
         f -> commandManager.executeCommand(new FileCommands.OpenFileCommand(f)));
