@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ab0a9cf-a5e0-4009-877f-d381f46bf335" name="Changes" comment="qos changes">
+    <list default="true" id="0ab0a9cf-a5e0-4009-877f-d381f46bf335" name="Changes" comment="filetree operations">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.sdkmanrc" beforeDir="false" afterPath="$PROJECT_DIR$/.sdkmanrc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/cmd/ApplicationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/cmd/ApplicationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/dialogs/SimpleDialogs.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/dialogs/SimpleDialogs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/filetree/FileSystemModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/filetree/FileSystemModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/filetree/FileTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/filetree/FileTree.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toadpen-core/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/ext/tools/json/JsonFormat.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/ext/tools/json/JsonFormat.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -23,6 +19,7 @@
       <list>
         <option value="Enum" />
         <option value="Interface" />
+        <option value="JUnit5 Test Class" />
         <option value="Class" />
       </list>
     </option>
@@ -54,10 +51,15 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Application (dir).executor": "Run",
-    "Application.Application.executor": "Debug",
+    "Application.Application.executor": "Run",
+    "JUnit.JsonToYamlTest.executor": "Run",
+    "JUnit.JsonToYamlTest.shouldFormatJsonToYaml.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.go.formatter.settings.were.checked": "true",
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "go.import.settings.migrated": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/usr/local/workspaces/uitest/swing/toadpen/toadpen-dist/src/bin/macos-appbundle",
@@ -85,14 +87,21 @@
       <recent name="$PROJECT_DIR$/toadpen-core/src/main/resources/icons" />
       <recent name="$PROJECT_DIR$/toadpen-dist/src/bin" />
     </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
     <key name="ExtractSuperBase.RECENT_KEYS">
       <recent name="wrm.toadpen.core.search" />
     </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="wrm.toadpen.ext.tools.json" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="wrm.toadpen.ext.tools.url" />
+      <recent name="wrm.toadpen.ext.tools.json" />
       <recent name="wrm.toadpen.core.cmd" />
       <recent name="wrm.toadpen.core.ui.options" />
       <recent name="wrm.toadpen.core.ui.editor" />
-      <recent name="wrm.toadpen.ai" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Application">
@@ -123,21 +132,56 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="JsonToYamlTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="toadpen-core" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="wrm.toadpen.ext.tools.json.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="wrm.toadpen.ext.tools.json" />
+      <option name="MAIN_CLASS_NAME" value="wrm.toadpen.ext.tools.json.JsonToYamlTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JsonToYamlTest.shouldFormatJsonToYaml" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="toadpen-core" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="wrm.toadpen.ext.tools.json.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="wrm.toadpen.ext.tools.json" />
+      <option name="MAIN_CLASS_NAME" value="wrm.toadpen.ext.tools.json.JsonToYamlTest" />
+      <option name="METHOD_NAME" value="shouldFormatJsonToYaml" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Application.Application (dir)" />
       <item itemvalue="Application.Application" />
+      <item itemvalue="JUnit.JsonToYamlTest" />
+      <item itemvalue="JUnit.JsonToYamlTest.shouldFormatJsonToYaml" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Application" />
+        <item itemvalue="JUnit.JsonToYamlTest.shouldFormatJsonToYaml" />
+        <item itemvalue="JUnit.JsonToYamlTest" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.19416.15" />
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.19416.15" />
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.23774.435" />
+        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-IU-251.23774.435" />
       </set>
     </attachedChunks>
   </component>
@@ -173,7 +217,9 @@
       <workItem from="1736510781050" duration="40000" />
       <workItem from="1737360817052" duration="773000" />
       <workItem from="1738922565620" duration="267000" />
-      <workItem from="1738922842368" duration="7374000" />
+      <workItem from="1738922842368" duration="7438000" />
+      <workItem from="1739192206222" duration="1528000" />
+      <workItem from="1745560022709" duration="3010000" />
     </task>
     <task id="LOCAL-00001" summary="distribution setup, native macos integration">
       <option name="closed" value="true" />
@@ -343,7 +389,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737361436537</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="filetree operations">
+      <option name="closed" value="true" />
+      <created>1738930961435</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1738930961435</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -369,7 +423,8 @@
     <MESSAGE value="added jpackage to build process" />
     <MESSAGE value="option dialog, log msgs" />
     <MESSAGE value="qos changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="qos changes" />
+    <MESSAGE value="filetree operations" />
+    <option name="LAST_COMMIT_MESSAGE" value="filetree operations" />
   </component>
   <component name="VgoProject">
     <integration-enabled>false</integration-enabled>
