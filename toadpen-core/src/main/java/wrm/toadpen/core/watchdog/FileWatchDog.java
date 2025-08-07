@@ -44,6 +44,7 @@ public class FileWatchDog {
   private void restartWatcher() {
     directoryWatchDog.setWatchedDirectory(changeListeners.keySet().stream()
         .map(f -> f.getParentFile())
+        .filter(f -> f != null && f.exists() && f.isDirectory())
         .collect(Collectors.toSet()));
   }
 
