@@ -17,6 +17,7 @@ import javax.swing.text.DefaultEditorKit;
 import lombok.SneakyThrows;
 import org.fife.rsta.ui.CollapsibleSectionPanel;
 import org.fife.rsta.ui.search.FindToolBar;
+import org.fife.rsta.ui.search.ReplaceDialog;
 import org.fife.rsta.ui.search.ReplaceToolBar;
 import org.fife.ui.rsyntaxtextarea.FileTypeUtil;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
@@ -24,6 +25,7 @@ import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
 import org.fife.ui.rsyntaxtextarea.Theme;
 import org.fife.ui.rtextarea.RTextScrollPane;
 import org.jspecify.annotations.Nullable;
+import wrm.toadpen.core.ui.MainWindow;
 import wrm.toadpen.core.ui.UiEvent;
 
 public class EditorComponent {
@@ -35,7 +37,7 @@ public class EditorComponent {
   private RSyntaxTextArea textArea;
   private RTextScrollPane scrollpane;
   private FindToolBar findToolBar;
-  private ReplaceToolBar replaceToolBar;
+  private ReplaceDialog replaceToolBar;
   private EditorSearchListener searchListener;
 
 
@@ -87,14 +89,14 @@ public class EditorComponent {
 
     searchListener = new EditorSearchListener(this);
     findToolBar = new FindToolBar(searchListener);
-    replaceToolBar = new ReplaceToolBar(searchListener);
+    replaceToolBar = new ReplaceDialog(MainWindow.getFrame(), searchListener);
 
     scrollpane = new RTextScrollPane(textArea);
     csp = new CollapsibleSectionPanel();
     csp.add(scrollpane);
 
     csp.addBottomComponent(findToolBar);
-    csp.addBottomComponent(replaceToolBar);
+//    csp.addBottomComponent(replaceToolBar);
   }
 
   public void setShowWhitespaces(boolean enabled) {
@@ -250,6 +252,8 @@ public class EditorComponent {
   }
 
   public void triggerSearch() {
+    findToolBar.getSearchContext().setSearchWrap(true);
+    findToolBar.getSearchContext().setMarkAll(true);
     if (textArea.getSelectedText() != null) {
       findToolBar.getSearchContext().setSearchFor(textArea.getSelectedText());
     }
@@ -257,9 +261,12 @@ public class EditorComponent {
   }
 
   public void triggerReplace() {
+    replaceToolBar.getSearchContext().setSearchWrap(true);
+    replaceToolBar.getSearchContext().setMarkAll(true);
     if (textArea.getSelectedText() != null) {
-      findToolBar.getSearchContext().setSearchFor(textArea.getSelectedText());
+      replaceToolBar.getSearchContext().setSearchFor(textArea.getSelectedText());
     }
-    csp.showBottomComponent(replaceToolBar);
+    replaceToolBar.setVisible(true);
+//    csp.showBottomComponent(replaceToolBar);
   }
 }

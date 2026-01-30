@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ab0a9cf-a5e0-4009-877f-d381f46bf335" name="Changes" comment="try making graal-compilation work better - failed">
+    <list default="true" id="0ab0a9cf-a5e0-4009-877f-d381f46bf335" name="Changes" comment="sort tools alphabetically">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/watchdog/DirectoryWatchDog.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/watchdog/DirectoryWatchDog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/key/KeySet.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/key/KeySet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/editor/EditorComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/ui/editor/EditorComponent.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -251,7 +252,7 @@
       <workItem from="1752127030312" duration="643000" />
       <workItem from="1754551842310" duration="75000" />
       <workItem from="1769763253563" duration="1892000" />
-      <workItem from="1769765223935" duration="7922000" />
+      <workItem from="1769765223935" duration="10624000" />
     </task>
     <task id="LOCAL-00001" summary="distribution setup, native macos integration">
       <option name="closed" value="true" />
@@ -453,7 +454,23 @@
       <option name="project" value="LOCAL" />
       <updated>1769771882052</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="added a few more tools">
+      <option name="closed" value="true" />
+      <created>1769773494222</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1769773494222</updated>
+    </task>
+    <task id="LOCAL-00027" summary="sort tools alphabetically">
+      <option name="closed" value="true" />
+      <created>1769773641018</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1769773641018</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -483,7 +500,9 @@
     <MESSAGE value="add xml formatting" />
     <MESSAGE value="filter null and non-existing directories in watcher restart" />
     <MESSAGE value="try making graal-compilation work better - failed" />
-    <option name="LAST_COMMIT_MESSAGE" value="try making graal-compilation work better - failed" />
+    <MESSAGE value="added a few more tools" />
+    <MESSAGE value="sort tools alphabetically" />
+    <option name="LAST_COMMIT_MESSAGE" value="sort tools alphabetically" />
   </component>
   <component name="VgoProject">
     <integration-enabled>false</integration-enabled>
