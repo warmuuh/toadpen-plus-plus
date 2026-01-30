@@ -4,14 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ab0a9cf-a5e0-4009-877f-d381f46bf335" name="Changes" comment="filter null and non-existing directories in watcher restart">
+    <list default="true" id="0ab0a9cf-a5e0-4009-877f-d381f46bf335" name="Changes" comment="try making graal-compilation work better - failed">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toadpen-core/dependency-reduced-pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/dependency-reduced-pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toadpen-core/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/key/KeySet.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/key/KeySet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/resources/reachability-metadata.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/watchdog/DirectoryWatchDog.java" beforeDir="false" afterPath="$PROJECT_DIR$/toadpen-core/src/main/java/wrm/toadpen/core/watchdog/DirectoryWatchDog.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,7 +111,7 @@
       <recent name="wrm.toadpen.core.ui.options" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Application (reachability metadata)">
+  <component name="RunManager" selected="Application.Application">
     <configuration name="Application (dir)" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="wrm.toadpen.core.Application" />
       <module name="toadpen-core" />
@@ -256,7 +251,7 @@
       <workItem from="1752127030312" duration="643000" />
       <workItem from="1754551842310" duration="75000" />
       <workItem from="1769763253563" duration="1892000" />
-      <workItem from="1769765223935" duration="6367000" />
+      <workItem from="1769765223935" duration="7922000" />
     </task>
     <task id="LOCAL-00001" summary="distribution setup, native macos integration">
       <option name="closed" value="true" />
@@ -450,7 +445,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754551914676</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="try making graal-compilation work better - failed">
+      <option name="closed" value="true" />
+      <created>1769771882052</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1769771882052</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -479,7 +482,8 @@
     <MESSAGE value="filetree operations" />
     <MESSAGE value="add xml formatting" />
     <MESSAGE value="filter null and non-existing directories in watcher restart" />
-    <option name="LAST_COMMIT_MESSAGE" value="filter null and non-existing directories in watcher restart" />
+    <MESSAGE value="try making graal-compilation work better - failed" />
+    <option name="LAST_COMMIT_MESSAGE" value="try making graal-compilation work better - failed" />
   </component>
   <component name="VgoProject">
     <integration-enabled>false</integration-enabled>

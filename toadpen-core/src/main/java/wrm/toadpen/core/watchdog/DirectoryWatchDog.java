@@ -55,7 +55,9 @@ public class DirectoryWatchDog {
 
 
   public void terminateJob() throws IOException {
-    watcher.close();
+    if (watcher != null) {
+      watcher.close();
+    }
     watcher = null;
   }
 

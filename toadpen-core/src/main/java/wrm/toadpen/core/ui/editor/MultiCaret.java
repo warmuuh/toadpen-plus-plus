@@ -132,7 +132,6 @@ class MultiCaret extends DefaultCaret implements DocumentListener {
         if (syncingSecondaryCarets) {
             return;
         }
-        System.out.println("insertUpdate:" + e.getLength());
         syncingSecondaryCarets = true;
         try {
             String inserted = e.getDocument().getText(e.getOffset(), e.getLength());
