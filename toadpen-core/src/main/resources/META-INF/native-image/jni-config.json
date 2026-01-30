@@ -1,0 +1,34 @@
+[
+  {
+    "name": "sun.lwawt.macosx.CAccessibility",
+    "methods": [
+      {
+        "name": "getChildrenAndRoles",
+        "parameterTypes": [
+          "javax.accessibility.Accessible",
+          "java.awt.Component",
+          "int",
+          "boolean"
+        ]
+      },
+      {
+        "name": "getNativeAccessible",
+        "parameterTypes": [
+          "javax.accessibility.Accessible",
+          "java.awt.Component"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "sun.lwawt.macosx.LWCToolkit",
+    "allDeclaredMethods": true
+  },
+  {
+    "name": "java.awt.Dimension",
+    "fields": [
+      { "name": "width" },
+      { "name": "height" }
+    ]
+  }
+]

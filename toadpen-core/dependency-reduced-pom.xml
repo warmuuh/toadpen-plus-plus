@@ -16,7 +16,7 @@
             <path>
               <groupId>org.projectlombok</groupId>
               <artifactId>lombok</artifactId>
-              <version>1.18.34</version>
+              <version>1.18.42</version>
             </path>
             <path>
               <groupId>io.avaje</groupId>
@@ -71,10 +71,19 @@
               <configurationFileDirectories>
                 <dir>src/main/resources</dir>
               </configurationFileDirectories>
+              <metadataRepository>
+                <enabled>true</enabled>
+              </metadataRepository>
               <mainClass>wrm.toadpen.core.Application</mainClass>
               <agent>
                 <enabled>true</enabled>
               </agent>
+              <buildArgs>
+                <buildArg>-H:+UnlockExperimentalVMOptions</buildArg>
+                <buildArg>--no-fallback</buildArg>
+                <buildArg>-Djava.awt.headless=false</buildArg>
+                <buildArg>-H:+AddAllCharsets</buildArg>
+              </buildArgs>
             </configuration>
           </plugin>
         </plugins>
@@ -104,10 +113,10 @@
     </dependency>
   </dependencies>
   <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <avaje.inject.version>10.4</avaje.inject.version>
     <maven.compiler.target>21</maven.compiler.target>
     <maven.compiler.source>21</maven.compiler.source>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <native.maven.plugin.version>0.10.3</native.maven.plugin.version>
   </properties>
 </project>

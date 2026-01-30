@@ -176,7 +176,6 @@
 <!--            <artifactId>jna-platform</artifactId>-->
 <!--            <version>5.15.0</version>-->
 <!--        </dependency>-->
-
         <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
@@ -194,7 +193,7 @@
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
-                            <version>1.18.34</version>
+                            <version>1.18.42</version>
                         </path>
                         <path>
                             <groupId>io.avaje</groupId>
@@ -262,10 +261,22 @@
                             <configurationFileDirectories>
                                 <dir>src/main/resources</dir>
                             </configurationFileDirectories>
+                            <metadataRepository>
+                                <enabled>true</enabled>
+                            </metadataRepository>
                             <mainClass>wrm.toadpen.core.Application</mainClass>
                             <agent>
                                 <enabled>true</enabled>
                             </agent>
+                            <buildArgs>
+<!--                                <buildArg>&#45;&#45;add-modules=org.graalvm.sdk</buildArg>-->
+<!--                                <buildArg>&#45;&#45;features=org.graalvm.HomeFinderFeature</buildArg>-->
+<!--                                <buildArg>-H:ConfigurationFileDirectories=${project.basedir}/src/main/resources</buildArg>-->
+                                <buildArg>-H:+UnlockExperimentalVMOptions</buildArg>
+                                <buildArg>--no-fallback</buildArg>
+                                <buildArg>-Djava.awt.headless=false</buildArg>
+                                <buildArg>-H:+AddAllCharsets</buildArg>
+                            </buildArgs>
                         </configuration>
                     </plugin>
 

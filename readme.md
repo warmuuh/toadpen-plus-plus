@@ -1,19 +1,21 @@
 ## Native compilation
 
-use bellsoft native image kit 24.1.1.r23-nik
+use bellsoft native image kit 25.0.1.r25-nik
+
 ```bash
 # run application with 
--agentlib:native-image-agent=config-output-dir=asd-core/src/main/resources
+-agentlib:native-image-agent=config-output-dir=toadpen-core/src/main/resources
 
 # then 
-mkdir -p asd-core/target/native/agent-output/main
-cp asd-core/src/main/resources/reachability-metadata.json asd-core/target/native/agent-output/main
+mkdir -p toadpen-core/target/native/agent-output/main
+cp toadpen-core/src/main/resources/reachability-metadata.json toadpen-core/target/native/agent-output/main
 
 # compile native image
-mvn package -Pnative
+
+mvn package -Pnative -pl toadpen-core -DskipTests
 
 # run with
-asd-core/target/asd-core  -Dflatlaf.useNativeLibrary=false
+toadpen-core/target/toadpen-core  -Dflatlaf.useNativeLibrary=false
 ```
 
 ### Issues
