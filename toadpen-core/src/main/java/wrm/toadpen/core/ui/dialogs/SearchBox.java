@@ -3,7 +3,6 @@ package wrm.toadpen.core.ui.dialogs;
 import ca.odell.glazedlists.EventList;
 import ca.odell.glazedlists.FilterList;
 import ca.odell.glazedlists.GlazedLists;
-import ca.odell.glazedlists.TextFilterator;
 import ca.odell.glazedlists.matchers.MatcherEditor;
 import ca.odell.glazedlists.swing.DefaultEventListModel;
 import ca.odell.glazedlists.swing.GlazedListsSwing;
@@ -12,29 +11,23 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dialog;
-import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 import java.util.Collection;
-import java.util.List;
-import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Function;
 import javax.swing.AbstractAction;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.DefaultListCellRenderer;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
-import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JPanel;
 import javax.swing.JRootPane;
+import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
-import javax.swing.ListCellRenderer;
-import wrm.toadpen.core.search.SearchResult;
 import wrm.toadpen.core.ui.MainWindow;
 import wrm.toadpen.core.ui.components.PlaceholderTextField;
 
@@ -44,7 +37,7 @@ public class SearchBox<T> {
   private final PlaceholderTextField inputField;
   private final JList<T> listField;
   private Function<T, String> itemToStringFn = Object::toString;
-  private BiConsumer<JComponent, T> renderItemFn = (parent, itm) -> parent.add(new JLabel(itm.toString()));
+  private Function<T, ImageIcon> iconFn = item -> null;
 
   private T chosenItem;
 
@@ -68,7 +61,20 @@ public class SearchBox<T> {
     DefaultEventListModel<T> listModel = GlazedListsSwing.eventListModel(filteredList);
 
     this.listField = new JList<>(listModel);
-    this.listField.setCellRenderer(new SearchboxListCellRenderer());
+    this.listField.setCellRenderer(new DefaultListCellRenderer() {
+      @Override
+      public Component getListCellRendererComponent(JList<?> list, Object value,
+                                                    int index, boolean isSelected, boolean cellHasFocus) {
+        super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+        if (value != null) {
+          @SuppressWarnings("unchecked")
+          T item = (T) value;
+          setText(itemToStringFn.apply(item));
+          setIcon(iconFn.apply(item));
+        }
+        return this;
+      }
+    });
     listField.setSelectedIndex(0);
     //double click listener
     listField.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -79,9 +85,8 @@ public class SearchBox<T> {
       }
     });
 
-    ScrollPane scrollPane = new ScrollPane();
-    scrollPane.add(listField);
-    scrollPane.setSize(300, 200);
+    JScrollPane scrollPane = new JScrollPane(listField);
+    scrollPane.setPreferredSize(new java.awt.Dimension(400, 300));
 
     dialogContainer.add(inputField, BorderLayout.NORTH);
     dialogContainer.add(scrollPane, BorderLayout.CENTER);
@@ -152,37 +157,12 @@ public class SearchBox<T> {
     this.itemToStringFn = itemToStringFn;
   }
 
-  public void setRenderItemFn(BiConsumer<JComponent, T> renderItemFn) {
-    this.renderItemFn = renderItemFn;
+  public void setIconFn(Function<T, ImageIcon> iconFn) {
+    this.iconFn = iconFn;
   }
 
   public T showDialog() {
     dialog.setVisible(true);
     return chosenItem;
-  }
-
-
-  private class SearchboxListCellRenderer extends JPanel implements ListCellRenderer<T> {
-
-    public SearchboxListCellRenderer() {
-      setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-    }
-
-    @Override
-    public Component getListCellRendererComponent(JList<? extends T> list,
-                                                  T entry, int index,
-                                                  boolean isSelected, boolean cellHasFocus) {
-      removeAll();
-      renderItemFn.accept(this, entry);
-
-      setBackground(isSelected ? list.getSelectionBackground() : list.getBackground());
-      setForeground(isSelected ? list.getSelectionForeground() : list.getForeground());
-      for (Component component : getComponents()) {
-        component.setBackground(isSelected ? list.getSelectionBackground() : list.getBackground());
-        component.setForeground(isSelected ? list.getSelectionForeground() : list.getForeground());
-      }
-
-      return this;
-    }
   }
 }

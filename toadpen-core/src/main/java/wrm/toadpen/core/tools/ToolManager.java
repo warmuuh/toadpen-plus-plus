@@ -45,8 +45,12 @@ public class ToolManager {
         });
   }
 
+  public Map<String, TextTool> getRegisteredTools() {
+    return registerTools;
+  }
+
   @Value
-  public class ToolExecutionCommand implements CommandManager.Command {
+  public static class ToolExecutionCommand implements CommandManager.Command {
     String toolId;
   }
 

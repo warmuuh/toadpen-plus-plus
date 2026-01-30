@@ -6,7 +6,11 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.awt.Image;
 import java.io.File;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -20,6 +24,7 @@ import wrm.toadpen.core.ui.dialogs.SearchBox;
 import wrm.toadpen.core.ui.editor.EditorFactory;
 import wrm.toadpen.core.ui.filetree.FileTree;
 import wrm.toadpen.core.ui.options.OptionsDialog;
+import wrm.toadpen.core.tools.ToolManager;
 import wrm.toadpen.term.TerminalComponent;
 
 @Factory
@@ -52,6 +57,9 @@ public class ApplicationCommands {
 
   @Inject
   OptionsDialog optionsDialog;
+
+  @Inject
+  ToolManager toolManager;
 
 
   @Bean
@@ -110,25 +118,84 @@ public class ApplicationCommands {
   }
 
   private void triggerSearchCommand() {
-    SearchBox<CommandNoArg> searchBox =
-        new SearchBox<>("Select Command...", commandManager.getAllNoArgsCommands());
-    searchBox.setItemToStringFn(CommandNoArg::description);
-    searchBox.setRenderItemFn((parent, command) -> {
-      ImageIcon icon = null;
-      if (command.icon() != null) {
+    // Collect all commands
+    List<SearchableAction> actions = commandManager.getAllNoArgsCommands().stream()
+        .map(SearchableAction::fromCommand)
+        .collect(java.util.stream.Collectors.toList());
+
+    // Add all tools
+    toolManager.getRegisteredTools().forEach((toolId, tool) -> {
+      actions.add(SearchableAction.fromTool(toolId));
+    });
+
+    // Pre-cache all icons
+    Map<String, ImageIcon> iconCache = new HashMap<>();
+    for (SearchableAction action : actions) {
+      if (action.icon != null && !iconCache.containsKey(action.icon)) {
         try {
-          Image img = ImageIO.read(getClass().getResource(command.icon()));
+          Image img = ImageIO.read(getClass().getResource(action.icon));
           img = img.getScaledInstance(16, 16, Image.SCALE_SMOOTH);
-          icon = new ImageIcon(img);
+          iconCache.put(action.icon, new ImageIcon(img));
         } catch (Exception e) {
-          e.printStackTrace();
+          // Icon not found, leave it null
         }
       }
-      parent.add(new JLabel(command.description(), icon, JLabel.LEADING));
-    });
-    CommandNoArg selectedCommand = searchBox.showDialog();
-    if (selectedCommand != null) {
-      commandManager.executeCommand(selectedCommand);
+    }
+
+    SearchBox<SearchableAction> searchBox =
+        new SearchBox<>("Select Command or Tool...", actions);
+    searchBox.setItemToStringFn(SearchableAction::displayName);
+    searchBox.setIconFn(action -> action.icon != null ? iconCache.get(action.icon) : null);
+
+    SearchableAction selectedAction = searchBox.showDialog();
+    if (selectedAction != null) {
+      selectedAction.execute(commandManager);
+    }
+  }
+
+  // Wrapper class for both commands and tools in search dialog
+  private static class SearchableAction {
+    private final CommandNoArg command;
+    private final String toolId;
+    private final String displayName;
+    private final String icon;
+
+    private SearchableAction(CommandNoArg command, String toolId, String displayName, String icon) {
+      this.command = command;
+      this.toolId = toolId;
+      this.displayName = displayName;
+      this.icon = icon;
+    }
+
+    static SearchableAction fromCommand(CommandNoArg command) {
+      return new SearchableAction(command, null, command.description(), command.icon());
+    }
+
+    static SearchableAction fromTool(String toolId) {
+      String displayName = formatToolDisplayName(toolId);
+      return new SearchableAction(null, toolId, displayName, null);
+    }
+
+    String displayName() {
+      return displayName;
+    }
+
+    void execute(CommandManager commandManager) {
+      if (command != null) {
+        commandManager.executeCommand(command);
+      } else if (toolId != null) {
+        commandManager.executeCommand(new ToolManager.ToolExecutionCommand(toolId));
+      }
+    }
+
+    private static String formatToolDisplayName(String toolId) {
+      // Split by dots and get the last segment
+      String[] segments = toolId.split("\\.");
+
+      return Arrays.stream(segments)
+          .map(segment -> segment.substring(0, 1).toUpperCase() +
+              segment.substring(1))
+          .collect(Collectors.joining(" > "));
     }
   }
 
