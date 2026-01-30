@@ -38,9 +38,11 @@ public class ToolManager {
       }
     });
 
-    registerTools.forEach((id, tool) -> {
-      applicationMenu.addCommandEntry(id, new ToolExecutionCommand(id));
-    });
+    registerTools.keySet().stream()
+        .sorted()
+        .forEach(id -> {
+          applicationMenu.addCommandEntry(id, new ToolExecutionCommand(id));
+        });
   }
 
   @Value
